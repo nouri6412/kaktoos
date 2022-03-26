@@ -127,22 +127,6 @@ function kaktos_theme_scripts()
     );
 
     wp_enqueue_script(
-        'kaktos_ajax_resume_script',
-        get_template_directory_uri() . '/assets/js/resume.js',
-        array('jquery'),
-        1,
-        false
-    );
-
-    wp_enqueue_script(
-        'kaktos_ajax_request_script',
-        get_template_directory_uri() . '/assets/js/request.js',
-        array('jquery'),
-        1,
-        false
-    );
-
-    wp_enqueue_script(
         'kaktos_ajax_state_city_script',
         get_template_directory_uri() . '/assets/js/state-city.js',
         array('jquery'),
@@ -153,22 +137,6 @@ function kaktos_theme_scripts()
     wp_enqueue_script(
         'kaktos_ajax_user_script',
         get_template_directory_uri() . '/assets/js/user.js',
-        array('jquery'),
-        1,
-        false
-    );
-
-    wp_enqueue_script(
-        'kaktos_ajax_profile_company_script',
-        get_template_directory_uri() . '/assets/js/profile-company.js',
-        array('jquery'),
-        1,
-        false
-    );
-
-    wp_enqueue_script(
-        'kaktos_ajax_profile_user_script',
-        get_template_directory_uri() . '/assets/js/profile-user.js',
         array('jquery'),
         1,
         false
