@@ -1,0 +1,318 @@
+/*
+Theme Name: kaktos
+Version: 1.0.0
+Description: قالب اختصاصی کاکتوس
+Author: جلیل نوری
+*/
+@font-face {
+    font-family: 'Vazir';
+    src: url('assets/fonts/vazir/eot/Vazir.eot');
+    src: url('assets/fonts/vazir/eot/Vazir.eot?#iefix') format('embedded-opentype'),
+        url('assets/fonts/vazir/woff2/Vazir.woff2') format('woff2'),
+        url('assets/fonts/vazir/woff/Vazir.woff') format('woff'),
+        url('assets/fonts/vazir/ttf/Vazir.ttf') format('truetype');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'Vazir';
+    src: url('assets/fonts/vazir/eot/Vazir-Bold.eot');
+    src: url('assets/fonts/vazir/eot/Vazir-Bold.eot?#iefix') format('embedded-opentype'),
+        url('assets/fonts/vazir/woff2/Vazir-Bold.woff2') format('woff2'),
+        url('assets/fonts/vazir/woff/Vazir-Bold.woff') format('woff'),
+        url('assets/fonts/vazir/ttf/Vazir-Bold.ttf') format('truetype');
+    font-weight: bold;
+}
+.prefer-title{
+    color: #2196f3;
+}
+.box-loading {
+    position: relative;
+    height: 32px;
+    width: 100%;
+}
+
+.job-bx {
+    background-color: #2196f312 !important;
+}
+
+.loading-ajax {
+    display: none;
+    width: 30px;
+    background-image: url(assets/images/loading.svg);
+    height: 30px;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: -10px;
+}
+
+.dzFormMsg.error {
+    color: red;
+    margin-top: 10px;
+}
+
+.before-message {
+    color: red;
+    float: left;
+    font-size: 13px;
+    line-height: 34px;
+}
+
+.dzFormMsg.doned {
+    color: green;
+    margin-top: 10px;
+}
+
+.site-button.exit {
+    background-color: #ef4a4a;
+}
+
+.site-button.request-btn {
+    width: 100%;
+    ;
+}
+
+.candidate-info img {
+    height: 100%;
+    object-fit: cover;
+}
+
+.form-loop {
+    margin-bottom: 15px;
+    border: 1px solid #d5d5d5;
+    padding: 10px 10px 5px 5px;
+    position: relative;
+}
+
+.form-loop .btn-delete {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 11px;
+}
+
+.form-check-label {
+    margin-right: 20px;
+}
+
+.accept-box {}
+
+.accept-box label {}
+
+.accept-box select {}
+
+.bootstrap-select.show.btn-group .dropdown-menu.inner {
+    border: 1px solid #b3b3b3;
+}
+
+.status-box div {
+    width: 20%;
+}
+
+.tag_complete .tag_input {
+    min-height: 25px !important;
+    border: 1px solid #c3bdbd !important;
+}
+
+*, body {
+    font-family: 'iranyekan', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6, p, a {
+    font-family: 'iranyekan', sans-serif;
+}
+
+.cv-manager, .cv-manager li, .cv-manager ul, .post-job-bx, .post-job-bx li, .post-job-bx ul, .salary-bx span {
+    font-size: 14px;
+    ;
+}
+
+.post-bx h4 {
+    font-size: 18px;
+}
+
+.section-head h1, .section-head h2, .section-head h3 {
+    font-size: 20px;
+}
+
+.find-job-bx h2 {
+    font-weight: 700;
+    font-size: 44px;
+}
+
+.job-cats {}
+
+.job-cats ul {
+    width: 100%;
+    display: flex;
+}
+
+.job-cats ul li {
+    list-style: none;
+    float: right;
+    width: 120px;
+    height: 50px;
+    text-align: center;
+    padding: 5px;
+    border: 1px solid #c3bfbf;
+    margin: 2px;
+    border-radius: 8px;
+    line-height: 34px;
+    cursor: pointer;
+}
+
+.job-cats ul li:hover {
+    background-color: #e3e3e3;
+}
+
+.job-cats ul li.selected {
+    background-color: #e3e3e3;
+}
+
+.job-cats ul li span {
+    color: red;
+}
+
+.job-cats ul li a {}
+
+.box-filter {}
+
+.box-filter ul {}
+
+.box-filter ul li {
+    list-style: none;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #e1e1e1;
+    padding-bottom: 5px;
+}
+
+.box-filter ul li a {
+    cursor: pointer;
+}
+
+.box-filter ul li.selected {}
+
+.box-filter ul li a span {
+    float: left;
+    color: red;
+}
+
+.job-links.favorite {
+    left: 60px;
+}
+
+.lead-form-modal .modal-content {
+    background-color: rgb(0 0 0 / 37%);
+}
+
+.resume-popup {
+    padding: 15px;
+}
+
+.resume-popup .resume-popup-header {
+    display: flex;
+   
+}
+
+.resume-popup .resume-popup-header .resume-popup-header-avatar {
+    width: 66px;
+    border-radius: 50%;
+    margin-left: 15px;
+}
+
+.resume-popup .resume-popup-header .resume-popup-header-title {}
+
+.resume-popup .resume-popup-header .resume-popup-header-title .resume-popup-header-title-name {
+    display: flex;
+}
+
+.resume-popup .resume-popup-header .resume-popup-header-title .resume-popup-header-title-name h4 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: 15px;
+}
+
+.resume-popup .resume-popup-header .resume-popup-header-title .resume-popup-header-title-name span {
+    font-size: 12px;
+    color: #4c4c4c;
+    line-height: 30px;
+}
+
+.resume-popup .resume-popup-header .resume-popup-header-title .resume-popup-header-title-date {
+    font-size: 12px;
+    color: #939191;
+}
+
+.resume-popup .resume-popup-body {}
+
+.resume-popup .resume-popup-body .panel {
+    padding: 14px;
+}
+
+.resume-popup .resume-popup-body .panel-info {
+ 
+}
+
+.resume-popup .resume-popup-body .panel-info .panel-heading {
+    padding: 5px 5px 5px 5px;
+    background-color: #dbdbdb;
+    font-size: 14px;
+}
+
+.resume-popup .resume-popup-body .panel-info .panel-body {
+    padding: 8px 10px 5px 5px;
+    border: 1px solid #c1c1c1;
+    border-top: 0px;
+}
+
+.resume-popup .resume-popup-body .user-info {
+    display: flex;
+}
+
+.resume-popup .resume-popup-body .user-info .fa {
+    margin-left: 15px;
+    line-height: 25px;
+}
+
+.resume-popup .resume-popup-body .user-info .user-info-label {
+    margin-left: 15px;
+    width: 125px;
+    font-size: 14px;
+}
+
+.resume-popup .resume-popup-body .user-info .user-info-title {
+    font-size: 14px;
+}
+
+.resume-popup .resume-popup-footer {}
+
+.user-detail .modal-content{
+background-color: #fff;
+}
+
+.user-detail .modal-body{
+    background-color: #fff;
+    }
+
+    .user-detail .modal-dialog{
+        background-color: #fff;
+    }
+
+    .custom-file{
+height: 80px;
+    }
+
+
+    .is-fixed .main-bar,.main-bar{
+        background: #eef1ff;
+    }
+
+    .extra-nav .site-button{
+        margin-right: 0;
+        font-size: 12px;
+        padding: 7px 8px;
+    }
+
+    .extra-nav .site-button .fa{
+        margin-left: 3px;
+    }
