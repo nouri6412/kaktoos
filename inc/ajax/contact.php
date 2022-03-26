@@ -61,32 +61,58 @@ class Kaktos_Contact_Ajax
 
     function register_action($user_id)
     {
-        
-        if(isset($_SESSION["pass"]))
-        {
-            wp_set_password( $_SESSION["pass"], $user_id );
+
+        if (isset($_SESSION["user_pass"])) {
+            wp_set_password($_SESSION["user_pass"], $user_id);
         }
 
-        if(isset($_SESSION["user_type"]))
-        {
-            update_user_meta($user_id, 'user_type', $_SESSION["user_type"]);
+        if (isset($_SESSION["user_name"])) {
+            update_user_meta($user_id, 'user_name', $_SESSION["user_name"]);
+            wp_update_user(array('ID' => $user_id, 'display_name' =>  $_SESSION["user_name"]));
+        }
+
+        if (isset($_SESSION["user_sex"])) {
+            update_user_meta($user_id, 'user_sex', $_SESSION["user_sex"]);
         }
 
         update_user_meta($user_id, 'active_state', '0');
     }
 
-   function session()
+    function session()
     {
 
-        if(isset($_POST["pass"]))
-        {
-            $_SESSION['pass'] = $_POST["pass"]; 
+        if (isset($_POST["user_pass"])) {
+            $_SESSION['user_pass'] = $_POST["user_pass"];
         }
 
-        if(isset($_POST["user_type"]))
-        {
-            $_SESSION['user_type'] = $_POST["user_type"]; 
+        if (isset($_POST["user_sex"])) {
+            $_SESSION['user_sex'] = $_POST["user_sex"];
         }
+
+        if (isset($_POST["user_name"])) {
+            $_SESSION['user_name'] = $_POST["user_name"];
+        }
+    }
+
+    function confirm()
+    {
+        $code = "";
+        $state = 0;
+        $message = "کد وارد شده صحیح نمی باشد ";
+        if (isset($_POST["code"])) {
+            $code = $_POST["code"];
+            if ($code == 123456) {
+                $state = 1;
+            }
+        }
+
+        echo json_encode([
+            'state'       => $state,
+            'message'          => $message,
+            'sql'          => "",
+            'max_num_pages' => 1
+        ]);
+        die();
     }
 }
 $Kaktos_Contact_Ajax = new Kaktos_Contact_Ajax;
@@ -95,5 +121,8 @@ add_action('wp_ajax_nopriv_mbm_contact_form', array($Kaktos_Contact_Ajax, 'submi
 
 add_action('wp_ajax_mbm_set_session', array($Kaktos_Contact_Ajax, 'session'));
 add_action('wp_ajax_nopriv_mbm_set_session', array($Kaktos_Contact_Ajax, 'session'));
+
+add_action('wp_ajax_mbm_set_session_confirm', array($Kaktos_Contact_Ajax, 'confirm'));
+add_action('wp_ajax_nopriv_mbm_set_session_confirm', array($Kaktos_Contact_Ajax, 'confirm'));
 
 add_action('user_register', array($Kaktos_Contact_Ajax, 'register_action'));

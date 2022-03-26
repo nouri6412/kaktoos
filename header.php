@@ -148,8 +148,11 @@
 													</div>
 													<div class="wt-formtheme wt-loginform do-login-form">
 														<fieldset>
-														<div id="dzFormMsg-error" class="dzFormMsg error"></div>
-																<div id="dzFormMsg-doned" class="dzFormMsg doned"></div>
+															<div class="box-loading">
+																<div class="loading-ajax"></div>
+															</div>
+															<div id="dzFormMsg-error" class="dzFormMsg error"></div>
+															<div id="dzFormMsg-doned" class="dzFormMsg doned"></div>
 															<div class="form-group">
 																<input type="text" id="user_login" name="user_login" class="form-control" placeholder="نام کاربری">
 															</div>
@@ -157,16 +160,14 @@
 																<input type="password" id="user_pass" name="user_pass" class="form-control" placeholder="رمز عبور">
 															</div>
 															<div class="wt-logininfo">
-																<div class="box-loading">
-																	<div class="loading-ajax"></div>
-																</div>
+
 																<button onclick="ajax_submit_mbm_login(
 										$('#user_login').val()
 										,$('#user_pass').val()
 										,$('#dzFormMsg-error')
                                         ,$('#dzFormMsg-doned'))" type="button" class="wt-btn do-login-button">ورود به سیستم </button>
-															
-														
+
+
 																<span class="wt-checkbox">
 																	<input id="wt-login" type="checkbox" name="rememberme">
 																	<label for="wt-login">اطلاعات مرا به خاطر بسپار</label>
