@@ -7,7 +7,7 @@ function ajax_submit_mbm_register(user_f_name, user_l_name, user_email, user_pas
 
 
     if (user_f_name.length == 0) {
-        error = 'نام کاربری نباید خالی بماند';
+        error = 'نام  نباید خالی بماند';
     }
 
     if (user_email.length == 0) {
