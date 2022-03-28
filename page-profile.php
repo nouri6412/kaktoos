@@ -13,90 +13,53 @@
 
 
 
-get_header();
+get_header('db');
 
 $user_id = get_current_user_id();
 
-$profile_user_id = 0;
-
-if (isset($_GET["user_id"])) {
-    $profile_user_id = $_GET["user_id"];
-}
-
-
-
-if ($profile_user_id > 0) {
-    $user_id = $profile_user_id;
-}
 
 $user_info = get_userdata($user_id);
 $user_meta = get_user_meta($user_id);
-
-$user_type = "";
-if (isset($user_meta['user_type'])) {
-    $user_type = $user_meta['user_type'][0];
-}
 
 $action = "profile";
 if (isset($_GET["action"])) {
     $action = $_GET["action"];
 }
 
-
-$user_meta["profile_user_id"] = $profile_user_id;
-
-if ($profile_user_id > 0) {
-    $user_type = "user";
-}
-
 set_query_var('page_action', $action);
-set_query_var('user_type', $user_type);
 set_query_var('user_info', $user_info);
 set_query_var('user_meta', $user_meta);
 
 ?>
-<!-- Content -->
-<div class="page-content bg-white">
-    <!-- contact area -->
-    <div class="content-block">
-        <!-- Browse Jobs -->
-        <div class="section-full bg-white p-t50 p-b20">
-            <div class="container">
-
-
-                <div class="row">
-                    <div class="col-xl-3 col-lg-4 m-b30">
-                        <?php
-                        if ($user_id > 0) {
-                            if ($user_type == "user") {
-                                get_template_part('template-parts/profile-user/profile-user', 'aside');
-                            } else if ($user_type == "company") {
-                                get_template_part('template-parts/profile-company/profile-company', 'aside');
-                            }
-                        }
-                        ?>
-                    </div>
-                    <div class="col-xl-9 col-lg-8 m-b30">
-                        <?php
-                        if ($user_id > 0) {
-                            set_query_var('back_action',get_the_author_meta( 'page_action', $user_id));
-                            update_user_meta($user_id, "page_action", $action);
-                            get_template_part('template-parts/profile-' . $user_type . '/profile-' . $user_type, $action);
-                        } else {
-                        ?>
-                            <a href="#" rel="bookmark" data-toggle="modal" data-target="#car-details"><i class="fa fa-lock"></i> لطفا وارد سایت شوید </a>
-                        <?php
-                        }
-                        ?>
-                    </div>
-                </div>
-            </div>
+<!--Main Start-->
+<main id="wt-main" class="wt-main wt-haslayout">
+    <!--Sidebar Start-->
+    <?php
+    if ($user_id > 0) {
+        get_template_part('template-parts/profile-user/profile-user', 'aside');
+    }
+    ?>
+    <!--Sidebar Start-->
+    <!--Register Form Start-->
+    <section class="wt-haslayout">
+        <div class="row">
+            <?php
+            if ($user_id > 0) {
+                $user_type = "user";
+                set_query_var('back_action', get_the_author_meta('page_action', $user_id));
+                update_user_meta($user_id, "page_action", $action);
+                get_template_part('template-parts/profile-' . $user_type . '/profile-' . $user_type, $action);
+                get_template_part('template-parts/profile-user/profile-user', 'aside-left');
+            } else {
+            ?>
+                <a href="#"><i class="fa fa-lock"></i> لطفا وارد سایت شوید </a>
+            <?php
+            }
+            ?>
         </div>
-        <!-- Browse Jobs END -->
-    </div>
-    <!-- contact area  END -->
-</div>
-<!-- Content END-->
-
+    </section>
+    <!--Register Form End-->
+</main>
+<!--Main End-->
 <?php
-get_footer();
+get_footer('db');

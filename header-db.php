@@ -14,21 +14,26 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="apple-touch-icon" href="apple-touch-icon.png">
 	<link rel="icon" href="<?php echo get_template_directory_uri(); ?>/assets/images/favicon.png" type="image/x-icon">
+
 	<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/normalize.css">
 	<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/scrollbar.css">
 	<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/fontawesome/fontawesome-all.css">
 	<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/font-awesome.min.css">
+	<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/themify-icons.css">
 	<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/owl.carousel.min.css">
-	<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/linearicons.css">
 	<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/jquery-ui.css">
+	<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/linearicons.css">
 	<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/tipso.css">
 	<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/chosen.css">
 	<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/prettyPhoto.css">
 	<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/main.css">
+	<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/dashboard.css">
 	<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/color.css">
 	<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/transitions.css">
 	<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/responsive.css">
+	<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/dbresponsive.css">
+
 	<link href="<?php echo get_template_directory_uri(); ?>/style.css" rel="stylesheet" type="text/css" />
 	<script src="<?php echo get_template_directory_uri(); ?>/assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
 	<?php wp_head(); ?>

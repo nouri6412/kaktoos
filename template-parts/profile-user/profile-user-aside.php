@@ -3,74 +3,142 @@ $user_info = get_query_var('user_info');
 $user_meta = get_query_var('user_meta');
 $page_action = get_query_var('page_action');
 ?>
-<div class="sticky-top">
-	<div style=" background-color: #2196f312 !important;" class="candidate-info company-info candidate-info onepage">
-		<div class="candidate-detail text-center">
-			<div class="canditate-des">
-				<a href="javascript:void(0);">
-					<?php
-					$avatar = get_field('header', 'option')["logo"];
-					if (isset($user_meta['avatar'])) {
-						$avatar = $user_meta['avatar'][0];
-					}
-					?>
-					<img id="profile-avatar" alt="" src="<?php echo $avatar; ?>">
-				</a>
-				<div class="upload-link" title="آپلود عکس پروفایل" data-toggle="tooltip" data-placement="left">
-					<input onchange="ajax_mbm_upload_image($(this),'profile-avatar')" type="file" class="update-flie">
-					<i class="fa fa-pencil"></i>
+<div id="wt-sidebarwrapper" class="wt-sidebarwrapper">
+	<div id="wt-btnmenutoggle" class="wt-btnmenutoggle">
+		<span class="menu-icon">
+			<em></em>
+			<em></em>
+			<em></em>
+		</span>
+	</div>
+	<div id="wt-verticalscrollbar" class="wt-verticalscrollbar">
+		<div class="wt-companysdetails wt-usersidebar">
+			<figure class="wt-companysimg">
+				<img src="<?php echo get_template_directory_uri(); ?>/assets/images/sidebar/img-01.jpg" alt="img description">
+			</figure>
+			<div class="wt-companysinfo">
+				<figure><img src="<?php echo get_template_directory_uri(); ?>/assets/images/sidebar/img-02.jpg" alt="img description"></figure>
+				<div class="wt-title">
+					<h2><a href="javascript:void(0);"><?php  isset($user_meta['user_name']) ? $user_meta['user_name'][0] :'' ?></a></h2>
+					<span><?php  isset($user_meta['user_name']) ? $user_meta['user_name'][0] :'' ?></span>
 				</div>
-			</div>
-			<div class="candidate-title">
-				<h4 class="m-b5"><?php echo $user_info->user_nicename;  ?></h4>
+				<!-- <div class="wt-btnarea"><a href="dashboard-postjob.html" class="wt-btn">ارسال کار </a></div> -->
 			</div>
 		</div>
-		<ul>
-			<?php if ($user_meta["profile_user_id"] == 0) { ?>
-				<li><a href="<?php echo home_url('profile') ?>" class="active">
-						<i class="fa fa-user-o" aria-hidden="true"></i>
-						<span>پروفایل</span></a></li>
-			<?php  } else {?>
-				<li><a class="scroll-bar nav-link" href="#profile_bx">
-						<span> مشخصات کاربر</span></a></li>
-				<?php  }?>
-			<?php if ($page_action == "resume") { ?>
-				<li><a class="scroll-bar nav-link" href="#profile_summary_bx">
-						<span><i class="fa fa-info-circle"></i> درباره من</span></a></li>
-				<li><a class="scroll-bar nav-link" href="#key_skills_bx">
-						<span><i class="fa fa-tasks"></i> مهارت های حرفه ای</span></a></li>
-				<li><a class="scroll-bar nav-link" href="#employment_bx">
-						<span><i class="fa fa-history"></i> سوابق شغلی</span></a></li>
-				<li><a class="scroll-bar nav-link" href="#eduction_bx">
-						<span><i class="fa fa-graduation-cap"></i> سوابق تحصیلی</span></a></li>
-				<li><a class="scroll-bar nav-link" href="#language_bx">
-						<span><i class="fa fa-language"></i> زبان ها</span></a></li>
-				<li><a class="scroll-bar nav-link" href="#prefer_job_bx">
-						<span><i class="fa fa-thumbs-up"></i> ترجیحات شغلی</span></a></li>
-
-			<?php } else { ?>
-				<li><a href="<?php echo home_url('profile?action=resume') ?>">
-						<i class="fa fa-file-text-o" aria-hidden="true"></i>
-						<span>رزومه ساز</span></a></li>
-						<li><a target="_Blank" href="<?php echo home_url('resume?user_id='.$user_info->ID) ?>">
-						<i class="fa fa-file-text-o" aria-hidden="true"></i>
-						<span> مشاهده رزومه</span></a></li>
-				<li><a href="<?php echo home_url('profile?action=favorite') ?>">
-						<i class="fa fa-heart-o" aria-hidden="true"></i>
-						<span>شغل های ذخیره شده</span></a></li>
-				<li><a href="<?php echo home_url('profile?action=jobs') ?>">
-						<i class="fa fa-briefcase" aria-hidden="true"></i>
-						<span>شغل های ثبت شده</span></a></li>
-				<li><a href="<?php echo home_url('profile?action=request') ?>">
-						<i class="fa fa-id-card-o" aria-hidden="true"></i>
-						<span>درخواست های من</span></a></li>
-				<li><a href="<?php echo home_url('profile?action=change-pass') ?>">
-						<i class="fa fa-key" aria-hidden="true"></i>
-						<span>تغییر رمز عبور</span></a></li>
-				<li><a href="<?php echo wp_logout_url(site_url()); ?>">
-						<i class="fa fa-sign-out" aria-hidden="true"></i>
-						<span>خروج</span></a></li>
-			<?php } ?>
-		</ul>
+		<nav id="wt-navdashboard" class="wt-navdashboard">
+			<ul>
+				<li class="menu-item-has-children">
+					<a href="<?php echo home_url('profile?action=favorite') ?>">
+						<i class="ti-dashboard"></i>
+						<span>بینش </span>
+					</a>
+					<ul class="sub-menu">
+						<li>
+							<hr><a href="dashboard-insights.html">بینش </a>
+						</li>
+						<li>
+							<hr><a href="dashboard-insightsuser.html">بینش کاربر</a>
+						</li>
+					</ul>
+				</li>
+				<li class="wt-active">
+					<a href="dashboard-profile.html">
+						<i class="ti-briefcase"></i>
+						<span>پروفایل من</span>
+					</a>
+				</li>
+				<li class="menu-item-has-children">
+					<a href="javascript:void(0);">
+						<i class="ti-package"></i>
+						<span>همه مشاغل</span>
+					</a>
+					<ul class="sub-menu">
+						<li>
+							<hr><a href="dashboard-completejobs.html">مشاغل تکمیل شده </a>
+						</li>
+						<li>
+							<hr><a href="dashboard-canceljobs.html"> مشاغل لغو شده </a>
+						</li>
+						<li>
+							<hr><a href="dashboard-ongoingjob.html">مشاغل مداوم</a>
+						</li>
+						<li>
+							<hr><a href="dashboard-ongoingsingle.html">مجرد مداوم</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="dashboard-managejobs.html">
+						<i class="ti-announcement"></i>
+						<span>مدیریت مشاغل</span>
+					</a>
+				</li>
+				<li class="wt-notificationicon menu-item-has-children">
+					<a href="javascript:void(0);">
+						<i class="ti-pencil-alt"></i>
+						<span>پیام ها</span>
+					</a>
+					<ul class="sub-menu">
+						<li>
+							<hr><a href="dashboard-messages.html">پیام ها</a>
+						</li>
+						<li>
+							<hr><a href="dashboard-messages2.html">پیام ها 2</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="dashboard-saveitems.html">
+						<i class="ti-heart"></i>
+						<span> موارد ذخیره شده من </span>
+					</a>
+				</li>
+				<li>
+					<a href="dashboard-invocies.html">
+						<i class="ti-file"></i>
+						<span>فاکتورها </span>
+					</a>
+				</li>
+				<li>
+					<a href="dashboard-category.html">
+						<i class="ti-layers"></i>
+						<span>دسته بندی</span>
+					</a>
+				</li>
+				<li>
+					<a href="dashboard-packages.html">
+						<i class="ti-money"></i>
+						<span>بسته ها</span>
+					</a>
+				</li>
+				<li>
+					<a href="dashboard-proposals.html">
+						<i class="ti-bookmark-alt"></i>
+						<span>پیشنهادات</span>
+					</a>
+				</li>
+				<li>
+					<a href="dashboard-accountsettings.html">
+						<i class="ti-anchor"></i>
+						<span>تنظیمات حساب</span>
+					</a>
+				</li>
+				<li>
+					<a href="dashboard-helpsupport.html">
+						<i class="ti-tag"></i>
+						<span>راهنما و پشتیبانی</span>
+					</a>
+				</li>
+				<li>
+					<a href="<?php echo wp_logout_url(site_url()); ?>">
+						<i class="ti-shift-right"></i>
+						<span> خروج از سیستم</span>
+					</a>
+				</li>
+			</ul>
+		</nav>
+		<div class="wt-navdashboard-footer">
+			<span>ورکترن. © 1398کلیه حقوق محفوظ است.</span>
+		</div>
 	</div>
 </div>
