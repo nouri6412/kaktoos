@@ -26,7 +26,7 @@ class Common_Manage_File
         $user_id = get_current_user_id();
         $result = $this->upload_image();
         if ($result["url"]) {
-            update_user_meta($user_id, 'avatar', $result["url"]);
+            update_user_meta($user_id, $_POST["avatar"], $result["url"]);
         }
         echo json_encode($result);
         die();

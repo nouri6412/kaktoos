@@ -1,8 +1,9 @@
-function ajax_mbm_upload_image(element,img='')
+function ajax_mbm_upload_image(element,img='',avatar='avatar')
 {
     file_data = element.prop('files')[0];
     form_data = new FormData();
     form_data.append('file', file_data);
+    form_data.append('avatar', avatar);
     form_data.append('action', 'mbm_common_image_upload_avatar');
     form_data.append('security', custom_theme_mbm_object.security);
 

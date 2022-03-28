@@ -29,23 +29,23 @@ $user_meta = get_query_var('user_meta');
                                 <div class="form-group form-group-half">
                                     <span class="wt-select">
                                         <select data-id="user_sex" class="input-profile">
-                                            <option <?php echo (isset($user_meta["user_sex"]) && $user_meta["user_sex"][0]=="other" )? 'selected' : ''; ?> value="other" disabled="">جنسیت را انتخاب کنید</option>
-                                            <option <?php echo (isset($user_meta["user_sex"]) && $user_meta["user_sex"][0]=="male" )? 'selected' : ''; ?> value="male">مرد</option>
-                                            <option <?php echo (isset($user_meta["user_sex"]) && $user_meta["user_sex"][0]=="female" )? 'selected' : ''; ?> value="female">زن</option>
+                                            <option <?php echo (isset($user_meta["user_sex"]) && $user_meta["user_sex"][0] == "other") ? 'selected' : ''; ?> value="other" disabled="">جنسیت را انتخاب کنید</option>
+                                            <option <?php echo (isset($user_meta["user_sex"]) && $user_meta["user_sex"][0] == "male") ? 'selected' : ''; ?> value="male">مرد</option>
+                                            <option <?php echo (isset($user_meta["user_sex"]) && $user_meta["user_sex"][0] == "female") ? 'selected' : ''; ?> value="female">زن</option>
                                         </select>
                                     </span>
                                 </div>
                                 <div class="form-group form-group-half">
-                                    <input value="<?php echo isset($user_meta["user_name"])?$user_meta["user_name"][0] : ''; ?>" type="text" name="first name" data-id="user_name" class="form-control input-profile" placeholder="نام و نام خانوادگی">
+                                    <input value="<?php echo isset($user_meta["user_name"]) ? $user_meta["user_name"][0] : ''; ?>" type="text" name="first name" data-id="user_name" class="form-control input-profile" placeholder="نام و نام خانوادگی">
                                 </div>
                                 <div class="form-group form-group-half">
-                                    <input value="<?php echo isset($user_meta["user_nerx"])?$user_meta["user_nerx"][0] : ''; ?>" type="number" name="rate" class="form-control input-profile" data-id="user_nerx"  placeholder="نرخ ساعتی خدمات شما (دلار)">
+                                    <input value="<?php echo isset($user_meta["user_nerx"]) ? $user_meta["user_nerx"][0] : ''; ?>" type="number" name="rate" class="form-control input-profile" data-id="user_nerx" placeholder="نرخ ساعتی خدمات شما (دلار)">
                                 </div>
                                 <div class="form-group">
-                                    <input value="<?php echo isset($user_meta["user_address"])?$user_meta["user_address"][0] : ''; ?>" data-id="user_address" type="text" name="tagline" class="form-control input-profile" placeholder="نشانی خود را اینجا اضافه کنید">
+                                    <input value="<?php echo isset($user_meta["user_address"]) ? $user_meta["user_address"][0] : ''; ?>" data-id="user_address" type="text" name="tagline" class="form-control input-profile" placeholder="نشانی خود را اینجا اضافه کنید">
                                 </div>
                                 <div class="form-group">
-                                    <textarea data-id="user_desc" name="message" class="form-control input-profile" placeholder="توضیحات"><?php echo isset($user_meta["user_desc"])?$user_meta["user_desc"][0] : ''; ?></textarea>
+                                    <textarea data-id="user_desc" name="message" class="form-control input-profile" placeholder="توضیحات"><?php echo isset($user_meta["user_desc"]) ? $user_meta["user_desc"][0] : ''; ?></textarea>
                                 </div>
                             </fieldset>
                         </div>
@@ -67,41 +67,29 @@ $user_meta = get_query_var('user_meta');
                                     <div class="form-group form-group-label">
                                         <div class="wt-labelgroup">
                                             <label for="filep">
-                                                <span class="wt-btn">انتخاب فایلها </span>
-                                                <input type="file" name="file" id="filep">
+                                                <span class="wt-btn">انتخاب فایل </span>
+                                                <input onchange="ajax_mbm_upload_image($(this),'profile-avatar')"  type="file" name="file" id="filep">
                                             </label>
-                                            <span> فایلها را برای بارگذاری اینجا رها کنید </span>
+                                            <span> فایل را برای بارگذاری اینجا رها کنید </span>
                                             <em class="wt-fileuploading">بارگذاری<i class="fa fa-spinner fa-spin"></i></em>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <ul class="wt-attachfile wt-attachfilevtwo">
-                                            <li class="wt-uploadingholder wt-companyimg-uploading">
-                                                <div class="wt-uploadingbox">
-                                                    <figure><img src="<?php echo get_template_directory_uri(); ?>/assets/images/company/img-07.jpg" alt="img description"></figure>
-                                                    <div class="wt-uploadingbar wt-uploading">
-                                                        <span class="uploadprogressbar"></span>
-                                                        <span>Profile Photo.jpg</span>
-                                                        <em>سایز فایل : 300 کیلوبایت<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                    </div>
-                                                </div>
-                                            </li>
                                             <li class="wt-uploadingholder wt-companyimg-user">
                                                 <div class="wt-uploadingbox">
-                                                    <figure><img src="<?php echo get_template_directory_uri(); ?>/assets/images/company/img-08.jpg" alt="img description"></figure>
-                                                    <div class="wt-uploadingbar wt-uploading">
-                                                        <span class="uploadprogressbar"></span>
-                                                        <span>Profile Photo.jpg</span>
-                                                        <em>سایز فایل : 300 کیلوبایت<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="wt-uploadingholder">
-                                                <div class="wt-uploadingbox">
-                                                    <div class="wt-designimg">
-                                                        <input id="demoz" type="radio" name="employees" value="company" checked="">
-                                                        <label for="demoz"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/company/img-09.jpg" alt="img description"><i class="fa fa-check"></i></label>
-                                                    </div>
+                                                    <figure>
+                                                        <?php
+                                                        $avatar = get_template_directory_uri() . "/assets/img/male.jpg";
+                                                        if (isset($user_meta['user_sex']) && $user_meta['user_sex'][0] == "female") {
+                                                            $avatar = get_template_directory_uri() . "/assets/img/female.jpg";
+                                                        }
+                                                        if (isset($user_meta['avatar'])) {
+                                                            $avatar = $user_meta['avatar'][0];
+                                                        }
+                                                        ?>
+                                                        <img id="profile-avatar" src="<?php echo $avatar; ?>">
+                                                    </figure>
                                                     <div class="wt-uploadingbar wt-uploading">
                                                         <span class="uploadprogressbar"></span>
                                                         <span>Profile Photo.jpg</span>
@@ -121,21 +109,16 @@ $user_meta = get_query_var('user_meta');
                         </div>
                         <div class="wt-profilephotocontent">
                             <div class="wt-description">
-                                <p>لورم ایپسوم یا طرح‌نما به متنی آزمایشی و بی‌معنی در صنعت چاپ،
-                                    صفحه‌آرایی و طراحی
-                                    گرافیک گفته می شود. طراح گرافیک از این متن به عنوان عنصری از ترکیب بندی برای پر کردن صفحه و ارایه
-                                    اولیه شکل
-                                    ظاهری و کلی طرح سفارش گرفته شده استفاده اردیبهشت نماید.</p>
                             </div>
                             <form class="wt-formtheme wt-formprojectinfo wt-formcategory">
                                 <fieldset>
                                     <div class="form-group form-group-label">
                                         <div class="wt-labelgroup">
                                             <label for="filew">
-                                                <span class="wt-btn">انتخاب فایلها </span>
-                                                <input type="file" name="file" id="filew">
+                                                <span class="wt-btn">انتخاب فایل </span>
+                                                <input onchange="ajax_mbm_upload_image($(this),'profile-avatar-bg','avatar_bg')" type="file" name="file" id="filew">
                                             </label>
-                                            <span> فایلها را برای بارگذاری اینجا رها کنید </span>
+                                            <span> فایل را برای بارگذاری اینجا رها کنید </span>
                                             <em class="wt-fileuploading">بارگذاری<i class="fa fa-spinner fa-spin"></i></em>
                                         </div>
                                     </div>
@@ -145,7 +128,15 @@ $user_meta = get_query_var('user_meta');
                                                 <div class="wt-uploadingbox">
                                                     <div class="wt-designimg">
                                                         <input id="demoq" type="radio" name="employees" value="company" checked="">
-                                                        <label for="demoq"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/company/img-10.jpg" alt="img description"><i class="fa fa-check"></i></label>
+                                                        <label for="demoq">
+                                                        <?php
+                                                        $avatar = get_template_directory_uri() . "/assets/images/company/img-10.jpg";
+                                                        if (isset($user_meta['avatar_bg'])) {
+                                                            $avatar = $user_meta['avatar_bg'][0];
+                                                        }
+                                                        ?>
+                                                        <img id="profile-avatar-bg" src="<?php echo $avatar; ?>">
+                                                            <i class="fa fa-check"></i></label>
                                                     </div>
                                                     <div class="wt-uploadingbar">
                                                         <span class="uploadprogressbar"></span>
@@ -167,93 +158,19 @@ $user_meta = get_query_var('user_meta');
                         <form class="wt-formtheme wt-userform">
                             <fieldset>
                                 <div class="form-group form-group-half">
-                                    <span class="wt-select">
-                                        <select>
-                                            <option value="">ایران</option>
-                                            <option value="">چین</option>
-                                            <option value="">هند</option>
-                                        </select>
-                                    </span>
-                                </div>
-                                <div class="form-group form-group-half">
-                                    <input type="text" name="address" class="form-control" placeholder="مکان شما">
+                                <input value="<?php echo isset($user_meta["user_country"]) ? $user_meta["user_country"][0] : ''; ?>" type="text" name="rate" class="form-control input-profile" data-id="user_country" placeholder="کشور">
                                 </div>
                                 <div class="form-group wt-formmap">
                                     <div id="wt-locationmap" class="wt-locationmap"></div>
                                 </div>
                                 <div class="form-group form-group-half">
-                                    <input type="text" name="text" class="form-control" placeholder="طول جغرافیایی وارد کنید (اختیاری)">
+                                    <input value="<?php echo isset($user_meta["user_lng"]) ? $user_meta["user_lng"][0] : ''; ?>" data-id="user_lng" type="text" name="text" class="form-control input-profile" placeholder="طول جغرافیایی وارد کنید (اختیاری)">
                                 </div>
                                 <div class="form-group form-group-half">
-                                    <input type="text" name="text" class="form-control" placeholder=" عرض جغرافیایی وارد کنید (اختیاری)">
+                                    <input value="<?php echo isset($user_meta["user_lat"]) ? $user_meta["user_lat"][0] : ''; ?>" data-id="user_lat" type="text" name="text" class="form-control input-profile" placeholder=" عرض جغرافیایی وارد کنید (اختیاری)">
                                 </div>
                             </fieldset>
                         </form>
-                    </div>
-                    <div class="wt-tabcompanyinfo wt-tabsinfo">
-                        <div class="wt-tabscontenttitle">
-                            <h2>اطلاعات شرکت</h2>
-                        </div>
-                        <div class="wt-accordiondetails">
-                            <div class="wt-radioboxholder">
-                                <div class="wt-title">
-                                    <h4>تعداد کارمندانی که دارید </h4>
-                                </div>
-                                <span class="wt-radio">
-                                    <input id="wt-just" type="radio" name="employees" value="company" checked>
-                                    <label for="wt-just">فقط خودم هستم </label>
-                                </span>
-                                <span class="wt-radio">
-                                    <input id="wt-employees" type="radio" name="employees" value="company">
-                                    <label for="wt-employees">2 - 9 کارمند</label>
-                                </span>
-                                <span class="wt-radio">
-                                    <input id="wt-employees1" type="radio" name="employees" value="company">
-                                    <label for="wt-employees1">10 - 99 کارمند </label>
-                                </span>
-                                <span class="wt-radio">
-                                    <input id="wt-employees2" type="radio" name="employees" value="company">
-                                    <label for="wt-employees2">100 - 499 کارمند </label>
-                                </span>
-                                <span class="wt-radio">
-                                    <input id="wt-employees3" type="radio" name="employees" value="company">
-                                    <label for="wt-employees3">500 - 1000 کارمند </label>
-                                </span>
-                                <span class="wt-radio">
-                                    <input id="wt-employees4" type="radio" name="employees" value="company">
-                                    <label for="wt-employees4">بیشتر از 1000 کارمند</label>
-                                </span>
-                            </div>
-                            <div class="wt-radioboxholder">
-                                <div class="wt-title">
-                                    <h4>بخش شما؟</h4>
-                                </div>
-                                <span class="wt-radio">
-                                    <input id="wt-department" type="radio" name="department" value="department" checked>
-                                    <label for="wt-department">خدمات یا عملیات مشتری </label>
-                                </span>
-                                <span class="wt-radio">
-                                    <input id="wt-department1" type="radio" name="department" value="department">
-                                    <label for="wt-department1"> مالی یا حقوقی </label>
-                                </span>
-                                <span class="wt-radio">
-                                    <input id="wt-department2" type="radio" name="department" value="department">
-                                    <label for="wt-department2">مهندسی یا مدیریت محصول</label>
-                                </span>
-                                <span class="wt-radio">
-                                    <input id="wt-department3" type="radio" name="department" value="department">
-                                    <label for="wt-department3">بازاریابی یا فروش</label>
-                                </span>
-                                <span class="wt-radio">
-                                    <input id="wt-department4" type="radio" name="department" value="department">
-                                    <label for="wt-department4">منابع انسانی </label>
-                                </span>
-                                <span class="wt-radio">
-                                    <input id="wt-department5" type="radio" name="department" value="department">
-                                    <label for="wt-department5">دیگر</label>
-                                </span>
-                            </div>
-                        </div>
                     </div>
                     <div class="wt-skills">
                         <div class="wt-tabscontenttitle">
