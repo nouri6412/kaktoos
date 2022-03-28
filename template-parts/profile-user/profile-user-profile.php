@@ -1,6 +1,7 @@
 <?php
 $user_info = get_query_var('user_info');
 $user_meta = get_query_var('user_meta');
+
 ?>
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-9">
     <div class="wt-haslayout wt-dbsectionspace">
@@ -17,40 +18,37 @@ $user_meta = get_query_var('user_meta');
                     <li class="nav-item"><a data-toggle="tab" href="#wt-awards">پروژه و دستاوردها</a></li>
                 </ul>
             </div>
-            <div class="wt-tabscontent tab-content">
+            <div id="form-profile" class="wt-tabscontent tab-content">
                 <div class="wt-personalskillshold tab-pane active fade show" id="wt-skills">
                     <div class="wt-yourdetails wt-tabsinfo">
                         <div class="wt-tabscontenttitle">
                             <h2>اطلاعات شما </h2>
                         </div>
-                        <form class="wt-formtheme wt-userform">
+                        <div class="wt-formtheme wt-userform">
                             <fieldset>
                                 <div class="form-group form-group-half">
                                     <span class="wt-select">
-                                        <select>
-                                            <option value="" disabled="">جنسیت را انتخاب کنید</option>
-                                            <option value="">مرد</option>
-                                            <option value="">زن</option>
+                                        <select data-id="user_sex" class="input-profile">
+                                            <option <?php echo (isset($user_meta["user_sex"]) && $user_meta["user_sex"][0]=="other" )? 'selected' : ''; ?> value="other" disabled="">جنسیت را انتخاب کنید</option>
+                                            <option <?php echo (isset($user_meta["user_sex"]) && $user_meta["user_sex"][0]=="male" )? 'selected' : ''; ?> value="male">مرد</option>
+                                            <option <?php echo (isset($user_meta["user_sex"]) && $user_meta["user_sex"][0]=="female" )? 'selected' : ''; ?> value="female">زن</option>
                                         </select>
                                     </span>
                                 </div>
                                 <div class="form-group form-group-half">
-                                    <input type="text" name="first name" class="form-control" placeholder="نام">
+                                    <input value="<?php echo isset($user_meta["user_name"])?$user_meta["user_name"][0] : ''; ?>" type="text" name="first name" data-id="user_name" class="form-control input-profile" placeholder="نام و نام خانوادگی">
                                 </div>
                                 <div class="form-group form-group-half">
-                                    <input type="email" name="last name" class="form-control" placeholder="نام خانوادگی">
-                                </div>
-                                <div class="form-group form-group-half">
-                                    <input type="number" name="rate" class="form-control" placeholder="نرخ ساعتی خدمات شما (تومان)">
+                                    <input value="<?php echo isset($user_meta["user_nerx"])?$user_meta["user_nerx"][0] : ''; ?>" type="number" name="rate" class="form-control input-profile" data-id="user_nerx"  placeholder="نرخ ساعتی خدمات شما (دلار)">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" name="tagline" class="form-control" placeholder="نشان خود را اینجا اضافه کنید">
+                                    <input value="<?php echo isset($user_meta["user_address"])?$user_meta["user_address"][0] : ''; ?>" data-id="user_address" type="text" name="tagline" class="form-control input-profile" placeholder="نشانی خود را اینجا اضافه کنید">
                                 </div>
                                 <div class="form-group">
-                                    <textarea name="message" class="form-control" placeholder="توضیحات"></textarea>
+                                    <textarea data-id="user_desc" name="message" class="form-control input-profile" placeholder="توضیحات"><?php echo isset($user_meta["user_desc"])?$user_meta["user_desc"][0] : ''; ?></textarea>
                                 </div>
                             </fieldset>
-                        </form>
+                        </div>
                     </div>
                     <div class="wt-profilephoto wt-tabsinfo">
                         <div class="wt-tabscontenttitle">
@@ -994,6 +992,18 @@ $user_meta = get_query_var('user_meta');
     <div class="wt-updatall">
         <i class="ti-announcement"></i>
         <span>تنها با کلیک روی دکمه "ذخیره و ادامه" ، آخرین تغییرات ایجاد شده توسط خود را به روز کنید.</span>
-        <a class="wt-btn" href="javascript:void(0);">ذخیره و به روز رسانی</a>
+        <button onclick="ajax_submit_mbm_post_data_resume_save_form(
+            {
+                'action': 'mbm_profile_user_save_resume',
+                'meta_key':'profile',
+                'meta_action':'profile',
+            }
+            ,'form-profile'
+            ,$('#dzFormMsg-error-profile')
+        )" type="button" class="wt-btn">ذخیره و به روز رسانی</button>
+        <div class="box-loading">
+            <div class="loading-ajax"></div>
+        </div>
+        <div id="dzFormMsg-error-profile" class="dzFormMsg error"></div>
     </div>
 </div>

@@ -14,10 +14,27 @@ $page_action = get_query_var('page_action');
 	<div id="wt-verticalscrollbar" class="wt-verticalscrollbar">
 		<div class="wt-companysdetails wt-usersidebar">
 			<figure class="wt-companysimg">
-				<img src="<?php echo get_template_directory_uri(); ?>/assets/images/sidebar/img-01.jpg" alt="img description">
+			<?php
+				$avatar = get_template_directory_uri() . "/assets/images/sidebar/img-01.jpg";
+				if (isset($user_meta['avatar_bg'])) {
+					$avatar = $user_meta['avatar_bg'][0];
+				}
+				?>
+				<img src="<?php echo $avatar; ?>">
 			</figure>
 			<div class="wt-companysinfo">
-				<figure><img src="<?php echo get_template_directory_uri(); ?>/assets/images/sidebar/img-02.jpg" alt="img description"></figure>
+				<figure>
+				<?php
+				$avatar = get_template_directory_uri() . "/assets/img/male.jpg";
+				if (isset($user_meta['user_sex']) && $user_meta['user_sex'][0] == "female") {
+					$avatar = get_template_directory_uri() . "/assets/img/female.jpg";
+				}
+				if (isset($user_meta['avatar'])) {
+					$avatar = $user_meta['avatar'][0];
+				}
+				?>
+				<img src="<?php echo $avatar; ?>">
+				</figure>
 				<div class="wt-title">
 					<h2><a href="javascript:void(0);"><?php  isset($user_meta['user_name']) ? $user_meta['user_name'][0] :'' ?></a></h2>
 					<span><?php  isset($user_meta['user_name']) ? $user_meta['user_name'][0] :'' ?></span>

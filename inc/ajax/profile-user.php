@@ -47,30 +47,30 @@ class Kaktos_User
 
         $meta_key = sanitize_text_field($_POST["meta_key"]);
 
+        $data_str = "";
+        $result["html"]=$data_str;
 
         foreach ($_POST as $key => $post) {
             if ($key != "action" && $key != "meta_key" && $key != "meta_action") {
-                $meta[$key] = sanitize_text_field($post);
+                $result["html"]=$post;
+               // $meta[$key] = sanitize_text_field($post);
+                $data_str = $post;
             }
+        }
+     
+        foreach ($data_str as $key => $item) {
+            $result["html"]=$result["html"].$key.'  - '.$item;
+            update_user_meta($user_id, $key, $item);
         }
 
         $meta_value = json_encode($meta, JSON_UNESCAPED_UNICODE);
 
-        $action = sanitize_text_field($_POST["meta_action"]);
-
-
-        update_user_meta($user_id, $meta_key, $meta_value);
+    //    update_user_meta($user_id, $meta_key, $meta_value);
 
         $result["state"] = 1;
         $result["message"] = 'با موفقیت ذخیره شد';
 
-        $user_info = get_userdata($user_id);
-        $user_meta = get_user_meta($user_id);
 
-        set_query_var('user_info', $user_info);
-        set_query_var('user_meta', $user_meta);
-
-        $result["html"] =  custom_render_php(get_template_directory() . "/template-parts/profile-user/profile-user-" . $action . ".php");
 
         echo json_encode($result);
         die();

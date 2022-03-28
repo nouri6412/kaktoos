@@ -142,6 +142,14 @@ function kaktos_theme_scripts()
         false
     );
 
+    wp_enqueue_script(
+        'kaktos_ajax_user_profile_script',
+        get_template_directory_uri() . '/assets/js/profile.js',
+        array('jquery'),
+        1,
+        false
+    );
+
 
     wp_localize_script('kaktos_ajax_script', 'custom_theme_mbm_object', array(
         'ajaxurl' => admin_url('admin-ajax.php'),
