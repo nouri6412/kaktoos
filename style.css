@@ -35,3 +35,17 @@ Author: جلیل نوری
 .wt-deleteinfo-my {
     background: #ff5851;
 }
+
+.my-form .form-group label{
+    margin-top: 15px;
+    margin-bottom: 3px;
+}
+
+@media (max-width: 1680px)
+{
+    .wt-openmenu .wt-companysdetails.wt-usersidebar .wt-companysimg img {
+        width: 100%;
+        height: auto;
+    }
+    
+}

@@ -67,29 +67,25 @@ $page_action = get_query_var('page_action');
 				<li class="menu-item-has-children">
 					<a href="javascript:void(0);">
 						<i class="ti-package"></i>
-						<span>همه مشاغل</span>
+						<span>مدیریت پروژه </span>
 					</a>
 					<ul class="sub-menu">
 						<li>
-							<hr><a href="dashboard-completejobs.html">مشاغل تکمیل شده </a>
+							<hr><a href="<?php echo home_url('profile?action=create-project') ?>">ایجاد پروژه </a>
 						</li>
 						<li>
-							<hr><a href="dashboard-canceljobs.html"> مشاغل لغو شده </a>
-						</li>
-						<li>
-							<hr><a href="dashboard-ongoingjob.html">مشاغل مداوم</a>
-						</li>
-						<li>
-							<hr><a href="dashboard-ongoingsingle.html">مجرد مداوم</a>
+							<hr><a href="<?php echo home_url('profile?action=list-project') ?>"> مدیریت پروژه ها</a>
 						</li>
 					</ul>
 				</li>
+
 				<li>
-					<a href="dashboard-managejobs.html">
-						<i class="ti-announcement"></i>
-						<span>مدیریت مشاغل</span>
+					<a href="dashboard-profile.html">
+						<i class="ti-briefcase"></i>
+						<span>فعالیت های من</span>
 					</a>
 				</li>
+
 				<li class="wt-notificationicon menu-item-has-children">
 					<a href="javascript:void(0);">
 						<i class="ti-pencil-alt"></i>

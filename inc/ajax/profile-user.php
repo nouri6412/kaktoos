@@ -81,6 +81,79 @@ class Kaktos_User
         die();
     }
 
+    function save_project()
+    {
+        global $wpdb;
+        $user_id = get_current_user_id();
+
+        if ($user_id == 0) {
+            echo json_encode([]);
+            die();
+        }
+
+        $result = [];
+
+        $meta = [];
+
+        $meta_key = sanitize_text_field($_POST["meta_key"]);
+
+        $data_str = "";
+        $result["html"] = $data_str;
+
+        $job_id = $_POST["job_id"];
+
+        foreach ($_POST as $key => $post) {
+            if ($key != "action" && $key != "meta_key" && $key != "meta_action" && $key != "job_id") {
+                $data_str = $post;
+            }
+        }
+
+
+        $args_post = array(
+            'post_title'   => $data_str["title"],
+            'post_type'    => 'job',
+            'post_author'  => $user_id,
+            'post_status'  => 'publish',
+            'post_content'      => $data_str["desc"]
+        );
+
+
+        if($job_id==0)
+        {
+            $job_id = wp_insert_post($args_post);
+        }
+        else
+        {
+            $my_post = array(
+                'ID'            => $job_id,
+                'post_title'   => $data_str["title"],
+                'post_content'      => $data_str["desc"]
+            );
+            wp_update_post( $my_post );
+        }
+
+        foreach ($data_str as $key => $item) {
+            $result["html"] = $result["html"] . $key . '  - ' . $item;
+
+            if (!is_array($item)) {
+                update_post_meta( $job_id,  $key, $item );
+            } else {
+                update_post_meta( $job_id,  $key, json_encode($item, JSON_UNESCAPED_UNICODE) );
+            }
+        }
+
+        $meta_value = json_encode($meta, JSON_UNESCAPED_UNICODE);
+
+        //    update_user_meta($user_id, $meta_key, $meta_value);
+
+        $result["state"] = 1;
+        $result["job_id"] = $job_id;
+        $result["message"] = 'با موفقیت ذخیره شد';
+
+        echo json_encode($result);
+        die();
+    }
+
     function get_form()
     {
         $action = sanitize_text_field($_POST["meta_action"]);
@@ -121,6 +194,9 @@ add_action('wp_ajax_nopriv_mbm_profile_user_profile', array($Kaktos_User, 'save_
 
 add_action('wp_ajax_mbm_profile_user_save_resume', array($Kaktos_User, 'save_resume'));
 add_action('wp_ajax_nopriv_mbm_profile_user_save_resume', array($Kaktos_User, 'save_resume'));
+
+add_action('wp_ajax_mbm_profile_user_save_project', array($Kaktos_User, 'save_project'));
+add_action('wp_ajax_nopriv_mbm_profile_user_save_project', array($Kaktos_User, 'save_project'));
 
 add_action('wp_ajax_mbm_profile_user_get_form', array($Kaktos_User, 'get_form'));
 add_action('wp_ajax_nopriv_mbm_profile_user_get_form', array($Kaktos_User, 'get_form'));

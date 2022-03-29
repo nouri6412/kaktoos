@@ -56,11 +56,6 @@ $user_meta = get_query_var('user_meta');
                         </div>
                         <div class="wt-profilephotocontent">
                             <div class="wt-description">
-                                <p>لورم ایپسوم یا طرح‌نما به متنی آزمایشی و بی‌معنی در صنعت چاپ،
-                                    صفحه‌آرایی و طراحی
-                                    گرافیک گفته می شود. طراح گرافیک از این متن به عنوان عنصری از ترکیب بندی برای پر کردن صفحه و ارایه
-                                    اولیه شکل
-                                    ظاهری و کلی طرح سفارش گرفته شده استفاده اردیبهشت نماید.</p>
                             </div>
                             <form class="wt-formtheme wt-formprojectinfo wt-formcategory">
                                 <fieldset>
@@ -183,10 +178,22 @@ $user_meta = get_query_var('user_meta');
                                         <div class="form-group-holder">
                                             <span class="wt-select">
                                                 <select id="skill-select">
-                                                    <option value=""> انتخاب مهارت </option>
-                                                    <option value="<?php echo 'اچ تی ام ال'; ?>"><?php echo 'اچ تی ام ال'; ?></option>
-                                                    <option value="php">پی‌اچ‌پی</option>
-                                                    <option value="jquery">جی‌کوئری</option>
+                                                <option value=""> انتخاب مهارت </option>
+                                                    <?php
+                                                    $args = array(
+                                                        'post_type' => 'skill'
+                                                    );
+                                                    $the_query1 = new WP_Query($args);
+                                                    ?>
+                                                    <?php
+                                                    while ($the_query1->have_posts()) :
+                                                        $the_query1->the_post();
+                                                    ?>
+                                                        <option  value="<?php echo get_the_ID(); ?>"><?php echo get_the_title(); ?></option>
+                                                    <?php
+                                                    endwhile;
+                                                    wp_reset_query();
+                                                    ?>
                                                 </select>
                                             </span>
                                             <input id="skill-select-persent" type="number" name="rate" class="form-control" placeholder="مهارت خود را ارزیابی کنید (0٪ تا 100٪)">
@@ -213,12 +220,13 @@ $user_meta = get_query_var('user_meta');
                                         foreach ($json as $item) {
                                             $skill = $item["user_skill"];
                                             $persent = $item["user_skill_persent"];
+                                            $post = get_post($skill);
                                     ?>
                                             <li class="loop-input-profile-item">
                                                 <div class="wt-dragdroptool">
                                                     <a href="javascript:void(0)" class="lnr lnr-menu"></a>
                                                 </div>
-                                                <span class="skill-dynamic-html"><?php echo $skill; ?> (<em class="skill-val"><?php echo $persent; ?></em>%)</span>
+                                                <span class="skill-dynamic-html"><?php echo $post->post_title; ?> (<em class="skill-val"><?php echo $persent; ?></em>%)</span>
                                                 <span class="skill-dynamic-field">
 
                                                     <input data-id="user_skill_persent" type="text" name="skills[1][percentage]" value="<?php echo $persent; ?>">
@@ -376,7 +384,7 @@ $user_meta = get_query_var('user_meta');
                                         <div class="wt-accordioninnertitle">
                                             <div class="wt-projecttitle collapsed" data-toggle="collapse" data-target="#innertitleaone<?php echo $rand; ?>">
                                                 <figure>
-                                                    <img id="pro-img-<?php echo $rand; ?>" src="<?php echo (strlen($item["img"])>0) ? $item["img"] : get_template_directory_uri().'/assets/img/NoImage.jpg'; ?>" alt="img description">
+                                                    <img id="pro-img-<?php echo $rand; ?>" src="<?php echo (strlen($item["img"]) > 0) ? $item["img"] : get_template_directory_uri() . '/assets/img/NoImage.jpg'; ?>" alt="img description">
                                                 </figure>
                                                 <h3><?php echo $item["title"] ?> <span><?php echo $item["address"] ?></span></h3>
                                             </div>
@@ -389,7 +397,7 @@ $user_meta = get_query_var('user_meta');
                                             <form class="wt-formtheme wt-userform wt-formprojectinfo">
                                                 <fieldset>
                                                     <div class="form-group form-group-half">
-                                                        <input  id="pro-imput-<?php echo $rand; ?>" value="<?php echo $item["img"] ?>" data-id="img" type="hidden">
+                                                        <input id="pro-imput-<?php echo $rand; ?>" value="<?php echo $item["img"] ?>" data-id="img" type="hidden">
 
                                                         <input value="<?php echo $item["title"] ?>" data-id="title" type="text" name="Project Title" class="form-control" placeholder="عنوان پروژه">
                                                     </div>

@@ -176,6 +176,51 @@ function kaktos_post_type_city()
 add_action('init', 'kaktos_post_type_city');
 
 
+/// skills
+
+function kaktos_post_type_skill()
+{
+
+    $supports = array(
+        'title', // post title
+        'thumbnail', // featured images
+		'editor',
+		'excerpt',
+        'custom-fields', // custom fields
+        'post-formats', // post formats
+		
+    );
+
+    $labels = array(
+        'name' => _x('مهارت', 'plural'),
+        'singular_name' => _x('مهارت', 'singular'),
+        'menu_name' => _x('مهارت', 'admin menu'),
+        'name_admin_bar' => _x('مهارت', 'admin bar'),
+        'add_new' => _x('ثبت مهارت', 'add new'),
+        'add_new_item' => "ثبت مهارت جدید",
+        'new_item' => " مهارت جدید",
+        'edit_item' => "ویرایش مهارت ",
+        'view_item' => "مشاهده مهارت",
+        'all_items' => "همه مهارت ها",
+        'search_items' => "جستجوی مهارت",
+        'not_found' => "یافت نشد"
+    );
+
+    $args = array(
+        'supports' => $supports,
+        'labels' => $labels,
+        'public' => true,
+        'query_var' => true,
+        'rewrite' => array('slug' => 'skill'),
+        'has_archive' => true,
+        'hierarchical' => false,
+    );
+    register_post_type('skill', $args);
+}
+add_action('init', 'kaktos_post_type_skill');
+
+/// job cat
+
 function kaktos_post_type_job_cat()
 {
 
@@ -199,7 +244,7 @@ function kaktos_post_type_job_cat()
         'new_item' => " دسته پروژه ها  جدید",
         'edit_item' => "ویرایش  دسته پروژه ها ",
         'view_item' => "مشاهده  دسته پروژه ها",
-        'all_items' => "همه  دسته پروژه ها ها",
+        'all_items' => "همه  دسته پروژه ها",
         'search_items' => "جستجوی   دسته پروژه ها",
         'not_found' => "یافت نشد"
     );

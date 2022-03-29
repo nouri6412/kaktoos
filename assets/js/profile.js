@@ -1,4 +1,4 @@
-function ajax_submit_mbm_post_data_resume(data, element_error) {
+function ajax_submit_mbm_post_data_resume(data, element_error,type_fun=0) {
 
     var error = '';
     element_error.html('');
@@ -15,12 +15,19 @@ function ajax_submit_mbm_post_data_resume(data, element_error) {
         }
         else {
            // console.log(result.html);
+           if(type_fun==0)
+           {
             document.location.href=custom_theme_mbm_object.siteurl+"/profile";
+           }
+           else
+           {
+            document.location.href=custom_theme_mbm_object.siteurl+"/profile?action=create-project&job_id="+result.job_id+'&created=1';
+           }
         }
     });
 }
 
-function ajax_submit_mbm_post_data_resume_save_form(data_in, element_load, element_error) {
+function ajax_submit_mbm_post_data_resume_save_form(data_in, element_load, element_error,type_fun=0) {
     var data = [];
     var forms = $("#" + element_load + '');
     var i = 0;
@@ -77,7 +84,7 @@ function ajax_submit_mbm_post_data_resume_save_form(data_in, element_load, eleme
     var exp_data = JSON.stringify(data);
     data_in["profile"]=data;
 
-    ajax_submit_mbm_post_data_resume(data_in, element_error)
+    ajax_submit_mbm_post_data_resume(data_in, element_error,type_fun)
 }
 
 
