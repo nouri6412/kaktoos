@@ -1,7 +1,7 @@
 "use strict";
 function my_skill_btn_add(_this) {
   var _class = _this.parents("li").attr('class');
-  if (_class == "wt-skillsaddinfo") {
+  if ( _class.includes("wt-skillsaddinfo")) {
     var _val = _this.parents("li").find(".skill-dynamic-field input").val();
     _this.parents("li").find(".skill-dynamic-html .skill-val").html(_val);
     _this.parents("li").removeClass("wt-skillsaddinfo");

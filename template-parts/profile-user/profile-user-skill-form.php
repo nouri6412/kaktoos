@@ -6,7 +6,7 @@ if(strlen($skill)==0)
 return;
 }
 ?>
-<li>
+<li class="loop-input-profile-item">
     <div class="wt-dragdroptool">
         <a href="javascript:void(0)" class="lnr lnr-menu"></a>
     </div>

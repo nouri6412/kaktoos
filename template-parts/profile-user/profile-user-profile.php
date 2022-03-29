@@ -184,7 +184,7 @@ $user_meta = get_query_var('user_meta');
                                             <span class="wt-select">
                                                 <select id="skill-select">
                                                     <option value=""> انتخاب مهارت </option>
-                                                    <option value="html">اچ‌تی‌ام‌ال</option>
+                                                    <option value="<?php echo 'اچ تی ام ال'; ?>"><?php echo 'اچ تی ام ال'; ?></option>
                                                     <option value="php">پی‌اچ‌پی</option>
                                                     <option value="jquery">جی‌کوئری</option>
                                                 </select>
@@ -206,8 +206,33 @@ $user_meta = get_query_var('user_meta');
                                 </fieldset>
                             </form>
                             <div class="wt-myskills">
-                                <ul id="items-skill" class="sortable list">
-                                </ul>
+                                <ul data-id="user_skills" id="items-skill" class="sortable list loop-input-profile">
+                                    <?php
+                                    if (isset($user_meta["user_skills"])) {
+                                        $json = json_decode($user_meta["user_skills"][0], true);
+                                        foreach ($json as $item) {
+                                            $skill=$item["user_skill"];
+                                            $persent=$item["user_skill_persent"];
+                                    ?>
+                                            <li class="loop-input-profile-item">
+                                                <div class="wt-dragdroptool">
+                                                    <a href="javascript:void(0)" class="lnr lnr-menu"></a>
+                                                </div>
+                                                <span class="skill-dynamic-html"><?php echo $skill; ?> (<em class="skill-val"><?php echo $persent; ?></em>%)</span>
+                                                <span class="skill-dynamic-field">
+
+                                                    <input data-id="user_skill_persent" type="text" name="skills[1][percentage]" value="<?php echo $persent; ?>">
+                                                    <input data-id="user_skill" type="hidden" value="<?php echo $skill; ?>" />
+                                                </span>
+                                                <div id="item-skills-btn" class="wt-rightarea">
+                                                    <a onclick="my_skill_btn_add(jQuery(this))" href="javascript:void(0);" class="wt-addinfo"><i class="lnr lnr-pencil"></i></a>
+                                                    <a onclick="my_skill_btn_delete(jQuery(this))" href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
+                                                </div>
+                                            </li>
+                                    <?php
+                                        }
+                                    }
+                                    ?>
                             </div>
                         </div>
                     </div>

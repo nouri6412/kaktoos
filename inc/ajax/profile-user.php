@@ -48,24 +48,29 @@ class Kaktos_User
         $meta_key = sanitize_text_field($_POST["meta_key"]);
 
         $data_str = "";
-        $result["html"]=$data_str;
+        $result["html"] = $data_str;
 
         foreach ($_POST as $key => $post) {
             if ($key != "action" && $key != "meta_key" && $key != "meta_action") {
-                $result["html"]=$post;
-               // $meta[$key] = sanitize_text_field($post);
+                $result["html"] = $post;
+                // $meta[$key] = sanitize_text_field($post);
                 $data_str = $post;
             }
         }
-     
+
         foreach ($data_str as $key => $item) {
-            $result["html"]=$result["html"].$key.'  - '.$item;
-            update_user_meta($user_id, $key, $item);
+            $result["html"] = $result["html"] . $key . '  - ' . $item;
+
+            if (!is_array($item)) {
+                update_user_meta($user_id, $key, $item);
+            } else {
+                update_user_meta($user_id, $key, json_encode($item, JSON_UNESCAPED_UNICODE));
+            }
         }
 
         $meta_value = json_encode($meta, JSON_UNESCAPED_UNICODE);
 
-    //    update_user_meta($user_id, $meta_key, $meta_value);
+        //    update_user_meta($user_id, $meta_key, $meta_value);
 
         $result["state"] = 1;
         $result["message"] = 'با موفقیت ذخیره شد';
