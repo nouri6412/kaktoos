@@ -129,7 +129,7 @@ if (isset($_GET["job_id"])) {
                             </form>
                         </div>
                     </div> -->
-                    <div class="wt-skills form-group-half">
+                    <div class="wt-skills">
                         <div class="wt-tabscontenttitle">
                             <h2>مهارت های موردنیاز</h2>
                         </div>
@@ -199,6 +199,74 @@ if (isset($_GET["job_id"])) {
                                     ?>
                             </div>
                         </div>
+                    </div>
+                    <hr>
+                    <br>
+                    <br>
+                    <div class="wt-addprojectsholder wt-tabsinfo">
+                        <div style="padding-top: 40px;" class="wt-tabscontenttitle wt-addnew">
+                            <h2>فایل های پروژه را اضافه کنید</h2>
+                            <a onclick="ajax_submit_mbm_post_data_resume_get_form(
+            {
+                'action': 'mbm_profile_user_get_form',
+                'meta_action':'pro-form-file'
+            }
+            ,'items-file'
+        )" href="javascript:void(0);">افزودن جدید</a>
+                        </div>
+                        <ul data-id="files" id="items-file" class="wt-experienceaccordion accordion loop-input-profile">
+                            <?php
+                            $json = json_decode(get_post_meta($job_id, 'files', true), true);
+                            if (is_array($json)) {
+
+                                foreach ($json as $item) {
+                            ?>
+                                    <?php
+                                    $rand = rand();
+                                    ?>
+                                    <li class="loop-input-profile-item">
+                                        <div class="wt-accordioninnertitle">
+                                            <div class="wt-projecttitle collapsed" data-toggle="collapse" data-target="#innertitleaone<?php echo $rand; ?>">
+                                                <figure>
+                                                    <img id="pro-img-<?php echo $rand; ?>" src="<?php echo (strlen($item["img"]) > 0) ? $item["img"] : get_template_directory_uri() . '/assets/img/NoImage.jpg'; ?>" alt="img description">
+                                                </figure>
+                                                <h3><?php echo $item["title"] ?></span></h3>
+                                            </div>
+                                            <div class="wt-rightarea">
+                                                <a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo" data-toggle="collapse" data-target="#innertitleaone<?php echo $rand; ?>"><i class="lnr lnr-pencil"></i></a>
+                                                <a onclick="my_skill_btn_delete(jQuery(this))" href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="wt-collapseexp collapse" id="innertitleaone<?php echo $rand; ?>" aria-labelledby="accordioninnertitle" data-parent="#accordion">
+                                            <form class="wt-formtheme wt-userform wt-formprojectinfo">
+                                                <fieldset>
+                                                    <div class="form-group">
+                                                        <input id="pro-imput-<?php echo $rand; ?>" value="<?php echo $item["img"] ?>" data-id="img" type="hidden">
+
+                                                        <input value="<?php echo $item["title"] ?>" data-id="title" type="text" name="Project Title" class="form-control" placeholder="عنوان فایل">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <textarea data-id="desc" name="message" class="form-control" placeholder="شرح فایل"><?php echo $item["desc"] ?></textarea>
+                                                    </div>
+                                                    <div class="form-group form-group-label wt-infouploading">
+                                                        <div class="wt-labelgroup">
+                                                            <label for="filen-<?php echo $rand; ?>">
+                                                                <span class="wt-btn">انتخاب تصویر فایل </span>
+                                                                <input onchange="ajax_mbm_upload_image($(this),'pro-img-<?php echo $rand; ?>','temp_pro_img','pro-imput-<?php echo $rand; ?>')" type="file" name="file-<?php echo $rand; ?>" id="filen-<?php echo $rand; ?>">
+                                                            </label>
+                                                            <span> فایل را برای بارگذاری اینجا رها کنید </span>
+                                                            <em class="wt-fileuploading">بارگذاری<i class="fa fa-spinner fa-spin"></i></em>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                            </form>
+                                        </div>
+                                    </li>
+                            <?php
+                                }
+                            }
+                            ?>
+                        </ul>
                     </div>
                 </div>
             </div>
