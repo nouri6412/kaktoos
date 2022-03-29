@@ -15,7 +15,7 @@ $user_meta = get_query_var('user_meta');
                         <a class="active" data-toggle="tab" href="#wt-skills">اطلاعات شخصی و مهارت ها </a>
                     </li>
                     <li class="nav-item"><a data-toggle="tab" href="#wt-education">تجربه و آموزش </a></li>
-                    <li class="nav-item"><a data-toggle="tab" href="#wt-awards">پروژه و دستاوردها</a></li>
+                    <li class="nav-item"><a data-toggle="tab" href="#wt-awards">پروژه ها و نمونه کارها </a></li>
                 </ul>
             </div>
             <div id="form-profile" class="wt-tabscontent tab-content">
@@ -211,8 +211,8 @@ $user_meta = get_query_var('user_meta');
                                     if (isset($user_meta["user_skills"])) {
                                         $json = json_decode($user_meta["user_skills"][0], true);
                                         foreach ($json as $item) {
-                                            $skill=$item["user_skill"];
-                                            $persent=$item["user_skill_persent"];
+                                            $skill = $item["user_skill"];
+                                            $persent = $item["user_skill_persent"];
                                     ?>
                                             <li class="loop-input-profile-item">
                                                 <div class="wt-dragdroptool">
@@ -241,215 +241,113 @@ $user_meta = get_query_var('user_meta');
                     <div class="wt-userexperience wt-tabsinfo">
                         <div class="wt-tabscontenttitle wt-addnew">
                             <h2>تجربه خود را اضافه کنید </h2>
-                            <a href="javascript:void(0);"> افزودن جدید</a>
+                            <a onclick="ajax_submit_mbm_post_data_resume_get_form(
+            {
+                'action': 'mbm_profile_user_get_form',
+                'meta_action':'exp-form'
+            }
+            ,'items-exp'
+        )" href="javascript:void(0);"> افزودن جدید</a>
                         </div>
-                        <ul class="wt-experienceaccordion accordion">
-                            <li>
-                                <div class="wt-accordioninnertitle">
-                                    <span id="accordioninnertitle" data-toggle="collapse" data-target="#innertitle">مدیر پروژه وب و برنامه ها<em>(خرداد 1396 - تیر 1397)</em></span>
-                                    <div class="wt-rightarea">
-                                        <a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo" id="accordioninnertitle" data-toggle="collapse" data-target="#innertitle" aria-expanded="true"><i class="lnr lnr-pencil"></i></a>
-                                        <a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-                                    </div>
-                                </div>
-                                <div class="wt-collapseexp collapse show" id="innertitle" aria-labelledby="accordioninnertitle" data-parent="#accordion">
-                                    <form class="wt-formtheme wt-userform">
-                                        <fieldset>
-                                            <div class="form-group form-group-half">
-                                                <input type="text" name="Company Title" class="form-control" placeholder="عنوان شرکت">
+                        <ul data-id="user_exp" id="items-exp" class="wt-experienceaccordion accordion loop-input-profile">
+                            <?php
+                            if (isset($user_meta["user_exp"])) {
+                                $json = json_decode($user_meta["user_exp"][0], true);
+                                foreach ($json as $item) {
+                            ?>
+                                    <?php
+                                    $rand = rand();
+                                    ?>
+                                    <li class="loop-input-profile-item">
+                                        <div class="wt-accordioninnertitle">
+                                            <span id="accordioninnertitle<?php echo $rand; ?>" data-toggle="collapse" data-target="#innertitle<?php echo $rand; ?>"><?php echo $item["job_title"] ?><em>(<?php echo $item["start"] . ' - ' . $item["end"] ?>)</em></span>
+                                            <div class="wt-rightarea">
+                                                <a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo" id="accordioninnertitle<?php echo $rand; ?>" data-toggle="collapse" data-target="#innertitle<?php echo $rand; ?>" aria-expanded="true"><i class="lnr lnr-pencil"></i></a>
+                                                <a onclick="my_skill_btn_delete(jQuery(this))" href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
                                             </div>
-                                            <div class="form-group form-group-half">
-                                                <input type="text" name="Starting Date" class="form-control" placeholder="تاریخ شروع">
-                                            </div>
-                                            <div class="form-group form-group-half">
-                                                <input type="email" name="Ending Date" class="form-control" placeholder="تاریخ پایان *">
-                                            </div>
-                                            <div class="form-group form-group-half">
-                                                <input type="number" name="Job Title" class="form-control" placeholder="عنوان شغل شما">
-                                            </div>
-                                            <div class="form-group">
-                                                <textarea name="message" class="form-control" placeholder="شرح شغل شما"></textarea>
-                                            </div>
-                                            <div class="form-group">
-                                                <span>* اگر پایان کار شغل فعلی شماست ، تاریخ خالی بگذارید </span>
-                                            </div>
-                                        </fieldset>
-                                    </form>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="wt-accordioninnertitle">
-                                    <span id="accordioninnertitlea" data-toggle="collapse" data-target="#innertitlea">برنامه نویس پی‌اچ‌پی و لاراول <em>( خرداد 1396- تیر 1397 )</em></span>
-                                    <div class="wt-rightarea">
-                                        <a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo" id="accordioninnertitlea" data-toggle="collapse" data-target="#innertitlea" aria-expanded="true"><i class="lnr lnr-pencil"></i></a>
-                                        <a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-                                    </div>
-                                </div>
-                                <div class="wt-collapseexp collapse hide" id="innertitlea" aria-labelledby="accordioninnertitleaa" data-parent="#accordion">
-                                    <form class="wt-formtheme wt-userform">
-                                        <fieldset>
-                                            <div class="form-group form-group-half">
-                                                <input type="text" name="Company Title" class="form-control" placeholder="عنوان شرکت">
-                                            </div>
-                                            <div class="form-group form-group-half">
-                                                <input type="text" name="Starting Date" class="form-control" placeholder="تاریخ شروع">
-                                            </div>
-                                            <div class="form-group form-group-half">
-                                                <input type="email" name="Ending Date" class="form-control" placeholder="تاریخ پایان *">
-                                            </div>
-                                            <div class="form-group form-group-half">
-                                                <input type="number" name="Job Title" class="form-control" placeholder="عنوان شغل شما">
-                                            </div>
-                                            <div class="form-group">
-                                                <textarea name="message" class="form-control" placeholder="شرح شغل شما"></textarea>
-                                            </div>
-                                            <div class="form-group">
-                                                <span>* اگر پایان کار شغل فعلی شماست ، تاریخ خالی بگذارید </span>
-                                            </div>
-                                        </fieldset>
-                                    </form>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="wt-accordioninnertitle">
-                                    <span id="accordioninnertitleb" data-toggle="collapse" data-target="#innertitleb">برنامه نویس پی‌اچ‌پی و لاراول <em>(فروردين 1395- تير 1396)</em></span>
-                                    <div class="wt-rightarea">
-                                        <a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo" id="accordioninnertitleb" data-toggle="collapse" data-target="#innertitleb" aria-expanded="true"><i class="lnr lnr-pencil"></i></a>
-                                        <a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-                                    </div>
-                                </div>
-                                <div class="wt-collapseexp collapse hide" id="innertitleb" aria-labelledby="accordioninnertitleb" data-parent="#accordion">
-                                    <form class="wt-formtheme wt-userform">
-                                        <fieldset>
-                                            <div class="form-group form-group-half">
-                                                <input type="text" name="Company Title" class="form-control" placeholder="عنوان شرکت">
-                                            </div>
-                                            <div class="form-group form-group-half">
-                                                <input type="text" name="Starting Date" class="form-control" placeholder="تاریخ شروع">
-                                            </div>
-                                            <div class="form-group form-group-half">
-                                                <input type="email" name="Ending Date" class="form-control" placeholder="تاریخ پایان *">
-                                            </div>
-                                            <div class="form-group form-group-half">
-                                                <input type="number" name="Job Title" class="form-control" placeholder="عنوان شغل شما">
-                                            </div>
-                                            <div class="form-group">
-                                                <textarea name="message" class="form-control" placeholder="شرح شغل شما"></textarea>
-                                            </div>
-                                            <div class="form-group">
-                                                <span>* اگر پایان کار شغل فعلی شماست ، تاریخ خالی بگذارید </span>
-                                            </div>
-                                        </fieldset>
-                                    </form>
-                                </div>
-                            </li>
+                                        </div>
+                                        <div class="wt-collapseexp collapse show" id="innertitle<?php echo $rand; ?>" aria-labelledby="accordioninnertitle<?php echo $rand; ?>" data-parent="#accordion">
+                                            <form class="wt-formtheme wt-userform">
+                                                <fieldset>
+                                                    <div class="form-group form-group-half">
+                                                        <input value="<?php echo $item["company_title"] ?>" data-id="company_title" type="text" name="Company Title" class="form-control" placeholder="عنوان شرکت">
+                                                    </div>
+                                                    <div class="form-group form-group-half">
+                                                        <input value="<?php echo $item["start"] ?>" data-id="start" type="text" name="Starting Date" class="form-control" placeholder="تاریخ شروع">
+                                                    </div>
+                                                    <div class="form-group form-group-half">
+                                                        <input value="<?php echo $item["end"] ?>" data-id="end" type="text" name="Ending Date" class="form-control" placeholder="تاریخ پایان ">
+                                                    </div>
+                                                    <div class="form-group form-group-half">
+                                                        <input value="<?php echo $item["job_title"] ?>" data-id="job_title" type="text" name="Job Title" class="form-control" placeholder="عنوان شغل شما">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <textarea data-id="job_desc" name="message" class="form-control" placeholder="شرح شغل شما"><?php echo $item["job_desc"] ?></textarea>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <span>* اگر پایان کار شغل فعلی شماست ، تاریخ خالی بگذارید </span>
+                                                    </div>
+                                                </fieldset>
+                                            </form>
+                                        </div>
+                                    </li>
+                            <?php
+                                }
+                            }
+                            ?>
                         </ul>
                     </div>
                     <div class="wt-userexperience">
                         <div class="wt-tabscontenttitle wt-addnew">
                             <h2>تحصیلات خود را اضافه کنید </h2>
-                            <a href="javascript:void(0);">افزودن جدید</a>
+                            <a onclick="ajax_submit_mbm_post_data_resume_get_form(
+            {
+                'action': 'mbm_profile_user_get_form',
+                'meta_action':'edu-form'
+            }
+            ,'items-edu'
+        )" href="javascript:void(0);"> افزودن جدید</a>
                         </div>
-                        <ul class="wt-experienceaccordion accordion">
-                            <li>
-                                <div class="wt-accordioninnertitle">
-                                    <span id="accordioninnertitle1" data-toggle="collapse" data-target="#innertitle1">مدیر پروژه وب و برنامه <em>(خرداد 1396 - تیر 1397 )</em></span>
-                                    <div class="wt-rightarea">
-                                        <a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo" id="accordioninnertitle1" data-toggle="collapse" data-target="#innertitle1" aria-expanded="true"><i class="lnr lnr-pencil"></i></a>
-                                        <a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-                                    </div>
-                                </div>
-                                <div class="wt-collapseexp collapse show" id="innertitle1" aria-labelledby="accordioninnertitle1" data-parent="#accordion">
-                                    <form class="wt-formtheme wt-userform">
-                                        <fieldset>
-                                            <div class="form-group form-group-half">
-                                                <input type="text" name="Company Title" class="form-control" placeholder="عنوان شرکت">
+                        <ul data-id="user_edu" id="items-edu" class="wt-experienceaccordion accordion loop-input-profile">
+                            <?php
+                            if (isset($user_meta["user_edu"])) {
+                                $json = json_decode($user_meta["user_edu"][0], true);
+                                foreach ($json as $item) {
+                            ?>
+                                    <?php
+                                    $rand = rand();
+                                    ?>
+                                    <li class="loop-input-profile-item">
+                                        <div class="wt-accordioninnertitle">
+                                            <span id="accordioninnertitle<?php echo $rand; ?>" data-toggle="collapse" data-target="#innertitle<?php echo $rand; ?>"><?php echo $item["major_title"] ?><em>(<?php echo $item["start"] . ' - ' . $item["end"] ?>)</em></span>
+                                            <div class="wt-rightarea">
+                                                <a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo" id="accordioninnertitle<?php echo $rand; ?>" data-toggle="collapse" data-target="#innertitle<?php echo $rand; ?>" aria-expanded="true"><i class="lnr lnr-pencil"></i></a>
+                                                <a onclick="my_skill_btn_delete(jQuery(this))" href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
                                             </div>
-                                            <div class="form-group form-group-half">
-                                                <input type="text" name="Starting Date" class="form-control" placeholder="تاریخ شروع">
-                                            </div>
-                                            <div class="form-group form-group-half">
-                                                <input type="email" name="Ending Date" class="form-control" placeholder="تاریخ پایان *">
-                                            </div>
-                                            <div class="form-group form-group-half">
-                                                <input type="number" name="Job Title" class="form-control" placeholder="عنوان شغل شما">
-                                            </div>
-                                            <div class="form-group">
-                                                <textarea name="message" class="form-control" placeholder="شرح شغل شما"></textarea>
-                                            </div>
-                                            <div class="form-group">
-                                                <span>* اگر پایان کار شغل فعلی شماست ، تاریخ خالی بگذارید </span>
-                                            </div>
-                                        </fieldset>
-                                    </form>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="wt-accordioninnertitle">
-                                    <span id="accordioninnertitlea2" data-toggle="collapse" data-target="#innertitlea2">برنامه نویس پی‌اچ‌پی و لاراول <em>(خرداد 1396 - تیر 1397 )</em></span>
-                                    <div class="wt-rightarea">
-                                        <a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo" id="accordioninnertitlea2" data-toggle="collapse" data-target="#innertitlea2" aria-expanded="true"><i class="lnr lnr-pencil"></i></a>
-                                        <a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-                                    </div>
-                                </div>
-                                <div class="wt-collapseexp collapse hide" id="innertitlea2" aria-labelledby="accordioninnertitleaa" data-parent="#accordion">
-                                    <form class="wt-formtheme wt-userform">
-                                        <fieldset>
-                                            <div class="form-group form-group-half">
-                                                <input type="text" name="Company Title" class="form-control" placeholder="عنوان شرکت">
-                                            </div>
-                                            <div class="form-group form-group-half">
-                                                <input type="text" name="Starting Date" class="form-control" placeholder="تاریخ شروع">
-                                            </div>
-                                            <div class="form-group form-group-half">
-                                                <input type="email" name="Ending Date" class="form-control" placeholder="تاریخ پایان *">
-                                            </div>
-                                            <div class="form-group form-group-half">
-                                                <input type="number" name="Job Title" class="form-control" placeholder="عنوان شغل شما">
-                                            </div>
-                                            <div class="form-group">
-                                                <textarea name="message" class="form-control" placeholder="شرح شغل شما"></textarea>
-                                            </div>
-                                            <div class="form-group">
-                                                <span>* اگر پایان کار شغل فعلی شماست ، تاریخ خالی بگذارید </span>
-                                            </div>
-                                        </fieldset>
-                                    </form>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="wt-accordioninnertitle">
-                                    <span id="accordioninnertitleb3" data-toggle="collapse" data-target="#innertitleb3">برنامه نویس پی‌اچ‌پی و لاراول <em>(فروردين 1395- تير 1396)</em></span>
-                                    <div class="wt-rightarea">
-                                        <a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo" id="accordioninnertitleb" data-toggle="collapse" data-target="#innertitleb" aria-expanded="true"><i class="lnr lnr-pencil"></i></a>
-                                        <a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-                                    </div>
-                                </div>
-                                <div class="wt-collapseexp collapse hide" id="innertitleb3" aria-labelledby="accordioninnertitleb3" data-parent="#accordion">
-                                    <form class="wt-formtheme wt-userform">
-                                        <fieldset>
-                                            <div class="form-group form-group-half">
-                                                <input type="text" name="Company Title" class="form-control" placeholder="عنوان شرکت">
-                                            </div>
-                                            <div class="form-group form-group-half">
-                                                <input type="text" name="Starting Date" class="form-control" placeholder="تاریخ شروع">
-                                            </div>
-                                            <div class="form-group form-group-half">
-                                                <input type="email" name="Ending Date" class="form-control" placeholder="تاریخ پایان *">
-                                            </div>
-                                            <div class="form-group form-group-half">
-                                                <input type="number" name="Job Title" class="form-control" placeholder="عنوان شغل شما">
-                                            </div>
-                                            <div class="form-group">
-                                                <textarea name="message" class="form-control" placeholder="شرح شغل شما"></textarea>
-                                            </div>
-                                            <div class="form-group">
-                                                <span>* اگر پایان کار شغل فعلی شماست ، تاریخ خالی بگذارید </span>
-                                            </div>
-                                        </fieldset>
-                                    </form>
-                                </div>
-                            </li>
+                                        </div>
+                                        <div class="wt-collapseexp collapse show" id="innertitle<?php echo $rand; ?>" aria-labelledby="accordioninnertitle<?php echo $rand; ?>" data-parent="#accordion">
+                                            <form class="wt-formtheme wt-userform">
+                                                <fieldset>
+                                                    <div class="form-group form-group-half">
+                                                        <input value="<?php echo $item["uni_title"] ?>" data-id="uni_title" type="text" name="Company Title" class="form-control" placeholder="نام دانشگاه">
+                                                    </div>
+                                                    <div class="form-group form-group-half">
+                                                        <input value="<?php echo $item["start"] ?>" data-id="start" type="text" name="Starting Date" class="form-control" placeholder="تاریخ شروع">
+                                                    </div>
+                                                    <div class="form-group form-group-half">
+                                                        <input value="<?php echo $item["end"] ?>" data-id="end" type="text" name="Ending Date" class="form-control" placeholder="تاریخ پایان ">
+                                                    </div>
+                                                    <div class="form-group form-group-half">
+                                                        <input value="<?php echo $item["major_title"] ?>" data-id="major_title" type="text" name="Job Title" class="form-control" placeholder="عنوان رشته تحصیلی">
+                                                    </div>
+                                                </fieldset>
+                                            </form>
+                                        </div>
+                                    </li>
+                            <?php
+                                }
+                            }
+                            ?>
                         </ul>
                     </div>
                 </div>
@@ -457,359 +355,68 @@ $user_meta = get_query_var('user_meta');
                     <div class="wt-addprojectsholder wt-tabsinfo">
                         <div class="wt-tabscontenttitle wt-addnew">
                             <h2>پروژه های خود را اضافه کنید</h2>
-                            <a href="javascript:void(0);">افزودن جدید</a>
+                            <a onclick="ajax_submit_mbm_post_data_resume_get_form(
+            {
+                'action': 'mbm_profile_user_get_form',
+                'meta_action':'pro-form'
+            }
+            ,'items-pro'
+        )" href="javascript:void(0);">افزودن جدید</a>
                         </div>
-                        <ul class="wt-experienceaccordion accordion">
-                            <li>
-                                <div class="wt-accordioninnertitle">
-                                    <div class="wt-projecttitle collapsed" data-toggle="collapse" data-target="#innertitleaone">
-                                        <figure><img src="<?php echo get_template_directory_uri(); ?>/assets/images/thumbnail/img-11.jpg" alt="img description"></figure>
-                                        <h3>عنوان پروژه در اینجا <span>www.themeforest.net</span></h3>
-                                    </div>
-                                    <div class="wt-rightarea">
-                                        <a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo" data-toggle="collapse" data-target="#innertitleaone"><i class="lnr lnr-pencil"></i></a>
-                                        <a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-                                    </div>
-                                </div>
-                                <div class="wt-collapseexp collapse" id="innertitleaone" aria-labelledby="accordioninnertitle" data-parent="#accordion">
-                                    <form class="wt-formtheme wt-userform wt-formprojectinfo">
-                                        <fieldset>
-                                            <div class="form-group form-group-half">
-                                                <input type="text" name="Project Title" class="form-control" placeholder="عنوان پروژه">
+                        <ul data-id="user_pro" id="items-pro" class="wt-experienceaccordion accordion loop-input-profile">
+                            <?php
+                            if (isset($user_meta["user_pro"])) {
+                                $json = json_decode($user_meta["user_pro"][0], true);
+                                foreach ($json as $item) {
+                            ?>
+                                    <?php
+                                    $rand = rand();
+                                    ?>
+                                    <li class="loop-input-profile-item">
+                                        <div class="wt-accordioninnertitle">
+                                            <div class="wt-projecttitle collapsed" data-toggle="collapse" data-target="#innertitleaone<?php echo $rand; ?>">
+                                                <figure>
+                                                    <img id="pro-img-<?php echo $rand; ?>" src="<?php echo (strlen($item["img"])>0) ? $item["img"] : get_template_directory_uri().'/assets/img/NoImage.jpg'; ?>" alt="img description">
+                                                </figure>
+                                                <h3>عنوان پروژه در اینجا <span>آدرس پروژه</span></h3>
                                             </div>
-                                            <div class="form-group form-group-half">
-                                                <input type="text" name="Project URL" class="form-control" placeholder="آدرس پروژه">
+                                            <div class="wt-rightarea">
+                                                <a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo" data-toggle="collapse" data-target="#innertitleaone<?php echo $rand; ?>"><i class="lnr lnr-pencil"></i></a>
+                                                <a onclick="my_skill_btn_delete(jQuery(this))" href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
                                             </div>
-                                            <div class="form-group form-group-label wt-infouploading">
-                                                <div class="wt-labelgroup">
-                                                    <label for="filen">
-                                                        <span class="wt-btn">انتخاب فایلها </span>
-                                                        <input type="file" name="file" id="filen">
-                                                    </label>
-                                                    <span> فایلها را برای بارگذاری اینجا رها کنید </span>
-                                                    <em class="wt-fileuploading">بارگذاری<i class="fa fa-spinner fa-spin"></i></em>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <ul class="wt-attachfile">
-                                                    <li class="wt-uploading">
-                                                        <span>Logo.jpg</span>
-                                                        <em>سایز فایل : 300 کیلوبایت<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                    </li>
-                                                    <li>
-                                                        <span>Wireframe Document.doc</span>
-                                                        <em>سایز فایل : 512 کیلوبایت<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                    </li>
-                                                    <li>
-                                                        <span>Requirments.pdf</span>
-                                                        <em>سایز فایل : 110 کیلوبایت<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                    </li>
-                                                    <li>
-                                                        <span>company Intro.docx</span>
-                                                        <em>سایز فایل : 224 کیلوبایت<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="form-group wt-btnarea">
-                                                <a href="javascript:void(0);" class="wt-btn">ذخیره</a>
-                                            </div>
-                                        </fieldset>
-                                    </form>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="wt-accordioninnertitle">
-                                    <div class="wt-projecttitle collapsed" data-toggle="collapse" data-target="#innertitlebone">
-                                        <figure><img src="<?php echo get_template_directory_uri(); ?>/assets/images/thumbnail/img-12.jpg" alt="img description"></figure>
-                                        <h3>عنوان پروژه در اینجا <span>www.themeforest.net</span></h3>
-                                    </div>
-                                    <div class="wt-rightarea">
-                                        <a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo" data-toggle="collapse" data-target="#innertitlebone"><i class="lnr lnr-pencil"></i></a>
-                                        <a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-                                    </div>
-                                </div>
-                                <div class="wt-collapseexp collapse show" id="innertitlebone" aria-labelledby="accordioninnertitle1" data-parent="#accordion">
-                                    <form class="wt-formtheme wt-userform wt-formprojectinfo">
-                                        <fieldset>
-                                            <div class="form-group form-group-half">
-                                                <input type="text" name="Project Title" class="form-control" placeholder="عنوان پروژه">
-                                            </div>
-                                            <div class="form-group form-group-half">
-                                                <input type="text" name="Project URL" class="form-control" placeholder="آدرس پروژه">
-                                            </div>
-                                            <div class="form-group form-group-label wt-infouploading">
-                                                <div class="wt-labelgroup">
-                                                    <label for="filet">
-                                                        <span class="wt-btn">انتخاب فایلها </span>
-                                                        <input type="file" name="file" id="filet">
-                                                    </label>
-                                                    <span> فایلها را برای بارگذاری اینجا رها کنید </span>
-                                                    <em class="wt-fileuploading">بارگذاری<i class="fa fa-spinner fa-spin"></i></em>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <ul class="wt-attachfile">
-                                                    <li class="wt-uploading">
-                                                        <span>Logo.jpg</span>
-                                                        <em>سایز فایل : 300 کیلوبایت<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                    </li>
-                                                    <li>
-                                                        <span>Wireframe Document.doc</span>
-                                                        <em>سایز فایل : 512 کیلوبایت<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                    </li>
-                                                    <li>
-                                                        <span>Requirments.pdf</span>
-                                                        <em>سایز فایل : 110 کیلوبایت<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                    </li>
-                                                    <li>
-                                                        <span>company Intro.docx</span>
-                                                        <em>سایز فایل : 224 کیلوبایت<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="form-group wt-btnarea">
-                                                <a href="javascript:void(0);" class="wt-btn">ذخیره</a>
-                                            </div>
-                                        </fieldset>
-                                    </form>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="wt-accordioninnertitle">
-                                    <div class="wt-projecttitle collapsed" data-toggle="collapse" data-target="#innertitlecone">
-                                        <figure><img src="<?php echo get_template_directory_uri(); ?>/assets/images/thumbnail/img-13.jpg" alt="img description"></figure>
-                                        <h3>عنوان پروژه در اینجا <span>www.themeforest.net</span></h3>
-                                    </div>
-                                    <div class="wt-rightarea">
-                                        <a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo" data-toggle="collapse" data-target="#innertitlecone"><i class="lnr lnr-pencil"></i></a>
-                                        <a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-                                    </div>
-                                </div>
-                                <div class="wt-collapseexp collapse" id="innertitlecone" aria-labelledby="accordioninnertitle1" data-parent="#accordion">
-                                    <form class="wt-formtheme wt-userform wt-formprojectinfo">
-                                        <fieldset>
-                                            <div class="form-group form-group-half">
-                                                <input type="text" name="Project Title" class="form-control" placeholder="عنوان پروژه">
-                                            </div>
-                                            <div class="form-group form-group-half">
-                                                <input type="text" name="Project URL" class="form-control" placeholder="آدرس پروژه">
-                                            </div>
-                                            <div class="form-group form-group-label wt-infouploading">
-                                                <div class="wt-labelgroup">
-                                                    <label for="fileb">
-                                                        <span class="wt-btn">انتخاب فایلها </span>
-                                                        <input type="file" name="file" id="fileb">
-                                                    </label>
-                                                    <span> فایلها را برای بارگذاری اینجا رها کنید </span>
-                                                    <em class="wt-fileuploading">بارگذاری<i class="fa fa-spinner fa-spin"></i></em>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <ul class="wt-attachfile">
-                                                    <li class="wt-uploading">
-                                                        <span>Logo.jpg</span>
-                                                        <em>سایز فایل : 300 کیلوبایت<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                    </li>
-                                                    <li>
-                                                        <span>Wireframe Document.doc</span>
-                                                        <em>سایز فایل : 512 کیلوبایت<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                    </li>
-                                                    <li>
-                                                        <span>Requirments.pdf</span>
-                                                        <em>سایز فایل : 110 کیلوبایت<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                    </li>
-                                                    <li>
-                                                        <span>company Intro.docx</span>
-                                                        <em>سایز فایل : 224 کیلوبایت<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="form-group wt-btnarea">
-                                                <a href="javascript:void(0);" class="wt-btn">ذخیره</a>
-                                            </div>
-                                        </fieldset>
-                                    </form>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="wt-addprojectsholder">
-                        <div class="wt-tabscontenttitle wt-addnew">
-                            <h2>جوایز خود را اضافه کنید </h2>
-                            <a href="javascript:void(0);">افزودن جدید</a>
-                        </div>
-                        <ul class="wt-experienceaccordion accordion">
-                            <li>
-                                <div class="wt-accordioninnertitle">
-                                    <div class="wt-projecttitle collapsed" data-toggle="collapse" data-target="#innertitleawone">
-                                        <figure><img src="<?php echo get_template_directory_uri(); ?>/assets/images/thumbnail/img-08.jpg" alt="img description"></figure>
-                                        <h3>عنوان جایزه در اینجا <samp> 8 ارديبهشت 1395</samp></h3>
-                                    </div>
-                                    <div class="wt-rightarea">
-                                        <a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo" data-toggle="collapse" data-target="#innertitleawone"><i class="lnr lnr-pencil"></i></a>
-                                        <a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-                                    </div>
-                                </div>
-                                <div class="wt-collapseexp collapse" id="innertitleawone" aria-labelledby="accordioninnertitle" data-parent="#accordion">
-                                    <form class="wt-formtheme wt-userform wt-formprojectinfo">
-                                        <fieldset>
-                                            <div class="form-group form-group-half">
-                                                <input type="text" name="Awards" class="form-control" placeholder="عنوان جایزه">
-                                            </div>
-                                            <div class="form-group form-group-half">
-                                                <input type="text" name="awards" class="form-control" placeholder="تاریخ جایزه">
-                                            </div>
-                                            <div class="form-group form-group-label wt-infouploading">
-                                                <div class="wt-labelgroup">
-                                                    <label for="file">
-                                                        <span class="wt-btn">انتخاب فایلها </span>
-                                                        <input type="file" name="file" id="file">
-                                                    </label>
-                                                    <span> فایلها را برای بارگذاری اینجا رها کنید </span>
-                                                    <em class="wt-fileuploading">بارگذاری<i class="fa fa-spinner fa-spin"></i></em>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <ul class="wt-attachfile">
-                                                    <li class="wt-uploading">
-                                                        <span>Logo.jpg</span>
-                                                        <em>سایز فایل : 300 کیلوبایت<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                    </li>
-                                                    <li>
-                                                        <span>Wireframe Document.doc</span>
-                                                        <em>سایز فایل : 512 کیلوبایت<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                    </li>
-                                                    <li>
-                                                        <span>Requirments.pdf</span>
-                                                        <em>سایز فایل : 110 کیلوبایت<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                    </li>
-                                                    <li>
-                                                        <span>company Intro.docx</span>
-                                                        <em>سایز فایل : 224 کیلوبایت <a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="form-group wt-btnarea">
-                                                <a href="javascript:void(0);" class="wt-btn">ذخیره</a>
-                                            </div>
-                                        </fieldset>
-                                    </form>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="wt-accordioninnertitle">
-                                    <div class="wt-projecttitle collapsed" data-toggle="collapse" data-target="#innertitlebwone">
-                                        <figure><img src="<?php echo get_template_directory_uri(); ?>/assets/images/thumbnail/img-08.jpg" alt="img description"></figure>
-                                        <h3>عنوان جایزه در اینجا <samp> 8 ارديبهشت 1395</samp></h3>
-                                    </div>
-                                    <div class="wt-rightarea">
-                                        <a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo" data-toggle="collapse" data-target="#innertitlebwone"><i class="lnr lnr-pencil"></i></a>
-                                        <a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-                                    </div>
-                                </div>
-                                <div class="wt-collapseexp collapse show" id="innertitlebwone" aria-labelledby="accordioninnertitle1" data-parent="#accordion">
-                                    <form class="wt-formtheme wt-userform wt-formprojectinfo">
-                                        <fieldset>
-                                            <div class="form-group form-group-half">
-                                                <input type="text" name="Award Title" class="form-control" placeholder="عنوان جایزه">
-                                            </div>
-                                            <div class="form-group form-group-half">
-                                                <input type="text" name="Award Date" class="form-control" placeholder="تاریخ جایزه">
-                                            </div>
-                                            <div class="form-group form-group-label wt-infouploading">
-                                                <div class="wt-labelgroup">
-                                                    <label for="filea">
-                                                        <span class="wt-btn">انتخاب فایلها </span>
-                                                        <input type="file" name="file" id="filea">
-                                                    </label>
-                                                    <span> فایلها را برای بارگذاری اینجا رها کنید </span>
-                                                    <em class="wt-fileuploading">بارگذاری<i class="fa fa-spinner fa-spin"></i></em>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <ul class="wt-attachfile">
-                                                    <li class="wt-uploading">
-                                                        <span>Logo.jpg</span>
-                                                        <em>سایز فایل : 300 کیلوبایت<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                    </li>
-                                                    <li>
-                                                        <span>Wireframe Document.doc</span>
-                                                        <em>سایز فایل : 512 کیلوبایت<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                    </li>
-                                                    <li>
-                                                        <span>Requirments.pdf</span>
-                                                        <em>سایز فایل : 110 کیلوبایت<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                    </li>
-                                                    <li>
-                                                        <span>company Intro.docx</span>
-                                                        <em>سایز فایل : 224 کیلوبایت <a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="form-group wt-btnarea">
-                                                <a href="javascript:void(0);" class="wt-btn">ذخیره</a>
-                                            </div>
-                                        </fieldset>
-                                    </form>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="wt-accordioninnertitle">
-                                    <div class="wt-projecttitle collapsed" data-toggle="collapse" data-target="#innertitlecwone">
-                                        <figure><img src="<?php echo get_template_directory_uri(); ?>/assets/images/thumbnail/img-09.jpg" alt="img description"></figure>
-                                        <h3>عنوان جایزه در اینجا <samp> 8 ارديبهشت 1395</samp></h3>
-                                    </div>
-                                    <div class="wt-rightarea">
-                                        <a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo" data-toggle="collapse" data-target="#innertitlecwone"><i class="lnr lnr-pencil"></i></a>
-                                        <a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-                                    </div>
-                                </div>
-                                <div class="wt-collapseexp collapse" id="innertitlecwone" aria-labelledby="accordioninnertitle1" data-parent="#accordion">
-                                    <form class="wt-formtheme wt-userform wt-formprojectinfo">
-                                        <fieldset>
-                                            <div class="form-group form-group-half">
-                                                <input type="text" name="Award Title" class="form-control" placeholder="عنوان جایزه">
-                                            </div>
-                                            <div class="form-group form-group-half">
-                                                <input type="text" name="Award Date" class="form-control" placeholder="تاریخ جایزه">
-                                            </div>
-                                            <div class="form-group form-group-label wt-infouploading">
-                                                <div class="wt-labelgroup">
-                                                    <label for="filec">
-                                                        <span class="wt-btn">انتخاب فایلها </span>
-                                                        <input type="file" name="file" id="filec">
-                                                    </label>
-                                                    <span> فایلها را برای بارگذاری اینجا رها کنید </span>
-                                                    <em class="wt-fileuploading">بارگذاری<i class="fa fa-spinner fa-spin"></i></em>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <ul class="wt-attachfile">
-                                                    <li class="wt-uploading">
-                                                        <span>Logo.jpg</span>
-                                                        <em>سایز فایل : 300 کیلوبایت<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                    </li>
-                                                    <li>
-                                                        <span>Wireframe Document.doc</span>
-                                                        <em>سایز فایل : 512 کیلوبایت<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                    </li>
-                                                    <li>
-                                                        <span>Requirments.pdf</span>
-                                                        <em>سایز فایل : 110 کیلوبایت<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                    </li>
-                                                    <li>
-                                                        <span>company Intro.docx</span>
-                                                        <em>سایز فایل : 224 کیلوبایت <a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="form-group wt-btnarea">
-                                                <a href="javascript:void(0);" class="wt-btn">ذخیره</a>
-                                            </div>
-                                        </fieldset>
-                                    </form>
-                                </div>
-                            </li>
+                                        </div>
+                                        <div class="wt-collapseexp collapse" id="innertitleaone<?php echo $rand; ?>" aria-labelledby="accordioninnertitle" data-parent="#accordion">
+                                            <form class="wt-formtheme wt-userform wt-formprojectinfo">
+                                                <fieldset>
+                                                    <div class="form-group form-group-half">
+                                                        <input  id="pro-imput-<?php echo $rand; ?>" value="<?php echo $item["img"] ?>" data-id="img" type="hidden">
+
+                                                        <input value="<?php echo $item["title"] ?>" data-id="title" type="text" name="Project Title" class="form-control" placeholder="عنوان پروژه">
+                                                    </div>
+                                                    <div class="form-group form-group-half">
+                                                        <input value="<?php echo $item["address"] ?>" data-id="address" type="text" name="Project URL" class="form-control" placeholder="آدرس پروژه">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <textarea data-id="desc" name="message" class="form-control" placeholder="شرح پروژه"><?php echo $item["desc"] ?></textarea>
+                                                    </div>
+                                                    <div class="form-group form-group-label wt-infouploading">
+                                                        <div class="wt-labelgroup">
+                                                            <label for="filen-<?php echo $rand; ?>">
+                                                                <span class="wt-btn">انتخاب تصویر پروژه </span>
+                                                                <input onchange="ajax_mbm_upload_image($(this),'pro-img-<?php echo $rand; ?>','temp_pro_img','pro-imput-<?php echo $rand; ?>')" type="file" name="file-<?php echo $rand; ?>" id="filen-<?php echo $rand; ?>">
+                                                            </label>
+                                                            <span> فایل را برای بارگذاری اینجا رها کنید </span>
+                                                            <em class="wt-fileuploading">بارگذاری<i class="fa fa-spinner fa-spin"></i></em>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                            </form>
+                                        </div>
+                                    </li>
+                            <?php
+                                }
+                            }
+                            ?>
                         </ul>
                     </div>
                 </div>

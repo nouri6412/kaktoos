@@ -1,4 +1,4 @@
-function ajax_mbm_upload_image(element,img='',avatar='avatar')
+function ajax_mbm_upload_image(element,img='',avatar='avatar',input='')
 {
     file_data = element.prop('files')[0];
     form_data = new FormData();
@@ -17,6 +17,10 @@ function ajax_mbm_upload_image(element,img='',avatar='avatar')
         success: function (response) {
             console.log(response.url);
             $('#'+img).attr('src',response.url);
+            if(input!='')
+            {
+                $('#'+input).val(response.url); 
+            }
             element.val('');
            
         }
