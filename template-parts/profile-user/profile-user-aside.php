@@ -59,7 +59,7 @@ $page_action = get_query_var('page_action');
 					</ul>
 				</li>
 				<li class="wt-active">
-					<a href="dashboard-profile.html">
+					<a href="<?php echo home_url('profile') ?>">
 						<i class="ti-briefcase"></i>
 						<span>پروفایل من</span>
 					</a>

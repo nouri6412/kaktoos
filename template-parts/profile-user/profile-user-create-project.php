@@ -66,6 +66,11 @@ if (isset($_GET["job_id"])) {
                                     <input value="<?php echo get_post_meta($job_id, 'title', true); ?>" type="text" name="title" data-id="title" class="form-control input-profile" placeholder="عنوان پروژه">
                                 </div>
 
+                                <div class="form-group">
+                                    <label> زمان پروژه (روز)</label>
+                                    <input value="<?php echo get_post_meta($job_id, 'time', true); ?>" type="number" name="time" data-id="time" class="form-control input-profile" placeholder="زمان پروژه (روز)">
+                                </div>
+
                                 <div class="form-group form-group-half">
                                     <label>حداقل بودجه (دلار)</label>
                                     <input value="<?php echo get_post_meta($job_id, 'min_price', true); ?>" type="number" name="rate" class="form-control input-profile" data-id="min_price" placeholder="حداقل بودجه (دلار)">

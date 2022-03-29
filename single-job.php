@@ -20,11 +20,214 @@ get_header();
     while (have_posts()) :
         the_post();
 
-        get_template_part('template-parts/job/job', 'content');
+    ?>
+        <!--Inner Home Banner Start-->
+        <div class="wt-haslayout wt-innerbannerholder">
+            <div class="container">
+                <div class="row justify-content-md-center">
+                    <div class="col-xs-12 col-sm-12 col-md-8 push-md-2 col-lg-6 push-lg-3">
+                        <div class="wt-innerbannercontent">
+                            <div class="wt-title">
+                                <h2><?php the_title(); ?> </h2>
+                            </div>
+                            <ol class="wt-breadcrumb">
+                                <li><a href="<?php echo home_url() ?>">صفحه اصلی</a></li>
+                                <li><a href="<?php echo home_url("search-job") ?>"> مشاغل </a></li>
+                                <li class="wt-active">جزئیات پروژه</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Inner Home End-->
+        <!--Main Start-->
+        <main id="wt-main" class="wt-main wt-haslayout wt-innerbgcolor">
+            <div class="wt-haslayout wt-main-section">
+                <!-- User Listing Start-->
+                <div class="container">
+                    <div class="row">
+                        <div id="wt-twocolumns" class="wt-twocolumns wt-haslayout">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 float-left">
+                                <div class="wt-proposalholder">
+                                    <span class="wt-featuredtag"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/featured.png" alt="img description" data-tipso="Plus Member" class="template-content tipso_style"></span>
+                                    <div class="wt-proposalhead">
+                                        <h2><?php the_title(); ?></h2>
+                                        <ul class="wt-userlisting-breadcrumb wt-userlisting-breadcrumbvtwo">
+                                            <li><span><i class="fa fa-dollar-sign"></i><i class="fa fa-dollar-sign"></i><i class="fa fa-dollar-sign"></i><?php echo ' ' . get_post_meta(get_the_ID(), 'min_price', true) . ' - ' . get_post_meta(get_the_ID(), 'max_price', true); ?></span></li>
+                                            <li><span> <?php echo get_the_author_meta('user_country'); ?> </span></li>
+                                            <li><span><i class="far fa-folder"></i>
+                                                    <?php $cat = get_post(get_post_meta(get_the_ID(), 'cat_id', true));
+                                                    echo $cat->post_title; ?>
+                                                </span></li>
+                                            <li><span><i class="far fa-clock"></i> <?php echo 'زمان' . ' : ' . get_post_meta(get_the_ID(), 'time', true) . ' ' . 'روز'; ?> </span></li>
+                                        </ul>
+                                    </div>
+                                    <div class="wt-btnarea"><a href="javascrip:void(0);" class="wt-btn">ارسال پیشنهاد</a></div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-8 float-right">
+                                <div class="wt-projectdetail-holder">
+                                    <div class="wt-projectdetail">
+                                        <div class="wt-title">
+                                            <h3>جزئیات پروژه</h3>
+                                        </div>
+                                        <div class="wt-description">
+                                            <p><?php the_content() ?></p>
+                                        </div>
+                                    </div>
+                                    <div class="wt-skillsrequired">
+                                        <div class="wt-title">
+                                            <h3>مهارت های مورد نیاز</h3>
+                                        </div>
+                                        <div class="wt-tag wt-widgettag">
+                                            <?php
+                                            $json = json_decode(get_post_meta(get_the_ID(), 'skills', true), true);
+                                            if (is_array($json)) {
+                                                foreach ($json as $item) {
+                                                    $skill = $item["skill"];
+                                                    $sk = get_post($skill);
+                                            ?>
+                                                    <a href="javascript:void(0);"> <?php echo $sk->post_title ?></a>
+                                            <?php
+                                                }
+                                            }
+                                            ?>
+                                        </div>
+                                    </div>
+                                    <div class="wt-attachments">
+                                        <div class="wt-title">
+                                            <h3>پیوست ها</h3>
+                                        </div>
+                                        <ul class="wt-attachfile">
+                                            <?php
+                                            $json = json_decode(get_post_meta(get_the_ID(), 'files', true), true);
+                                            if (is_array($json)) {
+
+                                                foreach ($json as $item) {
+                                            ?>
+                                                    <li>
+                                                        <span><?php echo $item["title"] ?></span>
+                                                        <em><a target="_Blank" href="<?php echo $item["img"] ?>"><i class="lnr lnr-download"></i></a></em>
+                                                    </li>
+                                            <?php  }
+                                            } ?>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-4 float-left">
+                                <aside id="wt-sidebar" class="wt-sidebar">
+                                    <div class="wt-proposalsr">
+                                        <div class="wt-proposalsrcontent">
+                                            <span class="wt-proposalsicon"><i class="fa fa-angle-double-down"></i><i class="fa fa-newspaper"></i></span>
+                                            <div class="wt-title">
+                                                <h3>150</h3>
+                                                <span>پیشنهادات دریافتی تا <em>27 اردیبهشت 1399</em></span>
+                                            </div>
+                                        </div>
+                                        <div class="tg-authorcodescan">
+                                            <figure class="tg-qrcodeimg">
+                                                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/qrcode.png" alt="img description">
+                                            </figure>
+                                            <div class="tg-qrcodedetail">
+                                                <span class="lnr lnr-laptop-phone"></span>
+                                                <div class="tg-qrcodefeat">
+                                                    <h3>اسکن کنید با <span>تلفن هوشمند خود </span>برای دستیابی به آن.</h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="wt-clicksavearea">
+                                            <span>آیدی پروژه : tQu5DW9F2G</span>
+                                            <a href="javascrip:void(0);" class="wt-clicksavebtn"><i class="far fa-heart"></i> برای ذخیره کلیک کنید</a>
+                                        </div>
+                                    </div>
+                                    <div class="wt-widget wt-companysinfo-jobsingle">
+                                        <div class="wt-companysdetails">
+                                            <figure class="wt-companysimg">
+                                                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/company/img-01.jpg" alt="img description">
+                                            </figure>
+                                            <div class="wt-companysinfo">
+                                                <figure><img src="<?php echo get_template_directory_uri(); ?>/assets/images/company/img-01.png" alt="img description"></figure>
+                                                <div class="wt-title">
+                                                    <a href="javascript:void(0);"><i class="fa fa-check-circle"></i> شرکت تأیید شده</a>
+                                                    <h2> استودیو خلاق خشمگین</h2>
+                                                </div>
+                                                <ul class="wt-postarticlemeta">
+                                                    <li>
+                                                        <a href="javascript:void(0);">
+                                                            <span>مشاغل باز</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="javascript:void(0);">
+                                                            <span>پروفایل کامل</span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="wt-following">
+                                                        <a href="javascript:void(0);">
+                                                            <span>دنبال کننده</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="wt-widget wt-sharejob">
+                                        <div class="wt-widgettitle">
+                                            <h2> اشتراک گذاری این پروژه</h2>
+                                        </div>
+                                        <div class="wt-widgetcontent">
+                                            <ul class="wt-socialiconssimple">
+                                                <li class="wt-facebook"><a href="javascript:void(0);"><i class="fab fa-facebook-f"></i>اشتراک گذاری در فیسبوک</a></li>
+                                                <li class="wt-twitter"><a href="javascript:void(0);"><i class="fab fa-twitter"></i>اشتراک گذاری در توئیتر</a></li>
+                                                <li class="wt-linkedin"><a href="javascript:void(0);"><i class="fab fa-linkedin-in"></i>اشتراک گذاری در لینکدین</a></li>
+                                                <li class="wt-googleplus"><a href="javascript:void(0);"><i class="fab fa-google-plus-g"></i>اشتراک گذاری در گوگل پلاس</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="wt-widget wt-reportjob">
+                                        <div class="wt-widgettitle">
+                                            <h2>گزارش این پروژه</h2>
+                                        </div>
+                                        <div class="wt-widgetcontent">
+                                            <form class="wt-formtheme wt-formreport">
+                                                <fieldset>
+                                                    <div class="form-group">
+                                                        <span class="wt-select">
+                                                            <select>
+                                                                <option value="Reason">دلیل را انتخاب کنید</option>
+                                                                <option value="Reason1">دلیل 1</option>
+                                                                <option value="Reason2">دلیل 2</option>
+                                                            </select>
+                                                        </span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <textarea class="form-control" placeholder="توضیحات"></textarea>
+                                                    </div>
+                                                    <div class="form-group wt-btnarea">
+                                                        <a href="javascrip:void(0);" class="wt-btn">ارسال</a>
+                                                    </div>
+                                                </fieldset>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </aside>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- User Listing End-->
+            </div>
+        </main>
+        <!--Main End-->
+
+    <?php
 
     endwhile; // End the loop.
     ?>
 </div>
 <!-- Content END-->
+
 <?php
 get_footer();
