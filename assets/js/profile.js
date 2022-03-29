@@ -52,12 +52,12 @@ function ajax_submit_mbm_post_data_resume_get_form(data, element_load) {
 
     custom_theme_mbm_base_ajax(data, function (result) {
 
-        element_load.append(result.html);
+        jQuery('#'+element_load).append(result.html);
 
     });
 }
 
 function ajax_submit_mbm_post_data_resume_get_form_delete(element) {
-    element.parent().remove();
+    jQuery('#'+element).parent().remove();
 }
 

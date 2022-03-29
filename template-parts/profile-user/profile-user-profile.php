@@ -68,7 +68,7 @@ $user_meta = get_query_var('user_meta');
                                         <div class="wt-labelgroup">
                                             <label for="filep">
                                                 <span class="wt-btn">انتخاب فایل </span>
-                                                <input onchange="ajax_mbm_upload_image($(this),'profile-avatar')"  type="file" name="file" id="filep">
+                                                <input onchange="ajax_mbm_upload_image($(this),'profile-avatar')" type="file" name="file" id="filep">
                                             </label>
                                             <span> فایل را برای بارگذاری اینجا رها کنید </span>
                                             <em class="wt-fileuploading">بارگذاری<i class="fa fa-spinner fa-spin"></i></em>
@@ -129,13 +129,13 @@ $user_meta = get_query_var('user_meta');
                                                     <div class="wt-designimg">
                                                         <input id="demoq" type="radio" name="employees" value="company" checked="">
                                                         <label for="demoq">
-                                                        <?php
-                                                        $avatar = get_template_directory_uri() . "/assets/images/company/img-10.jpg";
-                                                        if (isset($user_meta['avatar_bg'])) {
-                                                            $avatar = $user_meta['avatar_bg'][0];
-                                                        }
-                                                        ?>
-                                                        <img id="profile-avatar-bg" src="<?php echo $avatar; ?>">
+                                                            <?php
+                                                            $avatar = get_template_directory_uri() . "/assets/images/company/img-10.jpg";
+                                                            if (isset($user_meta['avatar_bg'])) {
+                                                                $avatar = $user_meta['avatar_bg'][0];
+                                                            }
+                                                            ?>
+                                                            <img id="profile-avatar-bg" src="<?php echo $avatar; ?>">
                                                             <i class="fa fa-check"></i></label>
                                                     </div>
                                                     <div class="wt-uploadingbar">
@@ -158,7 +158,7 @@ $user_meta = get_query_var('user_meta');
                         <form class="wt-formtheme wt-userform">
                             <fieldset>
                                 <div class="form-group form-group-half">
-                                <input value="<?php echo isset($user_meta["user_country"]) ? $user_meta["user_country"][0] : ''; ?>" type="text" name="rate" class="form-control input-profile" data-id="user_country" placeholder="کشور">
+                                    <input value="<?php echo isset($user_meta["user_country"]) ? $user_meta["user_country"][0] : ''; ?>" type="text" name="rate" class="form-control input-profile" data-id="user_country" placeholder="کشور">
                                 </div>
                                 <div class="form-group wt-formmap">
                                     <div id="wt-locationmap" class="wt-locationmap"></div>
@@ -182,146 +182,31 @@ $user_meta = get_query_var('user_meta');
                                     <div class="form-group">
                                         <div class="form-group-holder">
                                             <span class="wt-select">
-                                                <select>
+                                                <select id="skill-select">
                                                     <option value=""> انتخاب مهارت </option>
-                                                    <option value="">اچ‌تی‌ام‌ال</option>
-                                                    <option value="">پی‌اچ‌پی</option>
-                                                    <option value="">جی‌کوئری</option>
+                                                    <option value="html">اچ‌تی‌ام‌ال</option>
+                                                    <option value="php">پی‌اچ‌پی</option>
+                                                    <option value="jquery">جی‌کوئری</option>
                                                 </select>
                                             </span>
-                                            <input type="number" name="rate" class="form-control" placeholder="مهارت خود را ارزیابی کنید (0٪ تا 100٪)">
+                                            <input id="skill-select-persent" type="number" name="rate" class="form-control" placeholder="مهارت خود را ارزیابی کنید (0٪ تا 100٪)">
                                         </div>
                                     </div>
                                     <div class="form-group wt-btnarea">
-                                        <a href="javascript:void(0);" class="wt-btn"> افزودن مهارت ها</a>
+                                        <a onclick="ajax_submit_mbm_post_data_resume_get_form(
+            {
+                'action': 'mbm_profile_user_get_form',
+                'meta_action':'skill-form',
+                'skill':jQuery('#skill-select').val(),
+                'persent':jQuery('#skill-select-persent').val()
+            }
+            ,'items-skill'
+        )" href="javascript:void(0);" class="wt-btn"> افزودن مهارت ها</a>
                                     </div>
                                 </fieldset>
                             </form>
                             <div class="wt-myskills">
-                                <ul class="sortable list">
-                                    <li>
-                                        <div class="wt-dragdroptool">
-                                            <a href="javascript:void(0)" class="lnr lnr-menu"></a>
-                                        </div>
-                                        <span class="skill-dynamic-html">پی‌اچ‌پی (<em class="skill-val">90</em>%)</span>
-                                        <span class="skill-dynamic-field">
-                                            <input type="text" name="skills[1][percentage]" value="90">
-                                        </span>
-                                        <div class="wt-rightarea">
-                                            <a href="javascript:void(0);" class="wt-addinfo"><i class="lnr lnr-pencil"></i></a>
-                                            <a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="wt-dragdroptool"><a href="javascript:void(0)" class="lnr lnr-menu"></a></div>
-                                        <span class="skill-dynamic-html">طراحی سایت (<em class="skill-val">55</em>%)</span>
-                                        <span class="skill-dynamic-field">
-                                            <input type="text" name="skills[1][percentage]" value="90">
-                                        </span>
-                                        <div class="wt-rightarea">
-                                            <a href="javascript:void(0);" class="wt-addinfo"><i class="lnr lnr-pencil"></i></a>
-                                            <a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="wt-dragdroptool handle"><a href="javascript:void(0)" class="lnr lnr-menu"></a></div>
-                                        <span class="skill-dynamic-html">اچ‌تی‌ام‌ال 5 (<em class="skill-val">90</em>%)</span>
-                                        <span class="skill-dynamic-field">
-                                            <input type="text" name="skills[1][percentage]" value="90">
-                                        </span>
-                                        <div class="wt-rightarea">
-                                            <a href="javascript:void(0);" class="wt-addinfo"><i class="lnr lnr-pencil"></i></a>
-                                            <a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="wt-dragdroptool handle"><a href="javascript:void(0)" class="lnr lnr-menu"></a></div>
-                                        <span class="skill-dynamic-html">طراحی گرافیک (<em class="skill-val">80</em>%)</span>
-                                        <span class="skill-dynamic-field">
-                                            <input type="text" name="skills[1][percentage]" value="90">
-                                        </span>
-                                        <div class="wt-rightarea">
-                                            <a href="javascript:void(0);" class="wt-addinfo"><i class="lnr lnr-pencil"></i></a>
-                                            <a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="wt-dragdroptool handle"><a href="javascript:void(0)" class="lnr lnr-menu"></a></div>
-                                        <span class="skill-dynamic-html">مهارت خود راارزیابی کنید (<em class="skill-val">10</em>%)</span>
-                                        <span class="skill-dynamic-field">
-                                            <input type="text" name="skills[1][percentage]" value="90">
-                                        </span>
-                                        <div class="wt-rightarea">
-                                            <a href="javascript:void(0);" class="wt-addinfo"><i class="lnr lnr-pencil"></i></a>
-                                            <a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="wt-dragdroptool handle"><a href="javascript:void(0)" class="lnr lnr-menu"></a></div>
-                                        <span class="skill-dynamic-html">سئو (<em class="skill-val">35</em>%)</span>
-                                        <span class="skill-dynamic-field">
-                                            <input type="text" name="skills[1][percentage]" value="90">
-                                        </span>
-                                        <div class="wt-rightarea">
-                                            <a href="javascript:void(0);" class="wt-addinfo"><i class="lnr lnr-pencil"></i></a>
-                                            <a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="wt-dragdroptool handle"><a href="javascript:void(0)" class="lnr lnr-menu"></a></div>
-                                        <span class="skill-dynamic-html">ما‌ی‌اسکیوال(<em class="skill-val">40</em>%)</span>
-                                        <span class="skill-dynamic-field">
-                                            <input type="text" name="skills[1][percentage]" value="90">
-                                        </span>
-                                        <div class="wt-rightarea">
-                                            <a href="javascript:void(0);" class="wt-addinfo"><i class="lnr lnr-pencil"></i></a>
-                                            <a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="wt-dragdroptool handle"><a href="javascript:void(0)" class="lnr lnr-menu"></a></div>
-                                        <span class="skill-dynamic-html">نوشتن محتوا (<em class="skill-val">80</em>%)</span>
-                                        <span class="skill-dynamic-field">
-                                            <input type="text" name="skills[1][percentage]" value="90">
-                                        </span>
-                                        <div class="wt-rightarea">
-                                            <a href="javascript:void(0);" class="wt-addinfo"><i class="lnr lnr-pencil"></i></a>
-                                            <a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="wt-dragdroptool handle"><a href="javascript:void(0)" class="lnr lnr-menu"></a></div>
-                                        <span class="skill-dynamic-html">سی‌اس‌اس(<em class="skill-val">80</em>%)</span>
-                                        <span class="skill-dynamic-field">
-                                            <input type="text" name="skills[1][percentage]" value="90">
-                                        </span>
-                                        <div class="wt-rightarea">
-                                            <a href="javascript:void(0);" class="wt-addinfo"><i class="lnr lnr-pencil"></i></a>
-                                            <a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="wt-dragdroptool handle"><a href="javascript:void(0)" class="lnr lnr-menu"></a></div>
-                                        <span class="skill-dynamic-html">جی‌کوئری(<em class="skill-val">75</em>%)</span>
-                                        <span class="skill-dynamic-field">
-                                            <input type="text" name="skills[1][percentage]" value="90">
-                                        </span>
-                                        <div class="wt-rightarea">
-                                            <a href="javascript:void(0);" class="wt-addinfo"><i class="lnr lnr-pencil"></i></a>
-                                            <a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="wt-dragdroptool handle"><a href="javascript:void(0)" class="lnr lnr-menu"></a></div>
-                                        <span class="skill-dynamic-html">بوت استرپ (<em class="skill-val">96</em>%)</span>
-                                        <span class="skill-dynamic-field">
-                                            <input type="text" name="skills[1][percentage]" value="90">
-                                        </span>
-                                        <div class="wt-rightarea">
-                                            <a href="javascript:void(0);" class="wt-addinfo"><i class="lnr lnr-pencil"></i></a>
-                                            <a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-                                        </div>
-                                    </li>
+                                <ul id="items-skill" class="sortable list">
                                 </ul>
                             </div>
                         </div>

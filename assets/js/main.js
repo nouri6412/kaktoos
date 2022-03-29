@@ -1,4 +1,21 @@
 "use strict";
+function my_skill_btn_add(_this) {
+  var _class = _this.parents("li").attr('class');
+  if (_class == "wt-skillsaddinfo") {
+    var _val = _this.parents("li").find(".skill-dynamic-field input").val();
+    _this.parents("li").find(".skill-dynamic-html .skill-val").html(_val);
+    _this.parents("li").removeClass("wt-skillsaddinfo");
+  }
+  else {
+    _this.parents("li").addClass("wt-skillsaddinfo");
+  }
+}
+
+function my_skill_btn_delete(_this)
+{
+  _this.parents("li").remove();
+}
+
 jQuery(document).on("ready", function () {
   /* MOBILE MENU*/
   function collapseMenu() {
@@ -98,7 +115,7 @@ jQuery(document).on("ready", function () {
         },
       });
     });
-  } catch (err) {}
+  } catch (err) { }
 
   /* OUR PROFESSIONALS FILTERABLE*/
   var $container = jQuery(".wt-teamfilter");
@@ -244,9 +261,9 @@ jQuery(document).on("ready", function () {
     });
     jQuery("#wt-consultationfeeamount").val(
       "" +
-        jQuery("#wt-productrangeslider").slider("values", 0) +
-        " - " +
-        jQuery("#wt-productrangeslider").slider("values", 1)
+      jQuery("#wt-productrangeslider").slider("values", 0) +
+      " - " +
+      jQuery("#wt-productrangeslider").slider("values", 1)
     );
   }
   if (jQuery("#wt-productrangeslider").length > 0) {
@@ -274,7 +291,7 @@ jQuery(document).on("ready", function () {
           );
       });
     });
-  } catch (err) {}
+  } catch (err) { }
   /* PRELOADER*/
   jQuery(window).on("load", function () {
     jQuery(".preloader-outer").delay(1000).fadeOut();
@@ -346,16 +363,8 @@ jQuery(document).on("ready", function () {
   fixedNav();
 
   /* ADD Class */
-  jQuery(".wt-myskills .wt-addinfo").on("click", function () {
-    var _this = jQuery(this);
-    _this.parents("li").addClass("wt-skillsaddinfo");
-  });
-  jQuery(".wt-myskills .wt-deleteinfo").on("click", function () {
-    var _this = jQuery(this);
-    var _val = _this.parents("li").find(".skill-dynamic-field input").val();
-    _this.parents("li").find(".skill-dynamic-html .skill-val").html(_val);
-    _this.parents("li").removeClass("wt-skillsaddinfo");
-  });
+
+
   /* Dashboard Slider */
   var _wt_postedsilder = jQuery("#wt-postedsilder");
   _wt_postedsilder.owlCarousel({

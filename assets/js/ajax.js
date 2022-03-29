@@ -16,28 +16,24 @@ function custom_theme_mbm_base_ajax(data, callback) {
     });
 }
 
-function ajax_submit_mbm_contact_form(name, email, message,element_error,element_done,button) {
+function ajax_submit_mbm_contact_form(name, email, message, element_error, element_done, button) {
 
-    var error='';
+    var error = '';
     element_error.html('');
     element_done.html('');
-    if(name.length==0)
-    {
-        error= 'نام نباید خالی بماند';
+    if (name.length == 0) {
+        error = 'نام نباید خالی بماند';
     }
 
-    if(email.length==0)
-    {   
-        error +='<br>'+ 'ایمیل نباید خالی بماند';
+    if (email.length == 0) {
+        error += '<br>' + 'ایمیل نباید خالی بماند';
     }
 
-    if(message.length==0)
-    {
-        error +='<br>'+ 'پیام نباید خالی بماند';
+    if (message.length == 0) {
+        error += '<br>' + 'پیام نباید خالی بماند';
     }
 
-    if(error.length>0)
-    {
+    if (error.length > 0) {
         element_error.html(error);
         return;
     }
@@ -49,16 +45,21 @@ function ajax_submit_mbm_contact_form(name, email, message,element_error,element
         'message': message
     }, function (result) {
         console.log(result);
-        if(result.result.state==1)
-        {
+        if (result.result.state == 1) {
             element_done.html(result.result.message);
             button.remove();
 
         }
-        else
-        {
+        else {
             element_error.html(result.result.message);
         }
-        
+
     });
+}
+
+function ajax_submit_mbm_clone_element(item, parent, id = '') {
+    var cloned = jQuery('#'+item).clone();
+    cloned.css('display', 'block');
+    cloned.attr('id', id);
+    jQuery('#'+parent).append(cloned);
 }
