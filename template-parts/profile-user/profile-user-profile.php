@@ -378,7 +378,7 @@ $user_meta = get_query_var('user_meta');
                                                 <figure>
                                                     <img id="pro-img-<?php echo $rand; ?>" src="<?php echo (strlen($item["img"])>0) ? $item["img"] : get_template_directory_uri().'/assets/img/NoImage.jpg'; ?>" alt="img description">
                                                 </figure>
-                                                <h3>عنوان پروژه در اینجا <span>آدرس پروژه</span></h3>
+                                                <h3><?php echo $item["title"] ?> <span><?php echo $item["address"] ?></span></h3>
                                             </div>
                                             <div class="wt-rightarea">
                                                 <a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo" data-toggle="collapse" data-target="#innertitleaone<?php echo $rand; ?>"><i class="lnr lnr-pencil"></i></a>
