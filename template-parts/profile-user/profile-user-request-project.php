@@ -71,9 +71,10 @@ $count = $the_query->post_count;
                                             <span><?php echo get_post_meta(get_the_ID(), 'time', true) . ' ' . 'روز' ?></span>
                                         </div>
                                         <div class="wt-hireduserstatus">
-                                            <p><?php echo get_post_meta(get_the_ID(), 'desc', true) ?></p>
+                                            <?php echo get_post_meta(get_the_ID(), 'desc', true) ?>
                                         </div>
                                     </div>
+                                    
                                 </div>
                             <?php
                             endwhile;
