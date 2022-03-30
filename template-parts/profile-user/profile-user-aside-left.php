@@ -6,9 +6,6 @@ $page_action = get_query_var('page_action');
 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
 	<div class="wt-haslayout wt-dbsectionspace wt-codescansidebar">
 		<div class="tg-authorcodescan wt-codescanholder">
-			<figure class="tg-qrcodeimg">
-				<img src="<?php echo get_template_directory_uri(); ?>/assets/images/qrcode.png" alt="img description">
-			</figure>
 			<div class="wt-codescanicons">
 				<span> پروفایل خود را به اشتراک بگذارید</span>
 				<ul class="wt-socialiconssimple">
