@@ -39,29 +39,12 @@ get_header();
             گرافیک گفته می شود.</p>
 									</div>
 								</div>
-								<form class="wt-formtheme wt-formbanner">
+								<form class="wt-formtheme wt-formbanner" action="<?php echo home_url('search-job'); ?>" method="get">
 									<fieldset>
 										<div class="form-group">
-											<input type="text" name="fullname" class="form-control" placeholder="من دنبال ... می گردم.">
+											<input type="text" id="search_word" name="search_word" class="form-control" placeholder="من دنبال ... می گردم.">
 											<div class="wt-formoptions">
-												<div class="wt-dropdown">
-													<span>در: <em class="selected-search-type">فریلنسرها</em><i class="lnr lnr-chevron-down"></i></span>
-												</div>
-												<div class="wt-radioholder">
-													<span class="wt-radio">
-														<input id="wt-freelancers" data-title="فریلنسرها" type="radio" name="searchtype" value="freelancer" checked>
-														<label for="wt-freelancers">فریلنسرها</label>
-													</span>
-													<span class="wt-radio">
-														<input id="wt-jobs"  data-title="مشاغل" type="radio" name="searchtype" value="job">
-														<label for="wt-jobs">مشاغل</label>
-													</span>
-													<span class="wt-radio">
-														<input id="wt-company"  data-title="شرکت ها" type="radio" name="searchtype" value="job">
-														<label for="wt-company">شرکت ها</label>
-													</span>
-												</div>
-												<a href="userlisting.html" class="wt-searchbtn"><i class="lnr lnr-magnifier"></i></a>
+												<button type="submit" class="wt-searchbtn"><i class="lnr lnr-magnifier"></i></button>
 											</div>
 										</div>
 									</fieldset>

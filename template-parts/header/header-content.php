@@ -19,7 +19,7 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                <strong class="wt-logo"><a href="index-2.html"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/logo.png" alt="<?php echo get_bloginfo('name'); ?>"></a></strong>
+                                <strong class="wt-logo"><a href="<?php echo home_url() ?>"><img src="<?php echo get_field('header', 'option')["logo"]; ?>" alt="<?php echo get_bloginfo('name'); ?>"></a></strong>
                                 <div class="wt-rightarea">
                                     <nav id="wt-nav" class="wt-nav navbar-expand-lg">
                                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -75,7 +75,7 @@
                                                         </fieldset>
                                                         <div class="wt-loginfooterinfo">
                                                             <a href="javascript:;" class="wt-forgot-password">فراموشی رمز عبور</a>
-                                                            <a href="register.html">ایجاد حساب</a>
+                                                            <a href="<?php echo home_url('register') ?>">ایجاد حساب</a>
                                                         </div>
                                                     </div>
                                                     <form class="wt-formtheme wt-loginform do-forgot-password-form wt-hide-form">
@@ -90,12 +90,12 @@
                                                         </fieldset>
                                                         <div class="wt-loginfooterinfo">
                                                             <a href="javascript:void(0);" class="wt-show-login">ورود به سیستم</a>
-                                                            <a href="register.html">ایجاد حساب</a>
+                                                            <a href="<?php echo home_url('register') ?>">ایجاد حساب</a>
                                                         </div>
                                                     </form>
                                                 </div>
                                             </div>
-                                            <a href="register.html" class="wt-btn">اکنون بپیوندید</a>
+                                            <a href="<?php echo home_url('register') ?>" class="wt-btn">اکنون بپیوندید</a>
                                         </div>
                                     <?php
                                     } else {
