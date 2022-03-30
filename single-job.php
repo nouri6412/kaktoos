@@ -63,7 +63,7 @@ get_header();
                                             <li><span><i class="far fa-clock"></i> <?php echo 'زمان' . ' : ' . get_post_meta(get_the_ID(), 'time', true) . ' ' . 'روز'; ?> </span></li>
                                         </ul>
                                     </div>
-                                    <div class="wt-btnarea"><a href="javascrip:void(0);" class="wt-btn">ارسال پیشنهاد</a></div>
+                                    <div class="wt-btnarea"><a href="<?php  echo home_url('request?id='.get_the_ID()) ?>" class="wt-btn">ارسال پیشنهاد</a></div>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-8 float-right">
