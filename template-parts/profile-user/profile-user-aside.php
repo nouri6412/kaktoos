@@ -80,7 +80,7 @@ $page_action = get_query_var('page_action');
 							<hr><a href="<?php echo home_url('profile?action=create-project') ?>">ایجاد پروژه </a>
 						</li>
 						<li>
-							<hr><a href="<?php echo home_url('profile?action=list-project') ?>"> مدیریت پروژه ها</a>
+							<hr><a href="<?php echo home_url('profile?action=my-jobs') ?>"> مدیریت پروژه ها</a>
 						</li>
 					</ul>
 				</li>

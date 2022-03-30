@@ -97,7 +97,7 @@ if ($cat_id > 0) {
         'key' => 'cat_id',
         'value' => $cat_id,
         'compare' => '='
-    );
+    ); 
 }
 
 
@@ -321,7 +321,7 @@ $count = $the_query->post_count;
                                                     <li><span><i class="far fa-clock "></i><?php echo  get_the_date() ; ?></span></li>
 
                                                     <li><a href="javascript:void(0);" class="wt-clicklike wt-clicksave"><i class="fa fa-heart"></i> ذخیره</a></li>
-                                                    <li class="wt-btnarea"><a href="<?php echo get_the_permalink(); ?>" class="wt-btn">مشاهده شغل</a></li>
+                                                    <li class="wt-btnarea"><a href="<?php echo get_the_permalink(); ?>" class="wt-btn">مشاهده پروژه</a></li>
                                                 </ul>
                                             </div>
                                         </div>

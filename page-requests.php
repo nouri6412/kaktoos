@@ -22,11 +22,15 @@ if ($job_id == 0) {
     get_footer();
     return;
 }
+
+$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 $args = array(
     'post_type' => 'request',
     'post_status' => 'publish',
     'meta_key' => 'job_id',
-    'meta_value' => $job_id
+    'paged' => $paged,
+    'meta_value' => $job_id,
+    'posts_per_page' => 10
 );
 $the_query = new WP_Query($args);
 $count = $the_query->post_count;

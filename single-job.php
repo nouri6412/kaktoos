@@ -150,18 +150,6 @@ get_header();
                                                     <a href="javascript:void(0);"><i class="fa fa-check-circle"></i> شرکت تأیید شده</a>
                                                     <h2><?php echo get_the_author_meta('company_name') ?></h2>
                                                 </div>
-                                                <ul class="wt-postarticlemeta">
-                                                    <li>
-                                                        <a href="javascript:void(0);">
-                                                            <span>مشاغل باز</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0);">
-                                                            <span>پروفایل کامل</span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
                                             </div>
                                         </div>
                                     </div>
