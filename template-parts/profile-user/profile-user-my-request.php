@@ -47,8 +47,9 @@ $count = $the_query->post_count;
                                     <div class="wt-userlistingcontent">
                                         <div class="wt-contenthead">
                                             <div class="wt-title">
-                                                <h2> <?php echo get_the_title($job_id);echo ($request_id==$user_id)?'<span style="margin-right: 10px;
-    color: #08d518;">(استخدام شدم)</span>':''; ?></h2>
+                                                <h2> <?php echo get_the_title($job_id);
+                                                        echo ($request_id == $user_id) ? '<span style="margin-right: 10px;
+    color: #08d518;">(استخدام شدم)</span>' : ''; ?></h2>
                                             </div>
                                             <ul class="wt-saveitem-breadcrumb wt-userlisting-breadcrumb">
                                                 <li><span><i class="fa fa-dollar-sign wt-viewjobdollar"></i><?php echo ' ' . get_post_meta($job_id, 'min_price', true) . ' - ' . get_post_meta($job_id, 'max_price', true); ?></span></li>
@@ -60,12 +61,12 @@ $count = $the_query->post_count;
                                                 <li><span><i class="far fa-clock "></i><?php echo  get_the_date($job_id); ?></span></li>
                                             </ul>
                                             <ul style="margin-top: 8px;" class="wt-saveitem-breadcrumb wt-userlisting-breadcrumb">
-                                                <li><span><i class="fa fa-dollar-sign wt-viewjobdollar"></i><?php echo 'قیمت پیشنهادی من' . ' : ' .get_post_meta(get_the_ID(), 'price', true) . ' ' . 'دلار' ?></span></li>
+                                                <li><span><i class="fa fa-dollar-sign wt-viewjobdollar"></i><?php echo 'قیمت پیشنهادی من' . ' : ' . get_post_meta(get_the_ID(), 'price', true) . ' ' . 'دلار' ?></span></li>
                                                 <li><span><i class="far fa-clock wt-viewjobclock"></i><?php echo 'زمان پیشنهادی من' . ' : ' . get_post_meta(get_the_ID(), 'time', true) . ' ' . 'روز'; ?></span></li>
                                                 <li><span><i class="far fa-clock wt-viewjobclock"></i><?php echo get_the_date(); ?></span></li>
                                             </ul>
                                             <div style="margin-top: 8px;">
-                                                    <?php echo get_post_meta(get_the_ID(), 'desc', true) ?>
+                                                <?php echo get_post_meta(get_the_ID(), 'desc', true) ?>
                                             </div>
                                         </div>
                                         <div class="wt-rightarea">
