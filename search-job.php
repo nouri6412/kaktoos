@@ -15,7 +15,7 @@ get_header();
 
 $search = array();
 
-$search["relation"] = "AND";
+$search["relation"] = "AND"; 
 
 $cat_id = 0;
 $skill_id = 0;

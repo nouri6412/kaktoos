@@ -11,13 +11,26 @@
  */
 
 $user_id = get_current_user_id();
+
+$state = 0;
+
+if (isset($_GET["state"])) {
+    $state = $_GET["state"];
+}
+ $page_count=10;
+
+ if($state==1)
+ {
+    $page_count=10000;
+ }
+
 $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 $args = array(
     'post_type' => 'request',
     'post_status' => 'publish',
     'author'  => $user_id,
     'paged' => $paged,
-    'posts_per_page' => 10
+    'posts_per_page' => $page_count
 );
 $the_query = new WP_Query($args);
 $count = $the_query->post_count;
@@ -41,6 +54,10 @@ $count = $the_query->post_count;
                                 $the_query->the_post();
                                 $job_id = get_post_meta(get_the_ID(), 'job_id', true);
                                 $request_id = get_post_meta($job_id, 'request_id', true);
+                                 if($state==1 && $request_id!=$user_id)
+                                 {
+                                       continue;
+                                 }
                             ?>
                                 <div class="wt-userlistinghold wt-featured wt-userlistingvtwo">
                                     <span class="wt-featuredtag wt-featuredtagcolor3"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/featured.png" alt="img description" data-tipso="Plus Member" class="template-content tipso_style"></span>

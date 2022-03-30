@@ -14,7 +14,7 @@ $page_action = get_query_var('page_action');
 	<div id="wt-verticalscrollbar" class="wt-verticalscrollbar">
 		<div class="wt-companysdetails wt-usersidebar">
 			<figure class="wt-companysimg">
-			<?php
+				<?php
 				$avatar = get_template_directory_uri() . "/assets/images/sidebar/img-01.jpg";
 				if (isset($user_meta['avatar_bg'])) {
 					$avatar = $user_meta['avatar_bg'][0];
@@ -24,66 +24,29 @@ $page_action = get_query_var('page_action');
 			</figure>
 			<div class="wt-companysinfo">
 				<figure>
-				<?php
-				$avatar = get_template_directory_uri() . "/assets/img/male.jpg";
-				if (isset($user_meta['user_sex']) && $user_meta['user_sex'][0] == "female") {
-					$avatar = get_template_directory_uri() . "/assets/img/female.jpg";
-				}
-				if (isset($user_meta['avatar'])) {
-					$avatar = $user_meta['avatar'][0];
-				}
-				?>
-				<img src="<?php echo $avatar; ?>">
+					<?php
+					$avatar = get_template_directory_uri() . "/assets/img/male.jpg";
+					if (isset($user_meta['user_sex']) && $user_meta['user_sex'][0] == "female") {
+						$avatar = get_template_directory_uri() . "/assets/img/female.jpg";
+					}
+					if (isset($user_meta['avatar'])) {
+						$avatar = $user_meta['avatar'][0];
+					}
+					?>
+					<img src="<?php echo $avatar; ?>">
 				</figure>
 				<div class="wt-title">
-					<h2><a href="javascript:void(0);"><?php  isset($user_meta['user_name']) ? $user_meta['user_name'][0] :'' ?></a></h2>
-					<span><?php  isset($user_meta['user_name']) ? $user_meta['user_name'][0] :'' ?></span>
+					<h2><a href="javascript:void(0);"><?php isset($user_meta['user_name']) ? $user_meta['user_name'][0] : '' ?></a></h2>
+					<span><?php isset($user_meta['user_name']) ? $user_meta['user_name'][0] : '' ?></span>
 				</div>
 				<!-- <div class="wt-btnarea"><a href="dashboard-postjob.html" class="wt-btn">ارسال کار </a></div> -->
 			</div>
 		</div>
 		<nav id="wt-navdashboard" class="wt-navdashboard">
 			<ul>
-				<li class="wt-active">
-					<a href="<?php echo home_url('profile') ?>">
-						<i class="ti-briefcase"></i>
-						<span>پروفایل من</span>
-					</a>
-				</li>
-				<li>
-					<a target="_Blank" href="<?php echo home_url('user-view?id='.$user_info->ID) ?>">
-						<i class="ti-briefcase"></i>
-						<span>پیش نمایش پروفایل</span>
-					</a>
-				</li>
-
-				<li>
-					<a href="<?php echo home_url('profile?action=my-request') ?>">
-						<i class="ti-briefcase"></i>
-						<span>پیشنهادات من</span>
-					</a>
-				</li>
-
-				<li>
-					<a href="<?php echo home_url('profile?action=create-project') ?>">
-						<i class="ti-briefcase"></i>
-						<span>ایجاد پروژه</span>
-					</a>
-				</li>
-
-				<li>
-					<a href="<?php echo home_url('profile?action=my-jobs') ?>">
-						<i class="ti-briefcase"></i>
-						<span>مدیریت پروژه ها</span>
-					</a>
-				</li>
-
-				<li>
-					<a href="<?php echo wp_logout_url(site_url()); ?>">
-						<i class="ti-shift-right"></i>
-						<span> خروج از سیستم</span>
-					</a>
-				</li>
+				<?php
+				get_template_part('template-parts/menu/menu', 'top');
+				?>
 			</ul>
 		</nav>
 		<div class="wt-navdashboard-footer">
