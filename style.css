@@ -41,6 +41,11 @@ Author: جلیل نوری
     margin-bottom: 3px;
 }
 
+.wt-formsearch fieldset .form-group .form-control {
+  
+     padding-left: 5px; 
+}
+
 @media (max-width: 1680px)
 {
     .wt-openmenu .wt-companysdetails.wt-usersidebar .wt-companysimg img {

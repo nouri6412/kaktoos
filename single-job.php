@@ -145,13 +145,13 @@ get_header();
                                     <div class="wt-widget wt-companysinfo-jobsingle">
                                         <div class="wt-companysdetails">
                                             <figure class="wt-companysimg">
-                                                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/company/img-01.jpg" alt="img description">
+                                                <img src="<?php echo get_the_author_meta('avatar_bg') ?>" alt="img description">
                                             </figure>
                                             <div class="wt-companysinfo">
-                                                <figure><img src="<?php echo get_template_directory_uri(); ?>/assets/images/company/img-01.png" alt="img description"></figure>
+                                                <figure><img src="<?php echo get_the_author_meta('avatar') ?>" alt="img description"></figure>
                                                 <div class="wt-title">
                                                     <a href="javascript:void(0);"><i class="fa fa-check-circle"></i> شرکت تأیید شده</a>
-                                                    <h2> استودیو خلاق خشمگین</h2>
+                                                    <h2><?php echo get_the_author_meta('company_name') ?></h2>
                                                 </div>
                                                 <ul class="wt-postarticlemeta">
                                                     <li>
@@ -162,11 +162,6 @@ get_header();
                                                     <li>
                                                         <a href="javascript:void(0);">
                                                             <span>پروفایل کامل</span>
-                                                        </a>
-                                                    </li>
-                                                    <li class="wt-following">
-                                                        <a href="javascript:void(0);">
-                                                            <span>دنبال کننده</span>
                                                         </a>
                                                     </li>
                                                 </ul>
@@ -184,32 +179,6 @@ get_header();
                                                 <li class="wt-linkedin"><a href="javascript:void(0);"><i class="fab fa-linkedin-in"></i>اشتراک گذاری در لینکدین</a></li>
                                                 <li class="wt-googleplus"><a href="javascript:void(0);"><i class="fab fa-google-plus-g"></i>اشتراک گذاری در گوگل پلاس</a></li>
                                             </ul>
-                                        </div>
-                                    </div>
-                                    <div class="wt-widget wt-reportjob">
-                                        <div class="wt-widgettitle">
-                                            <h2>گزارش این پروژه</h2>
-                                        </div>
-                                        <div class="wt-widgetcontent">
-                                            <form class="wt-formtheme wt-formreport">
-                                                <fieldset>
-                                                    <div class="form-group">
-                                                        <span class="wt-select">
-                                                            <select>
-                                                                <option value="Reason">دلیل را انتخاب کنید</option>
-                                                                <option value="Reason1">دلیل 1</option>
-                                                                <option value="Reason2">دلیل 2</option>
-                                                            </select>
-                                                        </span>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <textarea class="form-control" placeholder="توضیحات"></textarea>
-                                                    </div>
-                                                    <div class="form-group wt-btnarea">
-                                                        <a href="javascrip:void(0);" class="wt-btn">ارسال</a>
-                                                    </div>
-                                                </fieldset>
-                                            </form>
                                         </div>
                                     </div>
                                 </aside>
