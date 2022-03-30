@@ -216,7 +216,10 @@ class Kaktos_User
             );
             wp_update_post($my_post);
         }
+        
 
+        update_post_meta($job_id,  'request_id', '0');
+        
         foreach ($data_str as $key => $item) {
             $result["html"] = $result["html"] . $key . '  - ' . $item;
 
