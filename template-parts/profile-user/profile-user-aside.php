@@ -72,6 +72,13 @@ $page_action = get_query_var('page_action');
 				</li>
 
 				<li>
+					<a href="<?php echo home_url('profile?action=my-request') ?>">
+						<i class="ti-briefcase"></i>
+						<span>پیشنهادات من</span>
+					</a>
+				</li>
+
+				<li>
 					<a href="<?php echo home_url('profile?action=create-project') ?>">
 						<i class="ti-briefcase"></i>
 						<span>ایجاد پروژه</span>
@@ -84,6 +91,8 @@ $page_action = get_query_var('page_action');
 						<span>مدیریت پروژه ها</span>
 					</a>
 				</li>
+
+
 
 				<li>
 					<a href="dashboard-profile.html">

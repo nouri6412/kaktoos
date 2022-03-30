@@ -50,6 +50,10 @@ Author: جلیل نوری
      padding: 5px 0; 
 }
 
+.wt-userlistingvtwo .wt-userlistingcontent .wt-rightarea .wt-btnarea{
+    padding: 0;
+}
+
 @media (max-width: 1680px)
 {
     .wt-openmenu .wt-companysdetails.wt-usersidebar .wt-companysimg img {
