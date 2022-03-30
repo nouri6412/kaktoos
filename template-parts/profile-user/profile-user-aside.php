@@ -70,19 +70,19 @@ $page_action = get_query_var('page_action');
 						<span>پیش نمایش پروفایل</span>
 					</a>
 				</li>
-				<li class="menu-item-has-children">
-					<a href="javascript:void(0);">
-						<i class="ti-package"></i>
-						<span>مدیریت پروژه </span>
+
+				<li>
+					<a href="<?php echo home_url('profile?action=create-project') ?>">
+						<i class="ti-briefcase"></i>
+						<span>ایجاد پروژه</span>
 					</a>
-					<ul class="sub-menu">
-						<li>
-							<hr><a href="<?php echo home_url('profile?action=create-project') ?>">ایجاد پروژه </a>
-						</li>
-						<li>
-							<hr><a href="<?php echo home_url('profile?action=my-jobs') ?>"> مدیریت پروژه ها</a>
-						</li>
-					</ul>
+				</li>
+
+				<li>
+					<a href="<?php echo home_url('profile?action=my-jobs') ?>">
+						<i class="ti-briefcase"></i>
+						<span>مدیریت پروژه ها</span>
+					</a>
 				</li>
 
 				<li>
