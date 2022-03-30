@@ -40,6 +40,13 @@
 </li>
 
 <li>
+    <a href="<?php echo home_url('profile?action=change-pass') ?>">
+        <i class="ti-briefcase"></i>
+        <span>تغییر رمز عبور</span>
+    </a>
+</li>
+
+<li>
     <a href="<?php echo wp_logout_url(site_url()); ?>">
         <i class="ti-shift-right"></i>
         <span> خروج از سیستم</span>

@@ -59,7 +59,7 @@ function ajax_submit_mbm_register(user_f_name, user_l_name, user_email, user_pas
                 }
                 else {
                     $('#step-1').removeClass('wt-active');
-                    $('#step-1').addClass('wt-done-next');                   
+                    $('#step-1').addClass('wt-done-next');
                     $('#step-2').addClass('wt-active');
                     $('#page-step-1').css('display', 'none');
                     $('#page-step-2').css('display', 'block');
@@ -93,9 +93,9 @@ function ajax_submit_mbm_register_confirm(user_confirm, element_error, element_d
         }
         else {
             $('#step-2').removeClass('wt-active');
-            $('#step-2').addClass('wt-done-next');  
-            $('#step-3').addClass('wt-done-next');  
-          //  $('#step-3').addClass('wt-active');
+            $('#step-2').addClass('wt-done-next');
+            $('#step-3').addClass('wt-done-next');
+            //  $('#step-3').addClass('wt-active');
             $('#page-step-2').css('display', 'none');
             $('#page-step-3').css('display', 'block');
         }
@@ -129,6 +129,41 @@ function ajax_submit_mbm_login(username, pass, element_error, element_done) {
         },
         complete: function () {
             jQuery('.loading-ajax').hide();
+        }
+    });
+}
+
+function ajax_submit_mbm_change_pass(data, element_error, element_done) {
+
+    var error = '';
+    element_error.html('');
+    element_done.html('');
+
+    if (data.new_pass.length == 0) {
+        error = ' رمز عبور  نباید خالی بماند';
+    }
+
+    if (data.new_pass != data.re_pass) {
+        error = 'تکرار رمز عبور صحیح نمی باشد';
+    }
+
+    var strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+
+    if (!strongRegex.test(data.new_pass)) {
+        error = '<br>' + 'رمز عبور شما حداقل باید 8 کاراکتر باشد و شامل حداقل یک حرف بزرگ و کوچک انگلیسی و حروف خاص مانند @,$ باشد';
+    }
+
+    if (error.length > 0) {
+        element_error.html(error);
+        return;
+    }
+
+    custom_theme_mbm_base_ajax(data, function (result) {
+        if (result.state == 0) {
+            element_error.html('<p>' + result.message + '</p>');
+        }
+        else {
+            element_done.html('<p>' + result.message + '</p>');
         }
     });
 }

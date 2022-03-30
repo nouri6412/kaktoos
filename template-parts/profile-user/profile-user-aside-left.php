@@ -9,12 +9,6 @@ $page_action = get_query_var('page_action');
 			<figure class="tg-qrcodeimg">
 				<img src="<?php echo get_template_directory_uri(); ?>/assets/images/qrcode.png" alt="img description">
 			</figure>
-			<div class="tg-qrcodedetail">
-				<span class="lnr lnr-laptop-phone"></span>
-				<div class="tg-qrcodefeat">
-					<h3>اسکن کنید با <span>تلفن هوشمند خود </span>برای دستیابی به آن.</h3>
-				</div>
-			</div>
 			<div class="wt-codescanicons">
 				<span> پروفایل خود را به اشتراک بگذارید</span>
 				<ul class="wt-socialiconssimple">
