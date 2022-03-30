@@ -63,7 +63,7 @@ get_header();
                                             <li><span><i class="far fa-clock"></i> <?php echo 'زمان' . ' : ' . get_post_meta(get_the_ID(), 'time', true) . ' ' . 'روز'; ?> </span></li>
                                         </ul>
                                     </div>
-                                    <div class="wt-btnarea"><a href="<?php  echo home_url('request?id='.get_the_ID()) ?>" class="wt-btn">ارسال پیشنهاد</a></div>
+                                    <div class="wt-btnarea"><a href="<?php echo home_url('request?id=' . get_the_ID()) ?>" class="wt-btn">ارسال پیشنهاد</a></div>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-8 float-right">
@@ -121,22 +121,22 @@ get_header();
                                     <div class="wt-proposalsr">
                                         <div class="wt-proposalsrcontent">
                                             <span class="wt-proposalsicon"><i class="fa fa-angle-double-down"></i><i class="fa fa-newspaper"></i></span>
-                                           <a href="<?php  echo home_url('requests?id='.get_the_ID()) ?>">
-                                           <div class="wt-title">
-                                               <?php
-$args = array(
-    'post_type' => 'request',
-    'post_status' => 'publish',
-    'meta_key' => 'job_id',
-    'meta_value' => get_the_ID()
-);
-$the_query = new WP_Query($args);
-$count = $the_query->post_count;
-wp_reset_query();
-                                               ?>
-                                                <h3><?php echo $count.' '.'پیشنهاد' ?></h3>
-                                            </div>
-                                           </a>
+                                            <a href="<?php echo home_url('requests?id=' . get_the_ID()) ?>">
+                                                <div class="wt-title">
+                                                    <?php
+                                                    $args = array(
+                                                        'post_type' => 'request',
+                                                        'post_status' => 'publish',
+                                                        'meta_key' => 'job_id',
+                                                        'meta_value' => get_the_ID()
+                                                    );
+                                                    $the_query = new WP_Query($args);
+                                                    $count = $the_query->post_count;
+                                                    wp_reset_query();
+                                                    ?>
+                                                    <h3><?php echo $count . ' ' . 'پیشنهاد' ?></h3>
+                                                </div>
+                                            </a>
                                         </div>
                                     </div>
                                     <div class="wt-widget wt-companysinfo-jobsingle">
