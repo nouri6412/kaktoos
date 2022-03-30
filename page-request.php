@@ -58,7 +58,7 @@ if ($job_id == 0) {
                                 <?php if (isset($_GET["created"])) { ?>
                                     <li class="alert alert-success alert-dismissible fade show">
                                         <span>پیشنهاد شما با موفقیت ارسال گردید </span>
-                                        <a href="<?php echo get_the_permalink($job_id); ?>" class="wt-alertbtn primary">مشاهده</a>
+                                        <a href="<?php echo home_url('requests?id='.$job_id); ?>" class="wt-alertbtn primary">مشاهده</a>
                                         <a href="javascript:void(0)" class="for-close" data-dismiss="alert" aria-label="Close"><i class="fa fa-close"></i></a>
                                     </li>
                                 <?php } ?>

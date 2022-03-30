@@ -121,25 +121,22 @@ get_header();
                                     <div class="wt-proposalsr">
                                         <div class="wt-proposalsrcontent">
                                             <span class="wt-proposalsicon"><i class="fa fa-angle-double-down"></i><i class="fa fa-newspaper"></i></span>
-                                            <div class="wt-title">
-                                                <h3>150</h3>
-                                                <span>پیشنهادات دریافتی تا <em>27 اردیبهشت 1399</em></span>
+                                           <a href="<?php  echo home_url('requests?id='.get_the_ID()) ?>">
+                                           <div class="wt-title">
+                                               <?php
+$args = array(
+    'post_type' => 'request',
+    'post_status' => 'publish',
+    'meta_key' => 'job_id',
+    'meta_value' => get_the_ID()
+);
+$the_query = new WP_Query($args);
+$count = $the_query->post_count;
+wp_reset_query();
+                                               ?>
+                                                <h3><?php echo $count.' '.'پیشنهاد' ?></h3>
                                             </div>
-                                        </div>
-                                        <div class="tg-authorcodescan">
-                                            <figure class="tg-qrcodeimg">
-                                                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/qrcode.png" alt="img description">
-                                            </figure>
-                                            <div class="tg-qrcodedetail">
-                                                <span class="lnr lnr-laptop-phone"></span>
-                                                <div class="tg-qrcodefeat">
-                                                    <h3>اسکن کنید با <span>تلفن هوشمند خود </span>برای دستیابی به آن.</h3>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="wt-clicksavearea">
-                                            <span>آیدی پروژه : tQu5DW9F2G</span>
-                                            <a href="javascrip:void(0);" class="wt-clicksavebtn"><i class="far fa-heart"></i> برای ذخیره کلیک کنید</a>
+                                           </a>
                                         </div>
                                     </div>
                                     <div class="wt-widget wt-companysinfo-jobsingle">
