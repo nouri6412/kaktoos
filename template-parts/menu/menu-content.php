@@ -8,7 +8,7 @@ $menus = [];
 //var_dump($primaryNav);
 $menus = get_menu_array_nav_item($primaryNav);
 ?>
-<ul class="nav navbar-nav">
+<ul class="navbar-nav">
     <?php
     foreach ($menus[0] as $navItem) {
         custom_generate_menu_li($navItem, $menus);

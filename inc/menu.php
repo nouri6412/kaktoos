@@ -13,6 +13,6 @@ function get_menu_array_nav_item($main_menu)
 function kaktos_custom_menu()
 {
     register_nav_menu('primary-menu', 'منوی اصلی ');
-    register_nav_menu('emp-menu', 'منوی کارفرمایان ');
+   // register_nav_menu('emp-menu', 'منوی کارفرمایان ');
 }
 add_action('init', 'kaktos_custom_menu');

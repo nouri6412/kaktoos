@@ -32,16 +32,9 @@ function custom_generate_menu_li($navItem, $menu)
 {
     $item_class = "";
     $i = '';
-    $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-    if (trim($actual_link) == $navItem->url && $navItem->menu_item_parent == 0) {
-        $item_class = 'active';
-    }
+    $item_class="nav-item";
     if (isset($menu[$navItem->ID])) {
-        if ($navItem->menu_item_parent == 0) {
-            $i = '<i class="fa fa-chevron-down"></i>';
-        } else {
-            $i = '<i class="fa fa-angle-right"></i>';
-        }
+      $item_class="menu-item-has-children page_item_has_children";
     }
 ?>
     <li class="<?php echo $item_class; ?>">

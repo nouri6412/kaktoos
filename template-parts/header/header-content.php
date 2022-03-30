@@ -26,76 +26,9 @@
                                             <i class="lnr lnr-menu"></i>
                                         </button>
                                         <div class="collapse navbar-collapse wt-navigation" id="navbarNav">
-                                            <ul class="navbar-nav">
-                                                <li class="menu-item-has-children page_item_has_children">
-                                                    <a href="javascript:void(0);">اصلی</a>
-                                                    <ul class="sub-menu">
-                                                        <li class="menu-item-has-children page_item_has_children wt-notificationicon"><span class="wt-dropdowarrow"><i class="lnr lnr-chevron-left"></i></span>
-                                                            <a href="javascript:void(0);">صفحه اصلی</a>
-                                                            <ul class="sub-menu">
-                                                                <li><a href="index-2.html">صفحه اصلی 1</a></li>
-                                                                <li class="wt-newnoti"><a href="indexvtwo.html">صفحه اصلی 2<em>بدون ورود به سیستم</em></a></li>
-                                                            </ul>
-                                                        </li>
-                                                        <li class="menu-item-has-children page_item_has_children"><span class="wt-dropdowarrow"><i class="lnr lnr-chevron-left"></i></span>
-                                                            <a href="javascript:void(0);">مقاله</a>
-                                                            <ul class="sub-menu">
-                                                                <li><a href="articlelist.html">لیست مقاله</a></li>
-                                                                <li><a href="articlegrid.html">شبکه مقاله</a></li>
-                                                                <li><a href="articlesingle.html">مقاله مجرد</a></li>
-                                                                <li><a href="articleclassic.html">مقاله کلاسیک</a></li>
-                                                            </ul>
-                                                        </li>
-                                                        <li class="menu-item-has-children page_item_has_children"><span class="wt-dropdowarrow"><i class="lnr lnr-chevron-left"></i></span>
-                                                            <a href="javascript:void(0);">شرکت</a>
-                                                            <ul class="sub-menu">
-                                                                <li><a href="companygrid.html">شبکه شرکت</a></li>
-                                                                <li><a href="companysigle.html">شرکت مجرد</a></li>
-                                                            </ul>
-                                                        </li>
-                                                        <li>
-                                                            <a href="about.html">درباره</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="privacypolicy.html">سیاست حفظ حریم خصوصی</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="comingsoon.html">به زودی</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="404page.html">صفحه 404</a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="howitworks.html">چگونه کار می کند</a>
-                                                </li>
-                                                <li class="menu-item-has-children page_item_has_children">
-                                                    <a href="javascript:void(0);">مرور مشاغل</a>
-                                                    <ul class="sub-menu">
-                                                        <li>
-                                                            <a href="joblisting.html">لیست مشاغل</a>
-                                                        </li>
-                                                        <li class="current-menu-item">
-                                                            <a href="jobsingle.html">مشاغل مجرد</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="jobproposal.html">پیشنهاد شغل</a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <li class="menu-item-has-children page_item_has_children">
-                                                    <a href="javascript:void(0);">مشاهده فریلنسرها</a>
-                                                    <ul class="sub-menu">
-                                                        <li>
-                                                            <a href="userlisting.html">لیست کاربران</a>
-                                                        </li>
-                                                        <li class="current-menu-item">
-                                                            <a href="usersingle.html">کاربر مجرد</a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
+                                            <?php
+                                            get_template_part('template-parts/menu/menu', 'content');
+                                            ?>
                                         </div>
                                     </nav>
                                     <?php
