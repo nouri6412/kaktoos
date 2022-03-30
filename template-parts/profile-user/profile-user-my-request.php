@@ -40,13 +40,15 @@ $count = $the_query->post_count;
                             while ($the_query->have_posts()) :
                                 $the_query->the_post();
                                 $job_id = get_post_meta(get_the_ID(), 'job_id', true);
+                                $request_id = get_post_meta($job_id, 'request_id', true);
                             ?>
                                 <div class="wt-userlistinghold wt-featured wt-userlistingvtwo">
                                     <span class="wt-featuredtag wt-featuredtagcolor3"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/featured.png" alt="img description" data-tipso="Plus Member" class="template-content tipso_style"></span>
                                     <div class="wt-userlistingcontent">
                                         <div class="wt-contenthead">
                                             <div class="wt-title">
-                                                <h2> <?php echo get_the_title($job_id); ?></h2>
+                                                <h2> <?php echo get_the_title($job_id);echo ($request_id==$user_id)?'<span style="margin-right: 10px;
+    color: #08d518;">(استخدام شدم)</span>':''; ?></h2>
                                             </div>
                                             <ul class="wt-saveitem-breadcrumb wt-userlisting-breadcrumb">
                                                 <li><span><i class="fa fa-dollar-sign wt-viewjobdollar"></i><?php echo ' ' . get_post_meta($job_id, 'min_price', true) . ' - ' . get_post_meta($job_id, 'max_price', true); ?></span></li>
@@ -61,7 +63,6 @@ $count = $the_query->post_count;
                                                 <li><span><i class="fa fa-dollar-sign wt-viewjobdollar"></i><?php echo 'قیمت پیشنهادی من' . ' : ' .get_post_meta(get_the_ID(), 'price', true) . ' ' . 'دلار' ?></span></li>
                                                 <li><span><i class="far fa-clock wt-viewjobclock"></i><?php echo 'زمان پیشنهادی من' . ' : ' . get_post_meta(get_the_ID(), 'time', true) . ' ' . 'روز'; ?></span></li>
                                                 <li><span><i class="far fa-clock wt-viewjobclock"></i><?php echo get_the_date(); ?></span></li>
-
                                             </ul>
                                             <div style="margin-top: 8px;">
                                                     <?php echo get_post_meta(get_the_ID(), 'desc', true) ?>
