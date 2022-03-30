@@ -65,10 +65,10 @@ get_header();
                                     </div>
                                     <?php
                                     $request_id = get_post_meta(get_the_ID(), 'request_id', true);
-                                    if ($request_id == 0) {
+                                    if ($request_id == 0 && is_user_logged_in()) {
                                     ?>
                                         <div class="wt-btnarea"><a href="<?php echo home_url('request?id=' . get_the_ID()) ?>" class="wt-btn">ارسال پیشنهاد</a></div>
-                                    <?php } else {
+                                    <?php } else if(is_user_logged_in()) {
                                     ?>
                                         <div class="wt-btnarea"><a href="#" class="wt-btn">پروژه بسته شد</a></div>
 
