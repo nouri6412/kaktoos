@@ -1,3 +1,5 @@
+<?php $user_id = get_current_user_id(); ?>
+
 <body class="wt-login">
     <!--[if lt IE 8]>
 		<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -167,90 +169,59 @@
                                     ?>
                                         <div style="display: block;" class="wt-userlogedin">
                                             <figure class="wt-userimg">
-                                                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/user-img.jpg" alt="image description">
+                                                <?php
+                                                $avatar = get_template_directory_uri() . "/assets/img/male.jpg";
+                                                if (get_the_author_meta('user_sex', $user_id) == "female") {
+                                                    $avatar = get_template_directory_uri() . "/assets/img/female.jpg";
+                                                }
+                                                if (strlen(get_the_author_meta('avatar', $user_id)) > 0) {
+                                                    $avatar = get_the_author_meta('avatar', $user_id);
+                                                }
+                                                ?>
+                                                <img src="<?php echo $avatar; ?>" alt="image description">
                                             </figure>
                                             <div class="wt-username">
-                                                <h3> پریسا محمدی</h3>
-                                                <span>پریسا محمدی</span>
+                                                <h3> <?php echo get_the_author_meta('user_name', $user_id) ?></h3>
                                             </div>
                                             <nav class="wt-usernav">
                                                 <ul>
-                                                    <li class="menu-item-has-children page_item_has_children">
-                                                        <a href="javascript:void(0);">
-                                                            <span>بینش </span>
-                                                        </a>
-                                                        <ul class="sub-menu children">
-                                                            <li><a href="dashboard-insights.html">بینش ها</a></li>
-                                                            <li><a href="dashboard-insightsuser.html">بینش کاربر</a></li>
-                                                        </ul>
-                                                    </li>
-                                                    <li>
-                                                        <a href="dashboard-profile.html">
+                                                    <li class="wt-active">
+                                                        <a href="<?php echo home_url('profile') ?>">
+                                                            <i class="ti-briefcase"></i>
                                                             <span>پروفایل من</span>
                                                         </a>
                                                     </li>
-                                                    <li class="menu-item-has-children">
-                                                        <a href="javascript:void(0);">
-                                                            <span>همه مشاغل</span>
-                                                        </a>
-                                                        <ul class="sub-menu">
-                                                            <li><a href="dashboard-completejobs.html">مشاغل تکمیل شده</a></li>
-                                                            <li><a href="dashboard-canceljobs.html">مشاغل لغو شده</a></li>
-                                                            <li><a href="dashboard-ongoingjob.html">مشاغل مداوم</a></li>
-                                                            <li><a href="dashboard-ongoingsingle.html">مجرد مداوم</a></li>
-                                                        </ul>
-                                                    </li>
                                                     <li>
-                                                        <a href="dashboard-managejobs.html">
-                                                            <span>مدیریت مشاغل</span>
+                                                        <a target="_Blank" href="<?php echo home_url('user-view?id=' . $user_info->ID) ?>">
+                                                            <i class="ti-briefcase"></i>
+                                                            <span>پیش نمایش پروفایل</span>
                                                         </a>
                                                     </li>
-                                                    <li class="wt-notificationicon menu-item-has-children">
-                                                        <a href="javascript:void(0);">
-                                                            <span>پیام ها</span>
-                                                        </a>
-                                                        <ul class="sub-menu">
-                                                            <li><a href="dashboard-messages.html">پیام ها</a></li>
-                                                            <li><a href="dashboard-messages2.html">پیام ها 2</a></li>
-                                                        </ul>
-                                                    </li>
+
                                                     <li>
-                                                        <a href="dashboard-saveitems.html">
-                                                            <span> موارد ذخیره شده من </span>
+                                                        <a href="<?php echo home_url('profile?action=my-request') ?>">
+                                                            <i class="ti-briefcase"></i>
+                                                            <span>پیشنهادات من</span>
                                                         </a>
                                                     </li>
+
                                                     <li>
-                                                        <a href="dashboard-invocies.html">
-                                                            <span>فاکتورها </span>
+                                                        <a href="<?php echo home_url('profile?action=create-project') ?>">
+                                                            <i class="ti-briefcase"></i>
+                                                            <span>ایجاد پروژه</span>
                                                         </a>
                                                     </li>
+
                                                     <li>
-                                                        <a href="dashboard-category.html">
-                                                            <span>دسته بندی</span>
+                                                        <a href="<?php echo home_url('profile?action=my-jobs') ?>">
+                                                            <i class="ti-briefcase"></i>
+                                                            <span>مدیریت پروژه ها</span>
                                                         </a>
                                                     </li>
+
                                                     <li>
-                                                        <a href="dashboard-packages.html">
-                                                            <span>بسته ها</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="dashboard-proposals.html">
-                                                            <span>پیشنهادات</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="dashboard-accountsettings.html">
-                                                            <span>تنظیمات حساب</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="dashboard-helpsupport.html">
-                                                            <span>راهنما و پشتیبانی</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="index-2.html">
+                                                        <a href="<?php echo wp_logout_url(site_url()); ?>">
+                                                            <i class="ti-shift-right"></i>
                                                             <span> خروج از سیستم</span>
                                                         </a>
                                                     </li>
