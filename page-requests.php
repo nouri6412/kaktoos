@@ -8,14 +8,25 @@
  * @package WordPress
  * @subpackage Kaktos
  * @since 1.0.0
- * Template Name: پروژه ها
+ * Template Name: پیشنهادات پروژه
  */
 
 get_header();
+$user_id = get_current_user_id();
+$job_id = 0;
+if (isset($_GET["id"])) {
+    $job_id = $_GET["id"];
+}
 
+if ($job_id == 0) {
+    get_footer();
+    return;
+}
 $args = array(
     'post_type' => 'request',
-    'post_status' => 'publish'
+    'post_status' => 'publish',
+    'meta_key' => 'job_id',
+    'meta_value' => $job_id
 );
 $the_query = new WP_Query($args);
 $count = $the_query->post_count;
@@ -28,11 +39,11 @@ $count = $the_query->post_count;
             <div class="col-xs-12 col-sm-12 col-md-8 push-md-2 col-lg-6 push-lg-3">
                 <div class="wt-innerbannercontent">
                     <div class="wt-title">
-                        <h2>جستجوی پروژه ها </h2>
+                        <h2><?php echo get_the_title($job_id); ?> </h2>
                     </div>
                     <ol class="wt-breadcrumb">
                         <li><a href="<?php echo home_url();  ?>">صفحه اصلی</a></li>
-                        <li class="wt-active"> پروژه ها </li>
+                        <li class="wt-active"> پیشنهادات پروژه</li>
                     </ol>
                 </div>
             </div>
@@ -48,144 +59,10 @@ $count = $the_query->post_count;
             <div class="container">
                 <div class="row">
                     <div id="wt-twocolumns" class="wt-twocolumns wt-haslayout">
-                        <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-4 float-right">
-                            <aside id="wt-sidebar" class="wt-sidebar">
-                                <form action="<?php echo home_url('search-job'); ?>" method="get">
-                                    <div style="padding-top: 5px;padding-bottom:5px" class="wt-widget wt-effectiveholder">
-                                        <div class="wt-widgettitle">
-                                            <h2>جستجو </h2>
-                                        </div>
-                                        <div class="wt-widgetcontent">
-                                            <div class="wt-formtheme wt-formsearch">
-                                                <fieldset>
-                                                    <div class="form-group">
-                                                        <input value="<?php echo isset($_GET["search_word"]) ? $_GET["search_word"] : '' ?>" type="text" id="search_word" name="search_word" class="form-control input-profile" placeholder="کلمه جستجو">
-                                                    </div>
-                                                </fieldset>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div style="padding-top: 5px;padding-bottom:5px" class="wt-widget wt-effectiveholder">
-                                        <div class="wt-widgetcontent">
-                                            <div class="wt-formtheme wt-formsearch">
-                                                <label>دسته بندی پروژه</label>
-                                                <span class="wt-select">
-                                                    <select id="cat_id" name="cat_id" class="input-profile">
-                                                        <option value="">انتخاب دسته بندی</option>
-                                                        <?php
-                                                        $args = array(
-                                                            'post_type' => 'job-cat'
-                                                        );
-                                                        $the_query1 = new WP_Query($args);
-                                                        ?>
-                                                        <?php
-                                                        while ($the_query1->have_posts()) :
-                                                            $the_query1->the_post();
-                                                            $selected = "";
-                                                            $cat_id = isset($_GET["cat_id"]) ? $_GET["cat_id"] : '0';
-
-                                                            if ($cat_id == get_the_ID()) {
-                                                                $selected = "selected";
-                                                            }
-                                                        ?>
-                                                            <option <?php echo $selected ?> value="<?php echo get_the_ID(); ?>"><?php echo get_the_title(); ?></option>
-                                                        <?php
-                                                        endwhile;
-                                                        wp_reset_query();
-                                                        ?>
-                                                    </select>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div style="padding-top: 5px;padding-bottom:5px" class="wt-widget wt-effectiveholder">
-                                        <div class="wt-widgettitle">
-                                            <h2>مهارت های لازم</h2>
-                                        </div>
-                                        <div class="wt-widgetcontent">
-                                            <div class="wt-formtheme wt-formsearch">
-                                                <span class="wt-select">
-                                                    <select id="skill_id" name="skill_id">
-                                                        <option value=""> انتخاب مهارت </option>
-                                                        <?php
-                                                        $args = array(
-                                                            'post_type' => 'skill'
-                                                        );
-                                                        $the_query1 = new WP_Query($args);
-                                                        ?>
-                                                        <?php
-                                                        while ($the_query1->have_posts()) :
-                                                            $the_query1->the_post();
-                                                            $selected = "";
-                                                            $cat_id = isset($_GET["skill_id"]) ? $_GET["skill_id"] : '0';
-
-                                                            if ($cat_id == get_the_ID()) {
-                                                                $selected = "selected";
-                                                            }
-                                                        ?>
-                                                            <option <?php echo $selected ?> value="<?php echo get_the_ID(); ?>"><?php echo get_the_title(); ?></option>
-                                                        <?php
-                                                        endwhile;
-                                                        wp_reset_query();
-                                                        ?>
-                                                    </select>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div style="padding-top: 5px;padding-bottom:5px" class="wt-widget wt-effectiveholder">
-                                        <div class="wt-widgettitle">
-                                            <h2>زمان پروژه </h2>
-                                        </div>
-                                        <div class="wt-widgetcontent">
-                                            <div class="wt-formtheme wt-formsearch">
-                                                <fieldset>
-                                                    <div class="form-group form-group-half">
-                                                        <label>حداقل (روز)</label>
-                                                        <input value="<?php echo isset($_GET["min_time"]) ? $_GET["min_time"] : '' ?>" type="number" name="min_time" id="min_time" class="form-control input-profile" placeholder="حداقل (روز)">
-                                                    </div>
-                                                    <div class="form-group form-group-half">
-                                                        <label>حداکثر (روز)</label>
-                                                        <input value="<?php echo isset($_GET["max_time"]) ? $_GET["max_time"] : '' ?>" type="number" name="max_time" id="max_time" class="form-control input-profile" placeholder="حداکثر (روز)">
-                                                    </div>
-                                                </fieldset>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div style="padding-top: 5px;padding-bottom:5px" class="wt-widget wt-effectiveholder">
-                                        <div class="wt-widgettitle">
-                                            <h2>بودجه پروژه </h2>
-                                        </div>
-                                        <div class="wt-widgetcontent">
-                                            <div class="wt-formtheme wt-formsearch">
-                                                <fieldset>
-                                                    <div class="form-group form-group-half">
-                                                        <label>حداقل (دلار)</label>
-                                                        <input value="<?php echo isset($_GET["min_price"]) ? $_GET["min_price"] : '' ?>" type="number" id="min_price" name="min_price" class="form-control input-profile" placeholder="حداقل (دلار)">
-                                                    </div>
-                                                    <div class="form-group form-group-half">
-                                                        <label>حداکثر (دلار)</label>
-                                                        <input value="<?php echo isset($_GET["max_price"]) ? $_GET["max_price"] : '' ?>" type="number" id="max_price" name="max_price" class="form-control input-profile" placeholder="حداکثر (دلار)">
-                                                    </div>
-                                                </fieldset>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div style="padding-top: 5px;padding-bottom:5px" class="wt-widget wt-effectiveholder">
-                                        <div class="wt-widgetcontent">
-                                            <div class="wt-applyfilters">
-                                                <span> روی "اعمال فیلتر" کلیک کنید تا آخرین تغییرات ایجاد شده توسط شما را اعمال کنید. </span>
-                                                <button type="submit" class="wt-btn">اعمال فیلتر </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </aside>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-8 float-left">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 float-left">
                             <div class="wt-userlistingholder wt-haslayout">
                                 <div class="wt-userlistingtitle">
-                                    <span><?php echo $count . ' ' . 'نتیجه'; ?></span>
+                                    <span><?php echo $count . ' ' . 'پیشنهاد'; ?></span>
                                 </div>
                                 <?php
                                 while ($the_query->have_posts()) :
@@ -196,38 +73,17 @@ $count = $the_query->post_count;
                                         <div class="wt-userlistingcontent">
                                             <div class="wt-contenthead">
                                                 <div class="wt-title">
-                                                    <a href="usersingle.html"><i class="fa fa-check-circle"></i><?php echo (strlen(get_the_author_meta('company_name')) > 0) ? get_the_author_meta('company_name') : get_the_author_meta('user_name') ?></a>
-                                                    <h2><?php echo get_post_meta(get_the_ID(), 'title', true) ?></h2>
+                                                    <a href="usersingle.html"><i class="fa fa-check-circle"></i><?php echo get_the_author_meta('user_name'); ?></a>
                                                 </div>
                                                 <div class="wt-description">
-                                                    <p><?php echo  wp_trim_words(get_post_meta(get_the_ID(), 'desc', true), 50, null) ?></p>
-                                                </div>
-                                                <div class="wt-tag wt-widgettag">
-                                                    <?php
-                                                    $json = json_decode(get_post_meta(get_the_ID(), 'skills', true), true);
-                                                    if (is_array($json)) {
-                                                        foreach ($json as $item) {
-                                                            $skill = $item["skill"];
-                                                            $sk = get_post($skill);
-                                                    ?>
-                                                            <a href="javascript:void(0);"> <?php echo $sk->post_title ?></a>
-                                                    <?php
-                                                        }
-                                                    }
-                                                    ?>
+                                                    <p><?php echo  get_post_meta(get_the_ID(), 'desc', true) ?></p>
                                                 </div>
                                             </div>
                                             <div class="wt-viewjobholder">
                                                 <ul>
-                                                    <li><span><i class="fa fa-dollar-sign wt-viewjobdollar"></i><?php echo ' ' . get_post_meta(get_the_ID(), 'min_price', true) . ' - ' . get_post_meta(get_the_ID(), 'max_price', true); ?></span></li>
-                                                    <li><span><?php echo get_the_author_meta('user_country'); ?></span></li>
-                                                    <li><span><i class="far fa-folder wt-viewjobfolder"></i> <?php $cat = get_post(get_post_meta(get_the_ID(), 'cat_id', true));
-                                                    echo $cat->post_title; ?></span></li>
+                                                    <li><span><i class="fa fa-dollar-sign wt-viewjobdollar"></i><?php echo ' ' . get_post_meta(get_the_ID(), 'price', true) ; ?></span></li>
                                                     <li><span><i class="far fa-clock wt-viewjobclock"></i><?php echo 'زمان' . ' : ' . get_post_meta(get_the_ID(), 'time', true) . ' ' . 'روز'; ?></span></li>
                                                     <li><span><i class="far fa-clock "></i><?php echo  get_the_date() ; ?></span></li>
-
-                                                    <li><a href="javascript:void(0);" class="wt-clicklike wt-clicksave"><i class="fa fa-heart"></i> ذخیره</a></li>
-                                                    <li class="wt-btnarea"><a href="<?php echo get_the_permalink(); ?>" class="wt-btn">مشاهده شغل</a></li>
                                                 </ul>
                                             </div>
                                         </div>

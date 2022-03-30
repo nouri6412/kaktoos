@@ -132,17 +132,20 @@ class Kaktos_User
 
 
         $args_post = array(
-            'post_title'   => get_the_author_meta('user_name', $user_id),
+            'post_title'   => get_the_author_meta('user_name', $user_id).' '.date('Y-m-d H:i:s'),
             'post_type'    => 'request',
             'post_author'  => $user_id,
             'post_status'  => 'publish',
             'post_content'      => $data_str["desc"]
         );
 
+        $id=$job_id;
 
-        if ($job_id == 0) {
+
             $job_id = wp_insert_post($args_post);
-        }
+  
+
+        update_post_meta($job_id,  "job_id", $id);
 
         foreach ($data_str as $key => $item) {
             $result["html"] = $result["html"] . $key . '  - ' . $item;
@@ -159,7 +162,7 @@ class Kaktos_User
         //    update_user_meta($user_id, $meta_key, $meta_value);
 
         $result["state"] = 1;
-        $result["job_id"] = $job_id;
+        $result["job_id"] = $id;
         $result["message"] = 'با موفقیت ذخیره شد';
 
         echo json_encode($result);
