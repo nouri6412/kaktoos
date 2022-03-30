@@ -1,6 +1,6 @@
 <?php
 
-/**
+/** 
  * The template for displaying job single posts
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#single-post
@@ -52,7 +52,7 @@ get_header();
                                 <div class="wt-proposalholder">
                                     <span class="wt-featuredtag"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/featured.png" alt="img description" data-tipso="Plus Member" class="template-content tipso_style"></span>
                                     <div class="wt-proposalhead">
-                                        <h2><?php the_title(); ?></h2>
+                                        <h2><?php echo get_the_title(); ?></h2>
                                         <ul class="wt-userlisting-breadcrumb wt-userlisting-breadcrumbvtwo">
                                             <li><span><i class="fa fa-dollar-sign"></i><i class="fa fa-dollar-sign"></i><i class="fa fa-dollar-sign"></i><?php echo ' ' . get_post_meta(get_the_ID(), 'min_price', true) . ' - ' . get_post_meta(get_the_ID(), 'max_price', true); ?></span></li>
                                             <li><span> <?php echo get_the_author_meta('user_country'); ?> </span></li>
