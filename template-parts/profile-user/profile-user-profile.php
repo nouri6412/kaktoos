@@ -41,6 +41,9 @@ $user_meta = get_query_var('user_meta');
                                 <div class="form-group form-group-half">
                                     <input value="<?php echo isset($user_meta["company_name"]) ? $user_meta["company_name"][0] : ''; ?>" type="text" name="first name" data-id="company_name" class="form-control input-profile" placeholder="نام شرکت">
                                 </div>
+                                <div class="form-group">
+                                    <input value="<?php echo isset($user_meta["job_title"]) ? $user_meta["job_title"][0] : ''; ?>" type="text" name="first name" data-id="job_title" class="form-control input-profile" placeholder="عنوان شغلی">
+                                </div>
                                 <div class="form-group form-group-half">
                                     <input value="<?php echo isset($user_meta["user_nerx"]) ? $user_meta["user_nerx"][0] : ''; ?>" type="number" name="rate" class="form-control input-profile" data-id="user_nerx" placeholder="نرخ ساعتی خدمات شما (دلار)">
                                 </div>

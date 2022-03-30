@@ -64,6 +64,12 @@ $page_action = get_query_var('page_action');
 						<span>پروفایل من</span>
 					</a>
 				</li>
+				<li>
+					<a target="_Blank" href="<?php echo home_url('user-view?id='.$user_info->ID) ?>">
+						<i class="ti-briefcase"></i>
+						<span>پیش نمایش پروفایل</span>
+					</a>
+				</li>
 				<li class="menu-item-has-children">
 					<a href="javascript:void(0);">
 						<i class="ti-package"></i>
