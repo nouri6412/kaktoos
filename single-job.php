@@ -63,7 +63,17 @@ get_header();
                                             <li><span><i class="far fa-clock"></i> <?php echo 'زمان' . ' : ' . get_post_meta(get_the_ID(), 'time', true) . ' ' . 'روز'; ?> </span></li>
                                         </ul>
                                     </div>
-                                    <div class="wt-btnarea"><a href="<?php echo home_url('request?id=' . get_the_ID()) ?>" class="wt-btn">ارسال پیشنهاد</a></div>
+                                    <?php
+                                    $request_id = get_post_meta(get_the_ID(), 'request_id', true);
+                                    if ($request_id == 0) {
+                                    ?>
+                                        <div class="wt-btnarea"><a href="<?php echo home_url('request?id=' . get_the_ID()) ?>" class="wt-btn">ارسال پیشنهاد</a></div>
+                                    <?php } else {
+                                    ?>
+                                        <div class="wt-btnarea"><a href="#" class="wt-btn">پروژه بسته شد</a></div>
+
+                                    <?php
+                                    } ?>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-8 float-right">
