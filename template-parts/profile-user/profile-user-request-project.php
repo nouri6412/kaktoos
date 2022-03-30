@@ -58,7 +58,7 @@ $count = $the_query->post_count;
                                     <div class="wt-proposaldetails">
                                         <div class="wt-contenthead">
                                             <div class="wt-title">
-                                                <a href="usersingle.html"><?php echo get_the_author_meta('user_name'); ?></a>
+                                                <a target="_Blank" href="<?php  echo home_url('user-view?id='.get_the_author_meta('ID')) ?>"><?php echo get_the_author_meta('user_name'); ?></a>
                                             </div>
                                         </div>
                                     </div>

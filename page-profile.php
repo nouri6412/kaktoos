@@ -52,7 +52,10 @@ set_query_var('user_meta', $user_meta);
                 get_template_part('template-parts/profile-user/profile-user', 'aside-left');
             } else {
             ?>
-                <a href="#"><i class="fa fa-lock"></i> لطفا وارد سایت شوید </a>
+            <div style="height: 500px;">
+            <a href="#"><i class="fa fa-lock"></i> لطفا وارد سایت شوید </a>
+
+            </div>
             <?php
             }
             ?>
