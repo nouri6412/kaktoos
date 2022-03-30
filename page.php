@@ -13,7 +13,7 @@
 get_header();
 ?>
 <!-- Content -->
-<div class="page-content bg-white">
+
     <?php
 
     // Start the Loop.
@@ -24,7 +24,7 @@ get_header();
 
     endwhile; // End the loop.
     ?>
-</div>
+
 <!-- Content END-->
 <?php
 get_footer();
