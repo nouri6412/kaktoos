@@ -32,7 +32,7 @@ get_header();
                             </div>
                             <ol class="wt-breadcrumb">
                                 <li><a href="<?php echo home_url() ?>">صفحه اصلی</a></li>
-                                <li><a href="<?php echo home_url("search-job") ?>"> مشاغل </a></li>
+                                <li><a href="<?php echo home_url("search-job") ?>"> پروژه ها </a></li>
                                 <li class="wt-active">جزئیات پروژه</li>
                             </ol>
                         </div>
