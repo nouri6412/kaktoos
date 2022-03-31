@@ -8,8 +8,8 @@
 			                        <h2><?php  echo get_the_title(); ?></h2>
 			                    </div>
 			                    <ol class="wt-breadcrumb">
-			                        <li><a href="index-2.html">صفحه اصلی</a></li>
-			                        <li><a href="javascript:void(0);">مقالات</a></li>
+			                        <li><a href="<?php echo home_url() ?>">صفحه اصلی</a></li>
+			                        <li><a href="<?php echo home_url('blog') ?>">مقالات</a></li>
 			                        <li class="wt-active">جزئیات مقاله</li>
 			                    </ol>
 			                </div>
