@@ -91,11 +91,6 @@ $user_meta = get_query_var('user_meta');
                                                         ?>
                                                         <img id="profile-avatar" src="<?php echo $avatar; ?>">
                                                     </figure>
-                                                    <div class="wt-uploadingbar wt-uploading">
-                                                        <span class="uploadprogressbar"></span>
-                                                        <span>Profile Photo.jpg</span>
-                                                        <em>سایز فایل : 300 کیلوبایت<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                    </div>
                                                 </div>
                                             </li>
                                         </ul>
@@ -138,11 +133,6 @@ $user_meta = get_query_var('user_meta');
                                                             ?>
                                                             <img id="profile-avatar-bg" src="<?php echo $avatar; ?>">
                                                             <i class="fa fa-check"></i></label>
-                                                    </div>
-                                                    <div class="wt-uploadingbar">
-                                                        <span class="uploadprogressbar"></span>
-                                                        <span>Banner Photo.jpg</span>
-                                                        <em>سایز فایل : 300 کیلوبایت<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
                                                     </div>
                                                 </div>
                                             </li>
