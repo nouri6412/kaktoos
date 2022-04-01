@@ -21,6 +21,7 @@
 <script src="<?php echo get_template_directory_uri(); ?>/assets/js/gmap3.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/assets/js/jRate.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/assets/js/main.js"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/assets/js/share.js"></script>
 <script>
 	const menu_icon = document.querySelector('.menu-icon');
 

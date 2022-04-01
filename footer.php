@@ -130,6 +130,7 @@
 	<script src="<?php echo get_template_directory_uri(); ?>/assets/js/tipso.js"></script>
 	<script src="<?php echo get_template_directory_uri(); ?>/assets/js/jRate.js"></script>
 	<script src="<?php echo get_template_directory_uri(); ?>/assets/js/main.js"></script>
+	<script src="<?php echo get_template_directory_uri(); ?>/assets/js/share.js"></script>
 	</body>
 
 	</html>

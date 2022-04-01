@@ -47,11 +47,15 @@ Author: جلیل نوری
 }
 
 .wt-main-section {
-     padding: 5px 0; 
+     padding: 25px 0; 
 }
 
 .wt-userlistingvtwo .wt-userlistingcontent .wt-rightarea .wt-btnarea{
     padding: 0;
+}
+
+.wt-categorycontent{
+    border: 1px solid #afb3b7;
 }
 
 @media (max-width: 1680px)

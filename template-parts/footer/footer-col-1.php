@@ -3,7 +3,7 @@ $data = get_field("footer-col-1", 'option');
 ?>
 <div class="col-xl-5 col-lg-4 col-md-12 col-sm-12">
     <div class="widget">
-        <img alt="<?php echo get_bloginfo('name'); ?>" src="<?php echo $data["icon"]; ?>" width="180" class="m-b15">
+        <img style="width: 159px;height: 37px;" alt="<?php echo get_bloginfo('name'); ?>" src="<?php echo $data["icon"]; ?>" width="180" class="m-b15">
         <p class="text-capitalize m-b20"><?php echo $data["text"]; ?></p>
         <div class="subscribe-form m-b20">
             <form class="dzSubscribe" action="script/mailchamp.php" method="post">

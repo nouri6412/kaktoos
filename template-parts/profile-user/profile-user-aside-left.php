@@ -9,10 +9,10 @@ $page_action = get_query_var('page_action');
 			<div class="wt-codescanicons">
 				<span> پروفایل خود را به اشتراک بگذارید</span>
 				<ul class="wt-socialiconssimple">
-					<li class="wt-facebook"><a href="javascript:void(0);"><i class="fa fa-facebook-f"></i></a></li>
-					<li class="wt-twitter"><a href="javascript:void(0);"><i class="fab fa-twitter"></i></a></li>
-					<li class="wt-linkedin"><a href="javascript:void(0);"><i class="fab fa-linkedin-in"></i></a></li>
-					<li class="wt-clone"><a href="javascript:void(0);"><i class="far fa-clone"></i></a></li>
+					<li class="wt-facebook"><a class="social-share facebook" href="javascript:void(0);"><i class="fa fa-facebook-f"></i></a></li>
+					<li class="wt-twitter"><a  class="social-share twitter"  href="javascript:void(0);"><i class="fab fa-twitter"></i></a></li>
+					<li class="wt-linkedin"><a  class="social-share linkedin"  href="javascript:void(0);"><i class="fab fa-linkedin-in"></i></a></li>
+					<li class="wt-google-plus"><a  class="social-share instagram"  href="javascript:void(0);"><i class="fa fa-instagram"></i></a></li>
 				</ul>
 			</div>
 		</div>

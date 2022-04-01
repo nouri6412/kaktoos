@@ -19,7 +19,7 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                <strong class="wt-logo"><a href="<?php echo home_url() ?>"><img src="<?php echo get_field('header', 'option')["logo"]; ?>" alt="<?php echo get_bloginfo('name'); ?>"></a></strong>
+                                <strong class="wt-logo"><a href="<?php echo home_url() ?>"><img style="width: 109px;height: 25px;" src="<?php echo get_field('header', 'option')["logo"]; ?>" alt="<?php echo get_bloginfo('name'); ?>"></a></strong>
                                 <div class="wt-rightarea">
                                     <nav id="wt-nav" class="wt-nav navbar-expand-lg">
                                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
