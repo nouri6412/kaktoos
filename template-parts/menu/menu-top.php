@@ -1,14 +1,14 @@
 <li class="wt-active">
-    <a href="<?php echo home_url('dashboard') ?>">
+    <a href="<?php echo home_url('profile') ?>">
         <i class="fa fa-dashboard"></i>
         <span>داشبورد</span>
     </a>
 </li>
 
 <li class="wt-active">
-    <a href="<?php echo home_url('profile') ?>">
+    <a href="<?php echo home_url('profile?action=edit-profile') ?>">
         <i class="fa fa-user"></i>
-        <span>پروفایل من</span>
+        <span>ویرایش پروفایل</span>
     </a>
 </li>
 
