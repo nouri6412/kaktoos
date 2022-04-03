@@ -1,9 +1,17 @@
 <li class="wt-active">
+    <a href="<?php echo home_url('dashboard') ?>">
+        <i class="fa fa-dashboard"></i>
+        <span>داشبورد</span>
+    </a>
+</li>
+
+<li class="wt-active">
     <a href="<?php echo home_url('profile') ?>">
         <i class="fa fa-user"></i>
         <span>پروفایل من</span>
     </a>
 </li>
+
 <li>
     <a target="_Blank" href="<?php echo home_url('user-view?id=' . $user_info->ID) ?>">
         <i class="fa fa-eye"></i>
