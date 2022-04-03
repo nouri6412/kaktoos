@@ -34,7 +34,7 @@
 
 <li>
     <a href="<?php echo home_url('profile?action=my-jobs') ?>">
-        <i class="fa fa-tasks"></i>
+        <i class="fa fa-file"></i>
         <span>مدیریت پروژه ها</span>
     </a>
 </li>
@@ -45,6 +45,35 @@
         <span>فعالیت های من</span>
     </a>
 </li>
+
+<li>
+    <a href="<?php echo home_url('profile?action=my-bell') ?>">
+        <i class="fa fa-bell"></i>
+        <span>اطلاعیه های من</span>
+    </a>
+</li>
+<li>
+    <a href="<?php echo home_url('profile?action=my-chart') ?>">
+        <i class="fa fa-bar-chart"></i>
+        <span>آمار</span>
+    </a>
+</li>
+
+<li>
+    <a href="<?php echo home_url('profile?action=my-following') ?>">
+        <i class="fa fa-users"></i>
+        <span>دنبال شونده گان</span>
+    </a>
+</li>
+
+<li>
+    <a href="<?php echo home_url('profile?action=my-followers') ?>">
+        <i class="fa fa-users"></i>
+        <span>دنبال کنند گان</span>
+    </a>
+</li>
+
+
 
 <li>
     <a href="<?php echo home_url('profile?action=message') ?>">
