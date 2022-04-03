@@ -40,6 +40,20 @@
 </li>
 
 <li>
+    <a href="<?php echo home_url('profile?action=my-activity') ?>">
+        <i class="fa fa-tasks"></i>
+        <span>فعالیت های من</span>
+    </a>
+</li>
+
+<li>
+    <a href="<?php echo home_url('profile?action=message') ?>">
+        <i class="fa fa-envelope"></i>
+        <span>پیام ها</span>
+    </a>
+</li>
+
+<li>
     <a href="<?php echo home_url('profile?action=change-pass') ?>">
         <i class="fa fa-key"></i>
         <span>تغییر رمز عبور</span>

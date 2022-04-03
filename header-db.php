@@ -33,7 +33,7 @@
 	<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/transitions.css">
 	<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/responsive.css">
 	<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/dbresponsive.css">
-
+	<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/custom.css">
 	<link href="<?php echo get_template_directory_uri(); ?>/style.css" rel="stylesheet" type="text/css" />
 	<script src="<?php echo get_template_directory_uri(); ?>/assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
 	<?php wp_head(); ?>
