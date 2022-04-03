@@ -1,332 +1,166 @@
-                <!--Register Form Start-->
-                <section class="wt-haslayout wt-dbsectionspace">
-                    <div class="row text-center d-flex justify-content-center">
-                        <div class="d-flex justify-content-center">
-                            <span class="">کارفرما</span>
-                            <div class="switch">
-                                <input type="checkbox" id="toggleAll" />
-                                <label for="toggleAll"></label>
+<?php
+$user_id = get_current_user_id();
+
+
+$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+
+$search = array();
+
+$search["relation"] = "OR";
+$search[] =           array(
+    'key' => 'owner_id',
+    'value' => $user_id,
+    'compare' => '='
+);
+
+$search[] =           array(
+    'key' => 'sender_id',
+    'value' => $user_id,
+    'compare' => '='
+);
+
+$args = array(
+    'post_type' => 'request',
+    'post_status' => 'publish',
+    'paged' => $paged,
+    'posts_per_page' => 10,
+    'meta_query' => $search
+);
+$the_query = new WP_Query($args);
+
+
+$count = $the_query->post_count;
+
+?>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-9">
+    <div class="wt-dashboardbox wt-messages-holder">
+        <div class="wt-dashboardboxtitle">
+            <h2>پیام ها</h2>
+        </div>
+        <div class="wt-dashboardboxcontent wt-dashboardholder wt-offersmessages">
+            <ul>
+                <li>
+                    <form class="wt-formtheme wt-formsearch">
+                        <fieldset>
+                            <div class="form-group">
+                                <input type="text" name="Location" class="form-control" placeholder="اینجا  جستجو کنید">
+                                <a href="javascrip:void(0);" class="wt-searchgbtn"><i class="lnr lnr-magnifier"></i></a>
                             </div>
-                            <span class="">فریلنسر</span>
-                        </div>
-                    </div>
-                    <!--  -->
-                    <div>
-                        <div>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <h3>پروژه ها</h3>
+                        </fieldset>
+                    </form>
+                    <div class="wt-verticalscrollbar wt-dashboardscrollbar">
+                        <?php
+                        while ($the_query->have_posts()) :
+                            $the_query->the_post();
+                            $job_id = get_post_meta(get_the_ID(), 'job_id', true);
+                            $request_id = get_post_meta($job_id, 'request_id', true);
+                            $class = " wt-dotnotification wt-active";
+                            $class = "";
+                        ?>
+                            <div class="wt-ad <?php echo $class ?>">
+                                <figure><img src="<?php echo (strlen(get_the_author_meta('avatar')) > 0) ? get_the_author_meta('avatar') : get_template_directory_uri() . '/assets/img/user.png' ?>" alt="image description"></figure>
+                                <div class="wt-adcontent">
+                                    <h3><?php echo get_the_author_meta('user_name')  ?></h3>
+                                    <span><?php echo (strlen(get_the_author_meta('job_title')) > 0) ? get_the_author_meta('user_country') : ''   ?></span>
                                 </div>
-                                <div class="col-12">
-                                    <div class="tabs effect-1">
-                                        <!-- tab-title -->
-                                        <input type="radio" id="tab-1" name="tab-effect-1" checked="checked">
-                                        <span>باز یا در حالت انتظار</span>
-                                        <input type="radio" id="tab-2" name="tab-effect-1">
-                                        <span>در حال انجام کار</span>
-                                        <input type="radio" id="tab-3" name="tab-effect-1">
-                                        <span>گذشته</span>
+                            </div>
+                        <?php
+                        endwhile;
+                        ?>
+                        <div class="pagination">
+                            <?php
+                            echo paginate_links(array(
+                                'base'         => str_replace(999999999, '%#%', esc_url(get_pagenum_link(999999999))),
+                                'total'        => $the_query->max_num_pages,
+                                'current'      => max(1, get_query_var('paged')),
+                                'format'       => '?paged=%#%',
+                                'show_all'     => false,
+                                'type'         => 'plain',
+                                'end_size'     => 2,
+                                'mid_size'     => 1,
+                                'prev_next'    => true,
+                                'prev_text'    => sprintf('<i></i> %1$s', __('بعدی', 'text-domain')),
+                                'next_text'    => sprintf('%1$s <i></i>', __('قبلی', 'text-domain')),
+                                'add_args'     => false,
+                                'add_fragment' => '',
+                            ));
+                            ?>
+                        </div>
+                        <?php wp_reset_query(); ?>
 
-                                        <!-- tab-content -->
-                                        <div class="tab-content">
-                                            <section id="tab-item-1">
-                                                <div id="general-tables-1">
-                                                    <div class="form-inline dt-bootstrap no-footer dataTables_wrapper pb-2">
-                                                        <div class="flip pull-left width-xs-8 width-sm-10 search">
-                                                            <div>
-                                                                <div class="form-group has-search">
-                                                                    <span class="fa fa-search form-control-feedback"></span>
-                                                                    <input type="text" class="form-control col-12" placeholder="جستجو">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="">
-                                                            <div class="dataTables_length" id="DataTables_Table_150_length"><label><select class="form-control input-sm col-12">
-                                                                        <option value="5">نمایش 5</option>
-                                                                        <option value="10">نمایش 10</option>
-                                                                        <option value="15">نمایش 15</option>
-                                                                    </select></label></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="table-responsive">
-                                                        <table class="tablelist table no-footer dataTable" id="DataTables_Table_150">
-                                                            <thead class="fa-0-8em border-a border-color-4 no-border-b">
-                                                                <tr class="no-border" role="row">
-                                                                    <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1">نام پروژه</th>
-                                                                    <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1">پیشنهادها</th>
-                                                                    <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1">میانگین پیشنهادها</th>
-                                                                    <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1">تاریخ پایان</th>
-                                                                    <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1"><i class="pf pf-other"></i></th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody class="border-a border-color-10">
-                                                                <tr class="odd">
-                                                                    <td valign="top" colspan="5" class="dataTables_empty">
-                                                                        <div class="no-result">
-                                                                            <div>پروژه ای پیدا نشد</div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-
-                                                </div>
-                                            </section>
-                                            <section id="tab-item-2">
-                                                <div id="general-tables-1">
-                                                    <div class="form-inline dt-bootstrap no-footer dataTables_wrapper pb-2">
-                                                        <div class="flip pull-left width-xs-8 width-sm-10 search">
-                                                            <div>
-                                                                <div class="form-group has-search">
-                                                                    <span class="fa fa-search form-control-feedback"></span>
-                                                                    <input type="text" class="form-control col-12" placeholder="جستجو">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="">
-                                                            <div class="dataTables_length" id="DataTables_Table_150_length"><label><select class="form-control input-sm col-12">
-                                                                        <option value="5">نمایش 5</option>
-                                                                        <option value="10">نمایش 10</option>
-                                                                        <option value="15">نمایش 15</option>
-                                                                    </select></label></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="table-responsive">
-                                                        <table class="tablelist table no-footer dataTable" id="DataTables_Table_150">
-                                                            <thead class="fa-0-8em border-a border-color-4 no-border-b">
-                                                                <tr class="no-border" role="row">
-                                                                    <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1">نام پروژه</th>
-                                                                    <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1">پیشنهادها</th>
-                                                                    <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1">میانگین پیشنهادها</th>
-                                                                    <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1">تاریخ پایان</th>
-                                                                    <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1"><i class="pf pf-other"></i></th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody class="border-a border-color-10">
-                                                                <tr class="odd">
-                                                                    <td valign="top" colspan="5" class="dataTables_empty">
-                                                                        <div class="no-result">
-                                                                            <div>پروژه ای پیدا نشد</div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-
-                                                </div>
-                                            </section>
-                                            <section id="tab-item-3">
-                                                <div id="general-tables-1">
-                                                    <div class="form-inline dt-bootstrap no-footer dataTables_wrapper pb-2">
-                                                        <div class="flip pull-left width-xs-8 width-sm-10 search">
-                                                            <div class=" col-12">
-                                                                <div class="form-group has-search">
-                                                                    <span class="fa fa-search form-control-feedback"></span>
-                                                                    <input type="text" class="form-control col-12" placeholder="جستجو">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="">
-                                                            <div class="dataTables_length" id="DataTables_Table_150_length"><label><select class="form-control input-sm col-12">
-                                                                        <option value="5">نمایش 5</option>
-                                                                        <option value="10">نمایش 10</option>
-                                                                        <option value="15">نمایش 15</option>
-                                                                    </select></label></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="table-responsive">
-                                                        <table class="tablelist table no-footer dataTable" id="DataTables_Table_150">
-                                                            <thead class="fa-0-8em border-a border-color-4 no-border-b">
-                                                                <tr class="no-border" role="row">
-                                                                    <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1">نام پروژه</th>
-                                                                    <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1">پیشنهادها</th>
-                                                                    <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1">میانگین پیشنهادها</th>
-                                                                    <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1">تاریخ پایان</th>
-                                                                    <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1"><i class="pf pf-other"></i></th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody class="border-a border-color-10">
-                                                                <tr class="odd">
-                                                                    <td valign="top" colspan="5" class="dataTables_empty">
-                                                                        <div class="no-result">
-                                                                            <div>پروژه ای پیدا نشد</div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-
-                                                </div>
-                                            </section>
-
-                                        </div>
-                                    </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="wt-chatarea">
+                        <div class="wt-messages wt-verticalscrollbar wt-dashboardscrollbar">
+                            <div class="wt-offerermessage">
+                                <figure><img src="<?php echo get_template_directory_uri(); ?>/assets/images/messages/img-12.jpg" alt="image description"></figure>
+                                <div class="wt-description">
+                                    <p>لورم ایپسوم یا طرح‌نما به متنی بی‌معنی در صنعت چاپ،
+                                        صفحه‌آرایی و طراحی
+                                        گرافیک گفته می شود.</p>
+                                    <div class="clearfix"></div>
+                                    <time datetime="2017-08-08">22 دی 1389</time>
+                                </div>
+                            </div>
+                            <div class="wt-memessage wt-readmessage">
+                                <figure><img src="<?php echo get_template_directory_uri(); ?>/assets/images/messages/img-11.jpg" alt="image description"></figure>
+                                <div class="wt-description">
+                                    <p>لورم ایپسوم یا طرح‌نما به متنی آزمایشی و بی‌معنی در صنعت چاپ،
+                                        صفحه‌آرایی و طراحی
+                                        گرافیک گفته می شود.</p>
+                                    <div class="clearfix"></div>
+                                    <p><a href="https://themeforest.net/" target="_blank">https://themeforest.net</a></p>
+                                    <div class="clearfix"></div>
+                                    <p>خوب است؟ </p>
+                                    <div class="clearfix"></div>
+                                    <time datetime="2017-08-08">7 تير 1396 09:30</time>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                            <div class="wt-offerermessage">
+                                <figure><img src="<?php echo get_template_directory_uri(); ?>/assets/images/messages/img-12.jpg" alt="image description"></figure>
+                                <div class="wt-description">
+                                    <div class="clearfix"></div>
+                                    <p>لورم ایپسوم یا طرح‌نما به متنی بی‌معنی در صنعت چاپ،
+                                        صفحه‌آرایی و طراحی
+                                        گرافیک گفته می شود.</p>
+                                    <div class="clearfix"></div>
+                                    <time datetime="2017-08-08">22 دی 1389</time>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                            <div class="wt-memessage wt-readmessage">
+                                <figure><img src="<?php echo get_template_directory_uri(); ?>/assets/images/messages/img-11.jpg" alt="image description"></figure>
+                                <div class="wt-description">
+                                    <div class="clearfix"></div>
+                                    <p>لورم ایپسوم یا طرح‌نما به متنی آزمایشی و بی‌معنی در صنعت چاپ،
+                                        صفحه‌آرایی و طراحی
+                                        گرافیک گفته می شود.</p>
+                                    <div class="clearfix"></div>
+                                    <p><a href="https://themeforest.net/" target="_blank">https://themeforest.net</a></p>
+                                    <div class="clearfix"></div>
+                                    <p>خوب است؟ </p>
+                                    <div class="clearfix"></div>
+                                    <time datetime="2017-08-08">7 تير 1396 09:30</time>
+                                    <div class="clearfix"></div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <!--  -->
-                    <div>
-                        <div>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <h3>پروژه ها</h3>
-                                </div>
-                                <div class="col-12">
-                                    <div class="tabs effect-2">
-                                        <!-- tab-title -->
-                                        <input type="radio" id="tab-1" name="tab-effect-2" checked="checked">
-                                        <span>باز یا در حالت انتظار</span>
-                                        <input type="radio" id="tab-2" name="tab-effect-2">
-                                        <span>در حال انجام کار</span>
-                                        <input type="radio" id="tab-3" name="tab-effect-2">
-                                        <span>گذشته</span>
-
-                                        <!-- tab-content -->
-                                        <div class="tab-content">
-                                            <section id="tab-item-1">
-                                                <div id="general-tables-1">
-                                                    <div class="form-inline dt-bootstrap no-footer dataTables_wrapper pb-2">
-                                                        <div class="flip pull-left width-xs-8 width-sm-10 search">
-                                                            <div>
-                                                                <div class="form-group has-search">
-                                                                    <span class="fa fa-search form-control-feedback"></span>
-                                                                    <input type="text" class="form-control col-12" placeholder="جستجو">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="">
-                                                            <div class="dataTables_length" id="DataTables_Table_150_length"><label><select class="form-control input-sm col-12">
-                                                                        <option value="5">نمایش 5</option>
-                                                                        <option value="10">نمایش 10</option>
-                                                                        <option value="15">نمایش 15</option>
-                                                                    </select></label></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="table-responsive">
-                                                        <table class="tablelist table no-footer dataTable" id="DataTables_Table_150">
-                                                            <thead class="fa-0-8em border-a border-color-4 no-border-b">
-                                                                <tr class="no-border" role="row">
-                                                                    <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1">نام پروژه</th>
-                                                                    <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1">پیشنهادها</th>
-                                                                    <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1">میانگین پیشنهادها</th>
-                                                                    <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1">تاریخ پایان</th>
-                                                                    <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1"><i class="pf pf-other"></i></th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody class="border-a border-color-10">
-                                                                <tr class="odd">
-                                                                    <td valign="top" colspan="5" class="dataTables_empty">
-                                                                        <div class="no-result">
-                                                                            <div>پروژه ای پیدا نشد</div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-
-                                                </div>
-                                            </section>
-                                            <section id="tab-item-2">
-                                                <div id="general-tables-1">
-                                                    <div class="form-inline dt-bootstrap no-footer dataTables_wrapper pb-2">
-                                                        <div class="flip pull-left width-xs-8 width-sm-10 search">
-                                                            <div>
-                                                                <div class="form-group has-search">
-                                                                    <span class="fa fa-search form-control-feedback"></span>
-                                                                    <input type="text" class="form-control col-12" placeholder="جستجو">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="">
-                                                            <div class="dataTables_length" id="DataTables_Table_150_length"><label><select class="form-control input-sm col-12">
-                                                                        <option value="5">نمایش 5</option>
-                                                                        <option value="10">نمایش 10</option>
-                                                                        <option value="15">نمایش 15</option>
-                                                                    </select></label></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="table-responsive">
-                                                        <table class="tablelist table no-footer dataTable" id="DataTables_Table_150">
-                                                            <thead class="fa-0-8em border-a border-color-4 no-border-b">
-                                                                <tr class="no-border" role="row">
-                                                                    <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1">نام پروژه</th>
-                                                                    <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1">پیشنهادها</th>
-                                                                    <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1">میانگین پیشنهادها</th>
-                                                                    <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1">تاریخ پایان</th>
-                                                                    <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1"><i class="pf pf-other"></i></th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody class="border-a border-color-10">
-                                                                <tr class="odd">
-                                                                    <td valign="top" colspan="5" class="dataTables_empty">
-                                                                        <div class="no-result">
-                                                                            <div>پروژه ای پیدا نشد</div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-
-                                                </div>
-                                            </section>
-                                            <section id="tab-item-3">
-                                                <div id="general-tables-1">
-                                                    <div class="form-inline dt-bootstrap no-footer dataTables_wrapper pb-2">
-                                                        <div class="flip pull-left width-xs-8 width-sm-10 search">
-                                                            <div class="">
-                                                                <div class="form-group has-search">
-                                                                    <span class="fa fa-search form-control-feedback"></span>
-                                                                    <input type="text" class="form-control col-12" placeholder="جستجو">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div>
-                                                            <div class="dataTables_length" id="DataTables_Table_150_length"><label><select class="form-control input-sm col-12">
-                                                                        <option value="5">نمایش 5</option>
-                                                                        <option value="10">نمایش 10</option>
-                                                                        <option value="15">نمایش 15</option>
-                                                                    </select></label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="table-responsive">
-                                                        <table class="tablelist table no-footer dataTable" id="DataTables_Table_150">
-                                                            <thead class="fa-0-8em border-a border-color-4 no-border-b">
-                                                                <tr class="no-border" role="row">
-                                                                    <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1">نام پروژه</th>
-                                                                    <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1">پیشنهادها</th>
-                                                                    <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1">میانگین پیشنهادها</th>
-                                                                    <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1">تاریخ پایان</th>
-                                                                    <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1"><i class="pf pf-other"></i></th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody class="border-a border-color-10">
-                                                                <tr class="odd">
-                                                                    <td valign="top" colspan="5" class="dataTables_empty">
-                                                                        <div class="no-result">
-                                                                            <div>پروژه ای پیدا نشد</div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-
-                                                </div>
-                                            </section>
-
-                                        </div>
-                                    </div>
-                                </div>
+                        <div class="wt-replaybox">
+                            <div class="form-group">
+                                <textarea class="form-control" name="reply" placeholder="پیام را اینجا تایپ کنید"></textarea>
+                            </div>
+                            <div class="wt-iconbox">
+                                <i class="lnr lnr-thumbs-up"></i>
+                                <i class="lnr lnr-thumbs-down"></i>
+                                <i class="lnr lnr-smile"></i>
+                                <a href="javascript:void(0);" class="wt-btnsendmsg">ارسال</a>
                             </div>
                         </div>
                     </div>
-                </section>
-                <!--Register Form End-->
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -113,11 +113,11 @@ class Kaktos_User
         }
 
         if (strlen($data_str["time"]) == 0) {
-            $error .= "<br>"."زمان پیشنهادی نباید خالی بماند";
+            $error .= "<br>" . "زمان پیشنهادی نباید خالی بماند";
         }
 
         if (strlen($data_str["desc"]) == 0) {
-            $error .= "<br>"."توضیحات نباید خالی بماند";
+            $error .= "<br>" . "توضیحات نباید خالی بماند";
         }
 
         if (strlen($error) > 0) {
@@ -132,20 +132,22 @@ class Kaktos_User
 
 
         $args_post = array(
-            'post_title'   => get_the_author_meta('user_name', $user_id).' '.date('Y-m-d H:i:s'),
+            'post_title'   => get_the_author_meta('user_name', $user_id) . ' ' . date('Y-m-d H:i:s'),
             'post_type'    => 'request',
             'post_author'  => $user_id,
             'post_status'  => 'publish',
             'post_content'      => $data_str["desc"]
         );
 
-        $id=$job_id;
+        $id = $job_id;
 
 
-            $job_id = wp_insert_post($args_post);
-  
+        $job_id = wp_insert_post($args_post);
+
 
         update_post_meta($job_id,  "job_id", $id);
+        update_post_meta($job_id,  "sender_id", $user_id);
+        update_post_meta($job_id,  "owner_id", get_the_author_meta('ID', $id));
 
         foreach ($data_str as $key => $item) {
             $result["html"] = $result["html"] . $key . '  - ' . $item;
@@ -216,10 +218,10 @@ class Kaktos_User
             );
             wp_update_post($my_post);
         }
-        
+
 
         update_post_meta($job_id,  'request_id', '0');
-        
+
         foreach ($data_str as $key => $item) {
             $result["html"] = $result["html"] . $key . '  - ' . $item;
 
