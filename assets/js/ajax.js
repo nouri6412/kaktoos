@@ -77,32 +77,18 @@ function repoert_change_project(obj) {
     document.location.href = custom_theme_mbm_object.siteurl + "/profile?action=my-activity&user_type=" + user_type;
 }
 
-function custom_theme_mbm_chart_coin(type, element, header, x_label = true, y_label = true, label_persent = "") {
+function custom_theme_mbm_chart_coin(type, element, header, x_label = true, y_label = true) {
     custom_theme_mbm_base_ajax({
-        'action': 'custom_theme_mbm_chart_project',
+        'action': 'mbm_chart_project',
         'element': element,
         'type': type
     }, function (result) {
         console.log(result);
 
 
-        var color = "#1f481a";
-        var color_text = "#369103";
-
-        var start = result.result.y[0];
-        var end = result.result.y[result.result.y.length - 1];
-        var mines = end - start;
-
-        var persend = Math.round(((mines * 100) / start) * 100) / 100;
+        var color = "#f7e7ab";
 
 
-        if (end - start < 0) {
-            color = "#642626";
-            color_text = "#f10404";
-        }
-
-        jQuery('#' + label_persent).html(persend);
-        jQuery('#' + label_persent).css('color', color_text);
 
         jQuery('#' + element).parent().children('iframe').remove();
 

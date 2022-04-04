@@ -32,7 +32,15 @@ $user_id = get_current_user_id();
                                     <div style="position: relative;">
                                         <div dir="ltr" style="position: relative; width: 100%; height: 300px;">
                                             <div aria-label="A chart." style="position: absolute; left: 0px; top: 0px; width: 100%; height: 100%;">
-                                            
+                                                <div class="chart-box">
+                                                    <canvas id="chart-1" style="width:100%;padding: 5px; "></canvas>
+                                                </div>
+
+                                                <script>
+                                                    setTimeout(function() {
+                                                        custom_theme_mbm_chart_coin('1','chart-1', '', true, true);
+                                                    }, 500);
+                                                </script>
                                                 <div aria-label="A tabular representation of the data in the chart." style="position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden;">
                                                     <table>
                                                         <thead>
@@ -538,7 +546,7 @@ $user_id = get_current_user_id();
                                     <div style="position: relative;">
                                         <div dir="ltr" style="position: relative; width: 100%; height: 300px;">
                                             <div aria-label="A chart." style="position: absolute; left: 0px; top: 0px; width: 100%; height: 100%;">
-                                              
+
                                                 <div aria-label="A tabular representation of the data in the chart." style="position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden;">
                                                     <table>
                                                         <thead>
@@ -1044,7 +1052,7 @@ $user_id = get_current_user_id();
                                     <div style="position: relative;">
                                         <div dir="ltr" style="position: relative; width: 100%; height: 300px;">
                                             <div aria-label="A chart." style="position: absolute; left: 0px; top: 0px; width: 100%; height: 100%;">
-                                            
+
                                                 <div aria-label="A tabular representation of the data in the chart." style="position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden;">
                                                     <table>
                                                         <thead>
@@ -1573,7 +1581,7 @@ $user_id = get_current_user_id();
                                     <div style="position: relative;">
                                         <div dir="ltr" style="position: relative; width: 100%; height: 300px;">
                                             <div aria-label="A chart." style="position: absolute; left: 0px; top: 0px; width: 100%; height: 100%;">
-                                             
+
                                                 <div aria-label="A tabular representation of the data in the chart." style="position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden;">
                                                     <table>
                                                         <thead>
