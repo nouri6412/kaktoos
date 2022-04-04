@@ -76,3 +76,72 @@ function repoert_change_project(obj) {
     obj.attr('user-type', user_type);
     document.location.href = custom_theme_mbm_object.siteurl + "/profile?action=my-activity&user_type=" + user_type;
 }
+
+function custom_theme_mbm_chart_coin(type, element, header, x_label = true, y_label = true, label_persent = "") {
+    custom_theme_mbm_base_ajax({
+        'action': 'custom_theme_mbm_chart_project',
+        'element': element,
+        'type': type
+    }, function (result) {
+        console.log(result);
+
+
+        var color = "#1f481a";
+        var color_text = "#369103";
+
+        var start = result.result.y[0];
+        var end = result.result.y[result.result.y.length - 1];
+        var mines = end - start;
+
+        var persend = Math.round(((mines * 100) / start) * 100) / 100;
+
+
+        if (end - start < 0) {
+            color = "#642626";
+            color_text = "#f10404";
+        }
+
+        jQuery('#' + label_persent).html(persend);
+        jQuery('#' + label_persent).css('color', color_text);
+
+        jQuery('#' + element).parent().children('iframe').remove();
+
+        canvas = document.getElementById(element);
+        const context = canvas.getContext('2d');
+        context.clearRect(0, 0, canvas.width, canvas.height);
+
+        new Chart(element, {
+            type: "line",
+            data: {
+                labels: result.result.x,
+                datasets: [{
+                    fill: true,
+                    pointRadius: 2,
+                    borderColor: color,
+                    backgroundColor: color,
+                    data: result.result.y
+                }]
+            },
+            options: {
+                legend: { display: false },
+                title: {
+                    display: true,
+                    text: header,
+                    fontSize: 16
+                },
+                scales: {
+                    xAxes: [{
+                        ticks: {
+                            display: x_label
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            display: y_label
+                        }
+                    }]
+                }
+            }
+        });
+    });
+}
