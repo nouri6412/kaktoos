@@ -149,6 +149,7 @@ class Kaktos_User
         update_post_meta($job_id,  "sender_id", $user_id);
         update_post_meta($job_id,  "owner_id", get_the_author_meta('ID', $id));
 
+
         foreach ($data_str as $key => $item) {
             $result["html"] = $result["html"] . $key . '  - ' . $item;
 

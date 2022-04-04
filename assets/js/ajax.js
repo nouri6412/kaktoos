@@ -63,3 +63,18 @@ function ajax_submit_mbm_clone_element(item, parent, id = '') {
     cloned.attr('id', id);
     jQuery('#'+parent).append(cloned);
 }
+
+function repoert_change_project(obj)
+{
+console.log(obj.attr('user-type'));
+var user_type=obj.attr('user-type');
+if(user_type=="user")
+{
+    user_type="com";
+}
+else
+{
+    user_type="user";
+}
+obj.attr('user-type',user_type);
+}
