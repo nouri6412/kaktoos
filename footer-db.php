@@ -3,7 +3,6 @@
 </div>
 <!--Wrapper End-->
 
-<script src="<?php echo get_template_directory_uri(); ?>/assets/js/vendor/jquery-3.3.1.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/assets/js/vendor/jquery-library.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/assets/js/vendor/bootstrap.min.js"></script>
 <script src="https://maps.google.com/maps/api/js?key=AIzaSyCR-KEWAVCn52mSdeVeTqZjtqbmVJyfSus&amp;language=en"></script>

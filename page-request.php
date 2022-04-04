@@ -8,7 +8,7 @@
  * @package WordPress
  * @subpackage Kaktos
  * @since Kaktos 1.0
- *  *  * Template Name: پیشنهاد کار
+ *  *  * Template Name: پیشنهاد 
  */
 
 get_header();

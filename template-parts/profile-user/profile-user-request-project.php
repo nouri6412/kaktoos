@@ -49,9 +49,7 @@ $the_query = new WP_Query($args);
 $count = $the_query->post_count;
 ?>
 
-<section class="wt-haslayout wt-dbsectionspace">
-    <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-9">
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-9">
             <div class="wt-dashboardbox">
                 <div class="wt-dashboardboxtitle">
                     <h2> پیشنهادات پروژه </h2>
@@ -178,5 +176,3 @@ $count = $the_query->post_count;
                 <?php wp_reset_query(); ?>
             </div>
         </div>
-    </div>
-</section>
