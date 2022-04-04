@@ -33,22 +33,38 @@ if (isset($_GET["user_type"])) {
                 </div>
                 <div class="col-12">
                     <div class="tabs effect-1">
-                        <!-- tab-title -->
-                        <input type="radio" id="tab-1" name="tab-effect-1" checked="checked">
-                        <span>باز</span>
-                        <input type="radio" id="tab-2" name="tab-effect-1">
-                        <span>در حال انجام کار</span>
-                        <input type="radio" id="tab-3" name="tab-effect-1">
-                        <span>گذشته</span>
+                        <?php if ($user_type != "user") { ?>
+                            <!-- tab-title -->
+                            <input type="radio" id="tab-1" name="tab-effect-1" checked="checked">
+                            <span>باز</span>
+                            <input type="radio" id="tab-2" name="tab-effect-1">
+                            <span>در حال انجام کار</span>
+                            <input type="radio" id="tab-3" name="tab-effect-1">
+                            <span>گذشته</span>
 
-                        <!-- tab-content -->
-                        <div class="tab-content">
-                            <?php                      
-                            get_template_part('template-parts/report-project/report-project', $user_type . '-1');
-                            get_template_part('template-parts/report-project/report-project', $user_type . '-2');
-                            get_template_part('template-parts/report-project/report-project', $user_type . '-3');
-                            ?>
-                        </div>
+                            <!-- tab-content -->
+                            <div class="tab-content">
+                                <?php
+                                get_template_part('template-parts/report-project/report-project', $user_type . '-1');
+                                get_template_part('template-parts/report-project/report-project', $user_type . '-2');
+                                get_template_part('template-parts/report-project/report-project', $user_type . '-3');
+                                ?>
+                            </div>
+                        <?php } else { ?>
+                            <!-- tab-title -->
+                            <input type="radio" id="tab-1" name="tab-effect-1" checked="checked">
+                            <span>در حال انجام کار</span>
+                            <input type="radio" id="tab-2" name="tab-effect-1">
+                            <span>گذشته</span>
+
+                            <!-- tab-content -->
+                            <div class="tab-content">
+                                <?php
+                                get_template_part('template-parts/report-project/report-project', $user_type . '-1');
+                                get_template_part('template-parts/report-project/report-project', $user_type . '-2');
+                                ?>
+                            </div>
+                        <?php } ?>
                     </div>
                 </div>
             </div>

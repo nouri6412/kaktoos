@@ -3,11 +3,11 @@ $user_id = get_current_user_id();
 
 $search = array();
 
-$search["relation"] = "AND"; 
+$search["relation"] = "AND";
 
 $search[] =           array(
     'key' => 'request_id',
-    'value' => 0,
+    'value' => $user_id,
     'compare' => '='
 );
 
@@ -15,7 +15,6 @@ $search[] =           array(
 $args = array(
     'post_type' => 'job',
     'post_status' => 'publish',
-    'author'  => $user_id,
     'meta_query' => $search
 );
 $the_query = new WP_Query($args);
@@ -45,11 +44,10 @@ $count = $the_query->post_count;
                 <thead class="fa-0-8em border-a border-color-4 no-border-b">
                     <tr class="no-border" role="row">
                         <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1">نام پروژه</th>
-                        <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1">پیشنهادها</th>
-                        <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1">میانگین
-                            پیشنهادها
+                        <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1">کارفرما</th>
+                        <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1">پیشنهاد انتخاب شده
                         </th>
-                        <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1">تاریخ پایان</th>
+                        <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1">زمان تحویل</th>
                         <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1"><i class="pf pf-other"></i></th>
                     </tr>
                 </thead>
@@ -60,33 +58,11 @@ $count = $the_query->post_count;
                     ?>
                         <tr>
                             <td><?php echo get_the_title() ?></td>
-                            <?php
-                            $args1 = array(
-                                'post_type' => 'request',
-                                'post_status' => 'publish',
-                                'meta_key' => 'job_id',
-                                'meta_value' => get_the_ID()
-                            );
-                            $the_query1 = new WP_Query($args1);
-                            $count1 = $the_query1->post_count;
-                            $avg = 0;
-                            $preserve_post = get_post();
-                            while ($the_query1->have_posts()) :
-                                $the_query1->the_post();
-                                $avg += get_post_meta(get_the_ID(), 'price', true);
-                            endwhile;
-                         
-                            
-                            $post = $preserve_post;
-                            setup_postdata( $post );
-
-                            $avg = round($avg / $count1);
-                            ?>
-                            <td><?php echo $count1 ?></td>
-                            <td><?php echo $avg ?></td>
+                            <td><?php echo get_the_author_meta('user_name')  ?></td>
+                            <td><?php echo get_post_meta(get_post_meta(get_the_ID(), 'request_req_id', true), 'price', true) ?></td>
                             <td><?php
                                 $date = date_create();
-                                date_modify($date, "+" . get_post_meta(get_the_ID(), 'expire', true) . " day");
+                                date_modify($date, "+" . get_post_meta(get_the_ID(), 'time', true) . " day");
 
                                 $d = mktime(date_format($date, "H"), date_format($date, "i"), date_format($date, "s"), date_format($date, "m"), date_format($date, "d"), date_format($date, "Y"));
                                 $cur = current_time('timestamp');

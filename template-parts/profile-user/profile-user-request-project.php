@@ -25,6 +25,7 @@ $request_id = get_post_meta($job_id, 'request_id', true);
 
 if (isset($_GET["request_id"]) &&  ($request_id == 0 || $request_id == '')) {
     update_post_meta($job_id, 'request_id', $_GET["request_id"]);
+    update_post_meta($job_id, 'request_req_id', $_GET["req_id"]);
     update_post_meta($job_id, 'request_accept_time', current_time('timestamp'));
     update_post_meta($job_id, 'request_accept_date', date('Y-m-d H:i:s'));
 }
@@ -126,7 +127,7 @@ $count = $the_query->post_count;
                                             } else {
                                             ?>
 
-                                                <a href="<?php echo home_url('profile?action=request-project&job_id=' . $job_id . '&request_id=' . get_the_author_meta('ID'))  ?>" class="wt-btn"> اکنون استخدام کنید</a>
+                                                <a href="<?php echo home_url('profile?action=request-project&job_id=' . $job_id . '&request_id=' . get_the_author_meta('ID')."&req_id=".get_the_ID())  ?>" class="wt-btn"> اکنون استخدام کنید</a>
 
                                             <?php
                                             }
