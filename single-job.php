@@ -11,6 +11,41 @@
  */
 
 get_header();
+if (isset($_GET["viewed_by"])) {
+
+    $user_id = get_current_user_id();
+
+    $search["relation"] = "AND";
+    $search[] =           array(
+        'key' => 'job_id',
+        'value' => get_the_ID(),
+        'compare' => '='
+    );
+
+    $args = array(
+        'post_type' => 'view-project',
+        'post_author'  => $user_id,
+        'title'        => $title,
+        'meta_query' => $search
+    );
+    $the_query = new WP_Query($args);
+
+    $count = $the_query->post_count;
+    wp_reset_query();
+
+    if ($count == 0 && get_post_meta(get_the_ID(), 'project_state', true) == 1) {
+        $args_post = array(
+            'post_title'   => $user_id,
+            'post_type'    => 'view-project',
+            'post_author'  => $user_id,
+            'post_status'  => 'publish',
+            'meta_input'   => array(
+                'job_id' =>get_the_ID()
+            )
+        );
+        $id = wp_insert_post($args_post);
+    }
+}
 ?>
 <!-- Content -->
 <div class="page-content bg-white">
@@ -68,7 +103,7 @@ get_header();
                                     if ($request_id == 0 && is_user_logged_in()) {
                                     ?>
                                         <div class="wt-btnarea"><a href="<?php echo home_url('request?id=' . get_the_ID()) ?>" class="wt-btn">ارسال پیشنهاد</a></div>
-                                    <?php } else if(is_user_logged_in()) {
+                                    <?php } else if (is_user_logged_in()) {
                                     ?>
                                         <div class="wt-btnarea"><a href="#" class="wt-btn">پروژه بسته شد</a></div>
 

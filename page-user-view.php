@@ -21,6 +21,43 @@ if ($user_id == 0) {
     get_footer();
     return;
 }
+
+
+
+$cur_user_id = get_current_user_id();
+
+$search["relation"] = "AND";
+$search[] =           array(
+    'key' => 'user_id',
+    'value' => $user_id,
+    'compare' => '='
+);
+
+$args = array(
+    'post_type' => 'view-user',
+    'post_author'  => $cur_user_id,
+    'title'        => $title,
+    'meta_query' => $search
+);
+$the_query = new WP_Query($args);
+
+$count = $the_query->post_count;
+wp_reset_query();
+
+if ($count == 0) {
+    $args_post = array(
+        'post_title'   => $cur_user_id,
+        'post_type'    => 'view-user',
+        'post_author'  => $cur_user_id,
+        'post_status'  => 'publish',
+        'meta_input'   => array(
+            'user_id' => $user_id
+        )
+    );
+    $id = wp_insert_post($args_post);
+}
+
+
 ?>
 
 <!--Inner Home Banner Start-->
