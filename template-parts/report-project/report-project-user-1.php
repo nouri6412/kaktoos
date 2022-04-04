@@ -10,6 +10,11 @@ $search[] =           array(
     'value' => $user_id,
     'compare' => '='
 );
+$search[] =           array(
+    'key' => 'project_state',
+    'value' => 1,
+    'compare' => '!='
+);
 
 
 $args = array(

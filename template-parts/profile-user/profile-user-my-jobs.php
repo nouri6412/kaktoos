@@ -28,6 +28,9 @@ if (isset($_GET["job_id"]) && isset($_GET["project_state"])) {
     $author = get_post_field('post_author', $job_id);
     if ($user_id == $author) {
         update_post_meta($job_id, 'project_state', 1);
+        update_post_meta($job_id, 'project_state_date', date('Y-m-d H:i:s'));
+        $d = mktime(date("H"), date("i"), date("s"), date("m"), date("d"), date("Y"));
+        update_post_meta($job_id, 'project_state_time', $d);
     }
 }
 ?>

@@ -9,6 +9,11 @@ $search[] =           array(
     'value' => 0,
     'compare' => '>'
 );
+$search[] =           array(
+    'key' => 'project_state',
+    'value' => 1,
+    'compare' => '!='
+);
 
 
 $args = array(

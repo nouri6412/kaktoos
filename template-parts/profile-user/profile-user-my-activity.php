@@ -40,7 +40,7 @@ if (isset($_GET["user_type"])) {
                             <input type="radio" id="tab-2" name="tab-effect-1">
                             <span>در حال انجام کار</span>
                             <input type="radio" id="tab-3" name="tab-effect-1">
-                            <span>گذشته</span>
+                            <span>تکمیل شده</span>
 
                             <!-- tab-content -->
                             <div class="tab-content">
@@ -55,7 +55,7 @@ if (isset($_GET["user_type"])) {
                             <input type="radio" id="tab-1" name="tab-effect-1" checked="checked">
                             <span>در حال انجام کار</span>
                             <input type="radio" id="tab-2" name="tab-effect-1">
-                            <span>گذشته</span>
+                            <span>تکمیل شده</span>
 
                             <!-- tab-content -->
                             <div class="tab-content">
