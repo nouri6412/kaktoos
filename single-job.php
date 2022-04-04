@@ -11,41 +11,87 @@
  */
 
 get_header();
+
 if (isset($_GET["viewed_by"])) {
 
     $user_id = get_current_user_id();
-
-    $search["relation"] = "AND";
-    $search[] =           array(
-        'key' => 'job_id',
-        'value' => get_the_ID(),
-        'compare' => '='
-    );
-
-    $args = array(
-        'post_type' => 'view-project',
-        'post_author'  => $user_id,
-        'title'        => $title,
-        'meta_query' => $search
-    );
-    $the_query = new WP_Query($args);
-
-    $count = $the_query->post_count;
-    wp_reset_query();
-
-    if ($count == 0 && get_post_meta(get_the_ID(), 'project_state', true) == 1) {
-        $args_post = array(
-            'post_title'   => $user_id,
-            'post_type'    => 'view-project',
-            'post_author'  => $user_id,
-            'post_status'  => 'publish',
-            'meta_input'   => array(
-                'job_id' =>get_the_ID()
-            )
+    if ($user_id > 0) {
+        $search["relation"] = "AND";
+        $search[] =           array(
+            'key' => 'job_id',
+            'value' => get_the_ID(),
+            'compare' => '='
         );
-        $id = wp_insert_post($args_post);
+
+        $args = array(
+            'post_type' => 'view-project',
+            'post_author'  => $user_id,
+            'title'        => $title,
+            'meta_query' => $search
+        );
+        $the_query = new WP_Query($args);
+
+        $count = $the_query->post_count;
+        wp_reset_query();
+
+        if ($count == 0) {
+            $args_post = array(
+                'post_title'   => $user_id,
+                'post_type'    => 'view-project',
+                'post_author'  => $user_id,
+                'post_status'  => 'publish',
+                'meta_input'   => array(
+                    'job_id' => get_the_ID()
+                )
+            );
+            $id = wp_insert_post($args_post);
+        }
     }
 }
+
+$liked=0;
+if (isset($_GET["liked_by"])) {
+
+    $user_id = get_current_user_id();
+    if ($user_id > 0) {
+        $search["relation"] = "AND";
+        $search[] =           array(
+            'key' => 'job_id',
+            'value' => get_the_ID(),
+            'compare' => '='
+        );
+
+        $args = array(
+            'post_type' => 'like-project',
+            'post_author'  => $user_id,
+            'title'        => $title,
+            'meta_query' => $search
+        );
+        $the_query = new WP_Query($args);
+
+        $count = $the_query->post_count;
+        wp_reset_query();
+
+        if ($count == 0) {
+            $args_post = array(
+                'post_title'   => $user_id,
+                'post_type'    => 'like-project',
+                'post_author'  => $user_id,
+                'post_status'  => 'publish',
+                'meta_input'   => array(
+                    'job_id' => get_the_ID()
+                )
+            );
+            $id = wp_insert_post($args_post);
+        }
+        else
+        {
+            $liked=1;
+        }
+    }
+}
+
+
 ?>
 <!-- Content -->
 <div class="page-content bg-white">
@@ -107,6 +153,19 @@ if (isset($_GET["viewed_by"])) {
                                     ?>
                                         <div class="wt-btnarea"><a href="#" class="wt-btn">پروژه بسته شد</a></div>
 
+                                    <?php
+                                    } ?>
+
+                                    <?php if (get_post_meta(get_the_ID(), 'project_state', true) == 1) {
+                                        $text=" می پسندم ";
+                                        $color="#d5ab11";
+                                        if($liked==1)
+                                        {
+                                            $text="   پسندیده اید";
+                                            $color="green";
+                                        }
+                                    ?>
+                                        <div class="wt-btnarea"><a style="background: <?php echo $color ?>;margin-right: 10px;margin-left: 10px;" href="<?php echo get_the_permalink() . '?liked_by=' . get_current_user_id(); ?>" class="wt-btn"><?php echo $text; ?></a></div>
                                     <?php
                                     } ?>
                                 </div>
