@@ -37,7 +37,7 @@ if (isset($_GET["request_id"])) {
     $request_id = $_GET["request_id"];
     $str = get_post_meta($request_id, 'chat', true);
     if (strlen($str) > 0) {
-        $chat = json_decode($str,true);
+        $chat = json_decode($str, true);
     }
 }
 
@@ -121,15 +121,25 @@ update_post_meta($request_id, "chat", json_encode($chat, JSON_UNESCAPED_UNICODE)
                     </div>
                 </li>
                 <li>
+                    <?php if (count($chat) == 0) { ?>
+                        <div class="wt-chatarea wt-chatarea-empty">
+                            <figure class="wt-chatemptyimg">
+                                <img src="<?php echo get_template_directory_uri() ?>/assets/images/message-img.png" alt="img description">
+                                <figcaption>
+                                    <h3>پیامی انتخاب نشده است</h3>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    <?php } ?>
                     <div class="wt-chatarea">
                         <div class="wt-messages wt-verticalscrollbar wt-dashboardscrollbar">
-                            <?php $index=65; foreach ($chat as $item) {
-                                
-                                $style="";
+                            <?php $index = 65;
+                            foreach ($chat as $item) {
+
+                                $style = "";
                                 $class = "wt-memessage wt-readmessage";
                                 if ($user_id != $item["user_id"]) {
                                     $class = "wt-offerermessage";
-                              
                                 }
                             ?>
                                 <div style="margin-top: <?php echo $index ?>px;" class="<?php echo $class ?>">
@@ -141,7 +151,8 @@ update_post_meta($request_id, "chat", json_encode($chat, JSON_UNESCAPED_UNICODE)
                                         <div class="clearfix"></div>
                                     </div>
                                 </div>
-                            <?php $index=0; } ?>
+                            <?php $index = 0;
+                            } ?>
                         </div>
                         <div class="wt-replaybox">
                             <form method="post" action="<?php echo home_url('profile?action=message&request_id=' . $request_id) ?>">
