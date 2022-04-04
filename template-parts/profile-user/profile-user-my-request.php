@@ -21,7 +21,7 @@ if (isset($_GET["state"])) {
 
  if($state==1)
  {
-    $page_count=10000;
+    $page_count=1000;
  }
 
 $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;

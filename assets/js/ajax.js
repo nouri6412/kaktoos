@@ -58,23 +58,21 @@ function ajax_submit_mbm_contact_form(name, email, message, element_error, eleme
 }
 
 function ajax_submit_mbm_clone_element(item, parent, id = '') {
-    var cloned = jQuery('#'+item).clone();
+    var cloned = jQuery('#' + item).clone();
     cloned.css('display', 'block');
     cloned.attr('id', id);
-    jQuery('#'+parent).append(cloned);
+    jQuery('#' + parent).append(cloned);
 }
 
-function repoert_change_project(obj)
-{
-console.log(obj.attr('user-type'));
-var user_type=obj.attr('user-type');
-if(user_type=="user")
-{
-    user_type="com";
-}
-else
-{
-    user_type="user";
-}
-obj.attr('user-type',user_type);
+function repoert_change_project(obj) {
+    console.log(obj.attr('user-type'));
+    var user_type = obj.attr('user-type');
+    if (user_type == "user") {
+        user_type = "com";
+    }
+    else {
+        user_type = "user";
+    }
+    obj.attr('user-type', user_type);
+    document.location.href = custom_theme_mbm_object.siteurl + "/profile?action=my-activity&user_type=" + user_type;
 }

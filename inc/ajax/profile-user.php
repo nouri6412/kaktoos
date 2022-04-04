@@ -147,7 +147,7 @@ class Kaktos_User
 
         update_post_meta($job_id,  "job_id", $id);
         update_post_meta($job_id,  "sender_id", $user_id);
-        update_post_meta($job_id,  "owner_id", get_the_author_meta('ID', $id));
+        update_post_meta($job_id,  "owner_id", get_post_field( 'post_author', $id ));
 
 
         foreach ($data_str as $key => $item) {
@@ -244,6 +244,7 @@ class Kaktos_User
         echo json_encode($result);
         die();
     }
+
 
     function get_form()
     {

@@ -25,6 +25,8 @@ $request_id = get_post_meta($job_id, 'request_id', true);
 
 if (isset($_GET["request_id"]) &&  ($request_id == 0 || $request_id == '')) {
     update_post_meta($job_id, 'request_id', $_GET["request_id"]);
+    update_post_meta($job_id, 'request_accept_time', current_time('timestamp'));
+    update_post_meta($job_id, 'request_accept_date', date('Y-m-d H:i:s'));
 }
 
 

@@ -1,12 +1,24 @@
-<?php  
-
+<?php
+$user_type = "user";
+if (isset($_GET["user_type"])) {
+    $user_type = $_GET["user_type"];
+}
 ?>
+
+<?php if ($user_type != "user") { ?>
+
+    <style>
+        .switch label::after {
+            right: 0;
+        }
+    </style>
+<?php } ?>
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-9">
     <div class="row text-center d-flex justify-content-center">
         <div class="d-flex justify-content-center">
             <span class="">کارفرما</span>
             <div class="switch">
-                <input user-type="user" onchange="repoert_change_project(jQuery(this))" type="checkbox" id="toggleAll" />
+                <input user-type="<?php echo $user_type; ?>" onchange="repoert_change_project(jQuery(this))" type="checkbox" id="toggleAll" />
                 <label for="toggleAll"></label>
             </div>
             <span class="">فریلنسر</span>
@@ -31,145 +43,11 @@
 
                         <!-- tab-content -->
                         <div class="tab-content">
-                            <section id="tab-item-1">
-                                <div id="general-tables-1">
-                                    <div class="form-inline dt-bootstrap no-footer dataTables_wrapper pb-2">
-                                        <div class="flip pull-left width-xs-8 width-sm-10 search">
-                                            <div class=" col-12">
-                                                <div class="form-group has-search">
-                                                    <span class="fa fa-search form-control-feedback"></span>
-                                                    <input type="text" class="form-control col-12" placeholder="جستجو">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="">
-                                            <div class="dataTables_length" id="DataTables_Table_150_length"><label><select class="form-control input-sm col-12">
-                                                        <option value="5">نمایش 5</option>
-                                                        <option value="10">نمایش 10</option>
-                                                        <option value="15">نمایش 15</option>
-                                                    </select></label></div>
-                                        </div>
-                                    </div>
-                                    <div class="table-responsive">
-                                        <table class="tablelist table no-footer dataTable" id="DataTables_Table_150">
-                                            <thead class="fa-0-8em border-a border-color-4 no-border-b">
-                                                <tr class="no-border" role="row">
-                                                    <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1">نام پروژه</th>
-                                                    <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1">پیشنهادها</th>
-                                                    <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1">میانگین
-                                                        پیشنهادها
-                                                    </th>
-                                                    <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1">تاریخ پایان</th>
-                                                    <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1"><i class="pf pf-other"></i></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="border-a border-color-10">
-                                                <tr class="odd">
-                                                    <td valign="top" colspan="5" class="dataTables_empty">
-                                                        <div class="no-result">
-                                                            <div>پروژه ای پیدا نشد</div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-
-                                </div>
-                            </section>
-                            <section id="tab-item-2">
-                                <div id="general-tables-1">
-                                    <div class="form-inline dt-bootstrap no-footer dataTables_wrapper pb-2">
-                                        <div class="flip pull-left width-xs-8 width-sm-10 search">
-                                            <div class=" col-12">
-                                                <div class="form-group has-search">
-                                                    <span class="fa fa-search form-control-feedback"></span>
-                                                    <input type="text" class="form-control col-12" placeholder="جستجو">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="">
-                                            <div class="dataTables_length" id="DataTables_Table_150_length"><label><select class="form-control input-sm col-12">
-                                                        <option value="5">نمایش 5</option>
-                                                        <option value="10">نمایش 10</option>
-                                                        <option value="15">نمایش 15</option>
-                                                    </select></label></div>
-                                        </div>
-                                    </div>
-                                    <div class="table-responsive">
-                                        <table class="tablelist table no-footer dataTable" id="DataTables_Table_150">
-                                            <thead class="fa-0-8em border-a border-color-4 no-border-b">
-                                                <tr class="no-border" role="row">
-                                                    <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1">نام پروژه</th>
-                                                    <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1">پیشنهادها</th>
-                                                    <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1">میانگین
-                                                        پیشنهادها
-                                                    </th>
-                                                    <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1">تاریخ پایان</th>
-                                                    <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1"><i class="pf pf-other"></i></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="border-a border-color-10">
-                                                <tr class="odd">
-                                                    <td valign="top" colspan="5" class="dataTables_empty">
-                                                        <div class="no-result">
-                                                            <div>پروژه ای پیدا نشد</div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-
-                                </div>
-                            </section>
-                            <section id="tab-item-3">
-                                <div id="general-tables-1">
-                                    <div class="form-inline dt-bootstrap no-footer dataTables_wrapper pb-2">
-                                        <div class="flip pull-left width-xs-8 width-sm-10 search">
-                                            <div class=" col-12">
-                                                <div class="form-group has-search">
-                                                    <span class="fa fa-search form-control-feedback"></span>
-                                                    <input type="text" class="form-control col-12" placeholder="جستجو">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="">
-                                            <div class="dataTables_length" id="DataTables_Table_150_length"><label><select class="form-control input-sm col-12">
-                                                        <option value="5">نمایش 5</option>
-                                                        <option value="10">نمایش 10</option>
-                                                        <option value="15">نمایش 15</option>
-                                                    </select></label></div>
-                                        </div>
-                                    </div>
-                                    <div class="table-responsive">
-                                        <table class="tablelist table no-footer dataTable" id="DataTables_Table_150">
-                                            <thead class="fa-0-8em border-a border-color-4 no-border-b">
-                                                <tr class="no-border" role="row">
-                                                    <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1">نام پروژه</th>
-                                                    <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1">پیشنهادها</th>
-                                                    <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1">میانگین
-                                                        پیشنهادها
-                                                    </th>
-                                                    <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1">تاریخ پایان</th>
-                                                    <th class="no-border tc-white bgc-3 sorting_disabled" rowspan="1" colspan="1"><i class="pf pf-other"></i></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="border-a border-color-10">
-                                                <tr class="odd">
-                                                    <td valign="top" colspan="5" class="dataTables_empty">
-                                                        <div class="no-result">
-                                                            <div>پروژه ای پیدا نشد</div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-
-                                </div>
-                            </section>
-
+                            <?php                      
+                            get_template_part('template-parts/report-project/report-project', $user_type . '-1');
+                            get_template_part('template-parts/report-project/report-project', $user_type . '-2');
+                            get_template_part('template-parts/report-project/report-project', $user_type . '-3');
+                            ?>
                         </div>
                     </div>
                 </div>

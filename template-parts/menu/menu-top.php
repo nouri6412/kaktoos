@@ -26,12 +26,12 @@
     </a>
 </li>
 
-<li>
+<!-- <li>
     <a href="<?php echo home_url('profile?action=my-request&state=1') ?>">
         <i class="fa fa-check"></i>
         <span>پیشنهادات قبول شده</span>
     </a>
-</li>
+</li> -->
 
 <li>
     <a href="<?php echo home_url('profile?action=create-project') ?>">
