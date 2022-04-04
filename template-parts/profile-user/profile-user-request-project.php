@@ -24,10 +24,15 @@ if ($job_id == 0) {
 $request_id = get_post_meta($job_id, 'request_id', true);
 
 if (isset($_GET["request_id"]) &&  ($request_id == 0 || $request_id == '')) {
-    update_post_meta($job_id, 'request_id', $_GET["request_id"]);
-    update_post_meta($job_id, 'request_req_id', $_GET["req_id"]);
-    update_post_meta($job_id, 'request_accept_time', current_time('timestamp'));
-    update_post_meta($job_id, 'request_accept_date', date('Y-m-d H:i:s'));
+    $author =get_post_field( 'post_author', $job_id ) ;
+    if($user_id==$author)
+    {
+        update_post_meta($job_id, 'request_id', $_GET["request_id"]);
+        update_post_meta($job_id, 'request_req_id', $_GET["req_id"]);
+        update_post_meta($job_id, 'request_accept_time', current_time('timestamp'));
+        update_post_meta($job_id, 'request_accept_date', date('Y-m-d H:i:s'));
+    }
+
 }
 
 

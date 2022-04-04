@@ -58,6 +58,10 @@ Author: جلیل نوری
     border: 1px solid #afb3b7;
 }
 
+.dashboard-icon{
+    color: #cdcdcd;
+}
+
 @media (max-width: 1680px)
 {
     .wt-openmenu .wt-companysdetails.wt-usersidebar .wt-companysimg img {

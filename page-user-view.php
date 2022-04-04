@@ -84,6 +84,58 @@ if ($user_id == 0) {
                         <div class="wt-usersingle">
                             <div class="wt-craftedprojects">
                                 <div class="wt-usertitle">
+                                    <h2>نمونه کارهای انجام شده با این سایت</h2>
+                                </div>
+                                <div class="wt-projects">
+                                    <?php
+                                    $search = array();
+
+                                    $search["relation"] = "AND";
+                                    $search[] =           array(
+                                        'key' => 'request_id',
+                                        'value' => $user_id,
+                                        'compare' => '='
+                                    );
+                                    $search[] =           array(
+                                        'key' => 'project_state',
+                                        'value' => 1,
+                                        'compare' => '='
+                                    );
+
+                                    $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+                                    $args = array(
+                                        'post_type' => 'job',
+                                        'post_status' => 'publish',
+                                        'paged' => $paged,
+                                        'posts_per_page' => 10,
+                                        'meta_query' => $search
+                                    );
+
+                                    $the_query = new WP_Query($args);
+                                    $count = $the_query->post_count;
+                                    while ($the_query->have_posts()) :
+                                        $the_query->the_post();
+                                    ?>
+                                        <div class="wt-project">
+                                            <div class="wt-projectcontent">
+                                                <h3><?php echo get_the_title() ?></h3>
+                                                <a target="_Blank" href="<?php echo get_the_permalink() . '?viewed_by=' . get_current_user_id(); ?>">مشاهده پروژه</a>
+                                            </div>
+                                        </div>
+                                    <?php
+                                    endwhile;
+                                    if ($count == 0) {
+                                    ?>
+                                        <h3 style="color: red;">تا کنون پروژه ای در این سایت انجام نداده ام</h3>
+
+                                    <?php
+                                    }
+                                    ?>
+                                    <?php wp_reset_query(); ?>
+                                </div>
+                            </div>
+                            <div class="wt-craftedprojects">
+                                <div class="wt-usertitle">
                                     <h2>نمونه کارها</h2>
                                 </div>
                                 <div class="wt-projects">
@@ -175,7 +227,7 @@ if ($user_id == 0) {
                                     <h2>مهارت های من</h2>
                                 </div>
                                 <div class="wt-widgetcontent wt-skillscontent">
-                                <?php
+                                    <?php
                                     $json = json_decode(get_the_author_meta('user_skills', $user_id), true);
                                     if (is_array($json)) {
                                         foreach ($json as $item) {
@@ -183,12 +235,12 @@ if ($user_id == 0) {
                                             $persent = $item["user_skill_persent"];
                                             $post = get_post($skill);
                                     ?>
-                                    <div class="wt-skillholder" data-percent="<?php echo $persent ?>%">
-                                        <span><?php echo $post->post_title ?> <em style="margin-left: 10px;"><?php echo $persent ?>%</em></span>
-                                        <div class="wt-skillbarholder">
-                                            <div class="wt-skillbar"></div>
-                                        </div>
-                                    </div>
+                                            <div class="wt-skillholder" data-percent="<?php echo $persent ?>%">
+                                                <span><?php echo $post->post_title ?> <em style="margin-left: 10px;"><?php echo $persent ?>%</em></span>
+                                                <div class="wt-skillbarholder">
+                                                    <div class="wt-skillbar"></div>
+                                                </div>
+                                            </div>
                                     <?php
                                         }
                                     }
@@ -201,10 +253,11 @@ if ($user_id == 0) {
                                 </div>
                                 <div class="wt-widgetcontent">
                                     <ul class="wt-socialiconssimple">
-                                        <li class="wt-facebook"><a href="javascript:void(0);"><i class="fab fa-facebook-f"></i>اشتراک گذاری در فیسبوک</a></li>
-                                        <li class="wt-twitter"><a href="javascript:void(0);"><i class="fab fa-twitter"></i>اشتراک گذاری در توئیتر</a></li>
-                                        <li class="wt-linkedin"><a href="javascript:void(0);"><i class="fab fa-linkedin-in"></i>اشتراک گذاری در لینکدین</a></li>
-                                        <li class="wt-googleplus"><a href="javascript:void(0);"><i class="fab fa-google-plus-g"></i>اشتراک گذاری در گوگل پلاس</a></li>
+
+                                        <li class="wt-facebook"><a class="social-share facebook" href="javascript:void(0);"><i class="fab fa-facebook-f"></i>اشتراک گذاری در فیسبوک</a></li>
+                                        <li class="wt-twitter"><a class="social-share twitter" href="javascript:void(0);"><i class="fab fa-twitter"></i>اشتراک گذاری در توئیتر</a></li>
+                                        <li class="wt-linkedin"><a class="social-share linkedin" href="javascript:void(0);"><i class="fab fa-linkedin-in"></i>اشتراک گذاری در لینکدین</a></li>
+                                        <li class="wt-googleplus"><a class="social-share google-plus" href="javascript:void(0);"><i class="fab fa-google-plus-g"></i>اشتراک گذاری در گوگل پلاس</a></li>
                                     </ul>
                                 </div>
                             </div>

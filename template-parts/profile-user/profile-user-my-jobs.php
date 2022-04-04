@@ -21,11 +21,18 @@ $args = array(
 );
 $the_query = new WP_Query($args);
 $count = $the_query->post_count;
+
+
+if (isset($_GET["job_id"]) && isset($_GET["project_state"])) {
+    $job_id = $_GET["job_id"];
+    $author = get_post_field('post_author', $job_id);
+    if ($user_id == $author) {
+        update_post_meta($job_id, 'project_state', 1);
+    }
+}
 ?>
 
-<section class="wt-haslayout wt-dbsectionspace">
-    <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-9">
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-9">
             <div class="wt-dashboardbox">
                 <div class="wt-dashboardboxtitle">
                     <h2> مدیریت پروژه ها </h2>
@@ -45,7 +52,11 @@ $count = $the_query->post_count;
                                     <div class="wt-userlistingcontent">
                                         <div class="wt-contenthead">
                                             <div class="wt-title">
-                                                <h2> <?php echo get_the_title(); ?></h2>
+                                                <h2> <?php echo get_the_title();
+                                                        if (get_post_meta(get_the_ID(), 'project_state', true) == 1) {
+                                                            echo ' - ' . '<span style="color:green">تکمیل شده</span>';
+                                                        }
+                                                        ?></h2>
                                             </div>
                                             <ul class="wt-saveitem-breadcrumb wt-userlisting-breadcrumb">
                                                 <li><span><i class="fa fa-dollar-sign wt-viewjobdollar"></i><?php echo ' ' . get_post_meta(get_the_ID(), 'min_price', true) . ' - ' . get_post_meta(get_the_ID(), 'max_price', true); ?></span></li>
@@ -65,6 +76,19 @@ $count = $the_query->post_count;
                                             </div>
                                             <div style="margin-right: 10px;" class="wt-btnarea">
                                                 <a href="<?php echo home_url('profile?action=request-project&job_id=' . get_the_ID()); ?>" class="wt-btn">پیشنهادات </a>
+                                            </div>
+                                            <div style="margin-right: 10px;" class="wt-btnarea">
+                                                <?php
+                                                if (get_post_meta(get_the_ID(), 'project_state', true) == 1) {
+                                                    ?>
+                                                <a href="#" style="background: green;" class="wt-btn">تکمیل شد</a>
+
+                                                    <?php
+                                                } else{
+                                                ?>
+                                                <a href="<?php echo home_url('profile?action=my-jobs&project_state=1&job_id=' . get_the_ID()); ?>" class="wt-btn">اتمام پروژه </a>
+
+                                                <?php } ?>
                                             </div>
                                         </div>
                                     </div>
@@ -98,6 +122,3 @@ $count = $the_query->post_count;
                 <?php wp_reset_query(); ?>
             </div>
         </div>
-    </div>
-</section>
-

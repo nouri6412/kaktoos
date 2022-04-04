@@ -169,10 +169,10 @@ get_header();
                                         </div>
                                         <div class="wt-widgetcontent">
                                             <ul class="wt-socialiconssimple">
-                                                <li class="wt-facebook"><a href="javascript:void(0);"><i class="fab fa-facebook-f"></i>اشتراک گذاری در فیسبوک</a></li>
-                                                <li class="wt-twitter"><a href="javascript:void(0);"><i class="fab fa-twitter"></i>اشتراک گذاری در توئیتر</a></li>
-                                                <li class="wt-linkedin"><a href="javascript:void(0);"><i class="fab fa-linkedin-in"></i>اشتراک گذاری در لینکدین</a></li>
-                                                <li class="wt-googleplus"><a href="javascript:void(0);"><i class="fab fa-google-plus-g"></i>اشتراک گذاری در گوگل پلاس</a></li>
+                                                <li class="wt-facebook"><a class="social-share facebook" href="javascript:void(0);"><i class="fab fa-facebook-f"></i>اشتراک گذاری در فیسبوک</a></li>
+                                                <li class="wt-twitter"><a class="social-share twitter" href="javascript:void(0);"><i class="fab fa-twitter"></i>اشتراک گذاری در توئیتر</a></li>
+                                                <li class="wt-linkedin"><a class="social-share linkedin" href="javascript:void(0);"><i class="fab fa-linkedin-in"></i>اشتراک گذاری در لینکدین</a></li>
+                                                <li class="wt-googleplus"><a class="social-share google-plus" href="javascript:void(0);"><i class="fab fa-google-plus-g"></i>اشتراک گذاری در گوگل پلاس</a></li>
                                             </ul>
                                         </div>
                                     </div>

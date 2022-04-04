@@ -60,7 +60,7 @@ if (strlen($search_word) > 0) {
         'compare' => 'LIKE'
     );
     $search_title[] =           array(
-        'key' => 'skills',
+        'key' => 'desc',
         'value' => $search_word,
         'compare' => 'LIKE'
     );
@@ -105,8 +105,8 @@ $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 $args = array(
     'post_type' => 'job',
     'post_status' => 'publish',
-    // 'meta_key' => 'active',
-    // 'meta_value' => '1',
+     'meta_key' => 'active',
+     'meta_value' => '1',
     'paged' => $paged,
     'meta_query' => $search,
     'posts_per_page' => 10
