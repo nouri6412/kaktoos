@@ -31,6 +31,34 @@ $the_query = new WP_Query($args);
 
 $count = $the_query->post_count;
 
+$request_id = 0;
+$chat = [];
+if (isset($_GET["request_id"])) {
+    $request_id = $_GET["request_id"];
+    $str = get_post_meta($request_id, 'chat', true);
+    if (strlen($str) > 0) {
+        $chat = json_decode($str,true);
+    }
+}
+
+
+if (count($chat) == 0) {
+    $message = get_post_meta($request_id, 'desc', true);
+    if (strlen($message) > 0) {
+        $chat[] = ["user_id" => get_post_meta($request_id, 'owner_id', true), "text" => $message, "date" => get_the_time('U', $request_id)];
+    }
+}
+
+$message = "";
+
+if (isset($_POST["message"])) {
+    $message = trim($_POST["message"]);
+    $d = mktime(date("H"), date("i"), date("s"), date("m"), date("d"), date("Y"));
+    $chat[] = ["user_id" => $user_id, "text" => $message, "date" => $d];
+}
+
+update_post_meta($request_id, "chat", json_encode($chat, JSON_UNESCAPED_UNICODE));
+
 ?>
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-9">
     <div class="wt-dashboardbox wt-messages-holder">
@@ -40,29 +68,31 @@ $count = $the_query->post_count;
         <div class="wt-dashboardboxcontent wt-dashboardholder wt-offersmessages">
             <ul>
                 <li>
-                    <form class="wt-formtheme wt-formsearch">
+                    <!-- <form class="wt-formtheme wt-formsearch">
                         <fieldset>
                             <div class="form-group">
                                 <input type="text" name="Location" class="form-control" placeholder="اینجا  جستجو کنید">
                                 <a href="javascrip:void(0);" class="wt-searchgbtn"><i class="lnr lnr-magnifier"></i></a>
                             </div>
                         </fieldset>
-                    </form>
+                    </form> -->
                     <div class="wt-verticalscrollbar wt-dashboardscrollbar">
                         <?php
                         while ($the_query->have_posts()) :
                             $the_query->the_post();
                             $job_id = get_post_meta(get_the_ID(), 'job_id', true);
-                            $request_id = get_post_meta($job_id, 'request_id', true);
+                            //$request_id = get_post_meta($job_id, 'request_id', true);
                             $class = " wt-dotnotification wt-active";
                             $class = "";
                         ?>
                             <div class="wt-ad <?php echo $class ?>">
-                                <figure><img src="<?php echo (strlen(get_the_author_meta('avatar')) > 0) ? get_the_author_meta('avatar') : get_template_directory_uri() . '/assets/img/user.png' ?>" alt="image description"></figure>
-                                <div class="wt-adcontent">
-                                    <h3><?php echo get_the_author_meta('user_name')  ?></h3>
-                                    <span><?php echo (strlen(get_the_author_meta('job_title')) > 0) ? get_the_author_meta('user_country') : ''   ?></span>
-                                </div>
+                                <a href="<?php echo home_url('profile?action=message&request_id=' . get_the_ID()) ?>">
+                                    <figure><img src="<?php echo (strlen(get_the_author_meta('avatar')) > 0) ? get_the_author_meta('avatar') : get_template_directory_uri() . '/assets/img/user.png' ?>" alt="image description"></figure>
+                                    <div class="wt-adcontent">
+                                        <h3><?php echo get_the_author_meta('user_name')  ?></h3>
+                                        <span><?php echo (strlen(get_the_author_meta('job_title')) > 0) ? get_the_author_meta('user_country') : ''   ?></span>
+                                    </div>
+                                </a>
                             </div>
                         <?php
                         endwhile;
@@ -93,70 +123,38 @@ $count = $the_query->post_count;
                 <li>
                     <div class="wt-chatarea">
                         <div class="wt-messages wt-verticalscrollbar wt-dashboardscrollbar">
-                            <div class="wt-offerermessage">
-                                <figure><img src="<?php echo get_template_directory_uri(); ?>/assets/images/messages/img-12.jpg" alt="image description"></figure>
-                                <div class="wt-description">
-                                    <p>لورم ایپسوم یا طرح‌نما به متنی بی‌معنی در صنعت چاپ،
-                                        صفحه‌آرایی و طراحی
-                                        گرافیک گفته می شود.</p>
-                                    <div class="clearfix"></div>
-                                    <time datetime="2017-08-08">22 دی 1389</time>
+                            <?php $index=65; foreach ($chat as $item) {
+                                
+                                $style="";
+                                $class = "wt-memessage wt-readmessage";
+                                if ($user_id != $item["user_id"]) {
+                                    $class = "wt-offerermessage";
+                              
+                                }
+                            ?>
+                                <div style="margin-top: <?php echo $index ?>px;" class="<?php echo $class ?>">
+                                    <figure><img src="<?php echo (strlen(get_the_author_meta('avatar', $item["user_id"])) > 0) ? get_the_author_meta('avatar', $item["user_id"]) : get_template_directory_uri() . '/assets/img/user.png' ?>" alt="image description"></figure>
+                                    <div class="wt-description">
+                                        <p><?php echo $item["text"]; ?></p>
+                                        <div class="clearfix"></div>
+                                        <time datetime="2017-08-08"><?php echo  human_time_diff($item["date"], current_time('timestamp')) . ' ' . 'پیش'  ?></time>
+                                        <div class="clearfix"></div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="wt-memessage wt-readmessage">
-                                <figure><img src="<?php echo get_template_directory_uri(); ?>/assets/images/messages/img-11.jpg" alt="image description"></figure>
-                                <div class="wt-description">
-                                    <p>لورم ایپسوم یا طرح‌نما به متنی آزمایشی و بی‌معنی در صنعت چاپ،
-                                        صفحه‌آرایی و طراحی
-                                        گرافیک گفته می شود.</p>
-                                    <div class="clearfix"></div>
-                                    <p><a href="https://themeforest.net/" target="_blank">https://themeforest.net</a></p>
-                                    <div class="clearfix"></div>
-                                    <p>خوب است؟ </p>
-                                    <div class="clearfix"></div>
-                                    <time datetime="2017-08-08">7 تير 1396 09:30</time>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </div>
-                            <div class="wt-offerermessage">
-                                <figure><img src="<?php echo get_template_directory_uri(); ?>/assets/images/messages/img-12.jpg" alt="image description"></figure>
-                                <div class="wt-description">
-                                    <div class="clearfix"></div>
-                                    <p>لورم ایپسوم یا طرح‌نما به متنی بی‌معنی در صنعت چاپ،
-                                        صفحه‌آرایی و طراحی
-                                        گرافیک گفته می شود.</p>
-                                    <div class="clearfix"></div>
-                                    <time datetime="2017-08-08">22 دی 1389</time>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </div>
-                            <div class="wt-memessage wt-readmessage">
-                                <figure><img src="<?php echo get_template_directory_uri(); ?>/assets/images/messages/img-11.jpg" alt="image description"></figure>
-                                <div class="wt-description">
-                                    <div class="clearfix"></div>
-                                    <p>لورم ایپسوم یا طرح‌نما به متنی آزمایشی و بی‌معنی در صنعت چاپ،
-                                        صفحه‌آرایی و طراحی
-                                        گرافیک گفته می شود.</p>
-                                    <div class="clearfix"></div>
-                                    <p><a href="https://themeforest.net/" target="_blank">https://themeforest.net</a></p>
-                                    <div class="clearfix"></div>
-                                    <p>خوب است؟ </p>
-                                    <div class="clearfix"></div>
-                                    <time datetime="2017-08-08">7 تير 1396 09:30</time>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </div>
+                            <?php $index=0; } ?>
                         </div>
                         <div class="wt-replaybox">
-                            <div class="form-group">
-                                <textarea class="form-control" name="reply" placeholder="پیام را اینجا تایپ کنید"></textarea>
-                            </div>
-                            <div class="wt-iconbox">
-                                <i class="lnr lnr-thumbs-up"></i>
-                                <i class="lnr lnr-thumbs-down"></i>
-                                <i class="lnr lnr-smile"></i>
-                                <a href="javascript:void(0);" class="wt-btnsendmsg">ارسال</a>
-                            </div>
+                            <form method="post" action="<?php echo home_url('profile?action=message&request_id=' . $request_id) ?>">
+                                <div class="form-group">
+                                    <textarea id="message" name="message" class="form-control" name="reply" placeholder="پیام را اینجا تایپ کنید"></textarea>
+                                </div>
+                                <div class="wt-iconbox">
+                                    <i class="lnr lnr-thumbs-up"></i>
+                                    <i class="lnr lnr-thumbs-down"></i>
+                                    <i class="lnr lnr-smile"></i>
+                                    <button type="submit" class="wt-btnsendmsg">ارسال</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </li>
