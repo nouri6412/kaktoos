@@ -173,42 +173,58 @@ foreach (glob(get_template_directory() . "/inc/ajax/*.php") as $filename) {
 
 
 //date hook
-function time_ago_date(  $the_date) {
+function time_ago_date($the_date)
+{
 
-	return human_time_diff( get_the_time('U'), current_time('timestamp') ) . ' ' .'پیش';
+    return human_time_diff(get_the_time('U'), current_time('timestamp')) . ' ' . 'پیش';
 }
-add_filter( 'get_the_date', 'time_ago_date', 10, 1 );
+add_filter('get_the_date', 'time_ago_date', 10, 1);
 
 
 
-add_filter('manage_job_posts_columns', function($columns) {
-	return array_merge($columns, ['active' => __('وضعیت تایید', 'textdomain')]);
+add_filter('manage_job_posts_columns', function ($columns) {
+    return array_merge($columns, ['active' => __('وضعیت تایید', 'textdomain')]);
 });
- 
-add_action('manage_job_posts_custom_column', function($column_key, $post_id) {
-	if ($column_key == 'active') {
-		$verified = get_post_meta($post_id, 'active', true);
-		if ($verified) {
-			echo '<a href="edit.php?post_type=job&job_id='.$post_id.'&active=0" style="color:green;">'; _e('تایید شده', 'textdomain'); echo '</a>';
-		} else {
-			echo '<a href="edit.php?post_type=job&job_id='.$post_id.'&active=1"  style="color:red;">'; _e('تایید نشده', 'textdomain'); echo '</a>';
-		}
-	}
+
+add_action('manage_job_posts_custom_column', function ($column_key, $post_id) {
+    if ($column_key == 'active') {
+        $verified = get_post_meta($post_id, 'active', true);
+        if ($verified) {
+            echo '<a href="edit.php?post_type=job&job_id=' . $post_id . '&active=0" style="color:green;">';
+            _e('تایید شده', 'textdomain');
+            echo '</a>';
+        } else {
+            echo '<a href="edit.php?post_type=job&job_id=' . $post_id . '&active=1"  style="color:red;">';
+            _e('تایید نشده', 'textdomain');
+            echo '</a>';
+        }
+    }
 }, 10, 2);
 
 
-add_action( 'admin_init', 'kaktos_admin_active_job' );
+add_action('admin_init', 'kaktos_admin_active_job');
 function kaktos_admin_active_job()
 {
-    if(!is_admin())
-    {
+    if (!is_admin()) {
         return;
     }
-    if(isset($_GET["post_type"])&&$_GET["post_type"]=="job"&&isset($_GET["job_id"]))
-    {
+    if (isset($_GET["post_type"]) && $_GET["post_type"] == "job" && isset($_GET["job_id"])) {
         $job_id = sanitize_text_field($_GET["job_id"]);
         $active = sanitize_text_field($_GET["active"]);
-        update_post_meta( $job_id, 'active', $active );
+        update_post_meta($job_id, 'active', $active);
+
+        $notifi = [];
+        $str = get_the_author_meta('notifi', get_post_field( 'post_author', $job_id ));
+        if (strlen($str) > 0) {
+            $notifi = json_decode($str, true);
+        }
+
+        if($active==1)
+        {
+            $d = mktime(date("H"), date("i"), date("s"), date("m"), date("d"), date("Y"));
+            $message="پروژه"." ".get_the_title($job_id).' '.'تایید شد';
+            $notifi[] = [ "text" => $message, "date" => $d];
+            update_user_meta(get_post_field( 'post_author', $job_id ), 'notifi', json_encode($notifi,JSON_UNESCAPED_UNICODE));
+        }
     }
 }
-

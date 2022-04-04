@@ -55,9 +55,9 @@ if (isset($_POST["message"])) {
     $message = trim($_POST["message"]);
     $d = mktime(date("H"), date("i"), date("s"), date("m"), date("d"), date("Y"));
     $chat[] = ["user_id" => $user_id, "text" => $message, "date" => $d];
-}
+    update_post_meta($request_id, "chat", json_encode($chat, JSON_UNESCAPED_UNICODE));
 
-update_post_meta($request_id, "chat", json_encode($chat, JSON_UNESCAPED_UNICODE));
+}
 
 ?>
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-9">

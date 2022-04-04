@@ -49,6 +49,18 @@ class Kaktos_Company
         $result["state"] = 1;
         $result["message"] = 'با موفقیت ذخیره شد';
 
+        $notifi = [];
+        $str = get_the_author_meta('notifi', $user_id);
+        if (strlen($str) > 0) {
+            $notifi = json_decode($str, true);
+        }
+
+            $d = mktime(date("H"), date("i"), date("s"), date("m"), date("d"), date("Y"));
+            $message="رمز عبور شما با موفقیت تغییر یافت";
+            $notifi[] = [ "text" => $message, "date" => $d];
+
+            update_user_meta($user_id, 'notifi', json_encode($notifi,JSON_UNESCAPED_UNICODE));
+
         echo json_encode($result);
         die();
     }
