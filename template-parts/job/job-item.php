@@ -8,7 +8,7 @@
             <ul>
                 <li><i class="fa fa-map-marker"></i> <?php echo  get_the_title(get_post_meta(get_the_ID(), 'state_id', true)) . '  ' . get_the_title(get_post_meta(get_the_ID(), 'city_id', true)); ?></li>
                 <li><i class="fa fa-bookmark-o"></i> <?php echo get_post_meta(get_the_ID(), 'coop-type', true); ?></li>
-                <li><i class="fa fa-clock-o"></i> <?php echo get_the_date(); ?></li>
+                <li><i class="fa fa-clock-o"></i> <?php echo custom_get_the_date(get_the_ID()); ?></li>
             </ul>
         </div>
     </div>

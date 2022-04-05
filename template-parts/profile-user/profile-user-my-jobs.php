@@ -67,7 +67,7 @@ if (isset($_GET["job_id"]) && isset($_GET["project_state"])) {
                                                 <li><span><i class="far fa-folder wt-viewjobfolder"></i> <?php $cat = get_post(get_post_meta(get_the_ID(), 'cat_id', true));
                                                                                                             echo $cat->post_title; ?></span></li>
                                                 <li><span><i class="far fa-clock wt-viewjobclock"></i><?php echo 'زمان' . ' : ' . get_post_meta(get_the_ID(), 'time', true) . ' ' . 'روز'; ?></span></li>
-                                                <li><span><i class="far fa-clock "></i><?php echo  get_the_date(); ?></span></li>
+                                                <li><span><i class="far fa-clock "></i><?php echo  custom_get_the_date(get_the_ID()); ?></span></li>
                                             </ul>
                                         </div>
                                         <div class="wt-rightarea">

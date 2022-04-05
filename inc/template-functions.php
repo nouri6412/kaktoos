@@ -14,7 +14,7 @@ function custom_theme_get_the_archive_title() {
 	} elseif ( is_month() ) {
 		$title = 'ماه'.' ' . '<span class="page-description">' . get_the_date( _x( 'F Y', 'monthly archives date format', 'twentynineteen' ) ) . '</span>';
 	} elseif ( is_day() ) {
-		$title = 'روز' .' '. '<span class="page-description">' . get_the_date() . '</span>';
+		$title = 'روز' .' '. '<span class="page-description">' . custom_get_the_date(get_the_ID()) . '</span>';
 	} elseif ( is_post_type_archive() ) {
 		$title = '' . '<span class="page-description">' . post_type_archive_title( '', false ) . '</span>';
 	} elseif ( is_tax() ) {

@@ -16,6 +16,7 @@ if (isset($_GET["viewed_by"])) {
 
     $user_id = get_current_user_id();
     if ($user_id > 0) {
+        $search = array();
         $search["relation"] = "AND";
         $search[] =           array(
             'key' => 'job_id',
@@ -41,7 +42,8 @@ if (isset($_GET["viewed_by"])) {
                 'post_author'  => $user_id,
                 'post_status'  => 'publish',
                 'meta_input'   => array(
-                    'job_id' => get_the_ID()
+                    'job_id' => get_the_ID(),
+                    'user_id'=>get_post_field( 'post_author',get_the_ID() )
                 )
             );
             $id = wp_insert_post($args_post);
@@ -54,6 +56,7 @@ if (isset($_GET["liked_by"])) {
 
     $user_id = get_current_user_id();
     if ($user_id > 0) {
+        $search = array();
         $search["relation"] = "AND";
         $search[] =           array(
             'key' => 'job_id',
@@ -79,7 +82,8 @@ if (isset($_GET["liked_by"])) {
                 'post_author'  => $user_id,
                 'post_status'  => 'publish',
                 'meta_input'   => array(
-                    'job_id' => get_the_ID()
+                    'job_id' => get_the_ID(),
+                    'user_id'=>get_post_field( 'post_author',get_the_ID() )
                 )
             );
             $id = wp_insert_post($args_post);

@@ -80,7 +80,7 @@ $count = $the_query->post_count;
                                             <ul style="margin-top: 8px;" class="wt-saveitem-breadcrumb wt-userlisting-breadcrumb">
                                                 <li><span><i class="fa fa-dollar-sign wt-viewjobdollar"></i><?php echo 'قیمت پیشنهادی من' . ' : ' . get_post_meta(get_the_ID(), 'price', true) . ' ' . 'دلار' ?></span></li>
                                                 <li><span><i class="far fa-clock wt-viewjobclock"></i><?php echo 'زمان پیشنهادی من' . ' : ' . get_post_meta(get_the_ID(), 'time', true) . ' ' . 'روز'; ?></span></li>
-                                                <li><span><i class="far fa-clock wt-viewjobclock"></i><?php echo get_the_date(); ?></span></li>
+                                                <li><span><i class="far fa-clock wt-viewjobclock"></i><?php echo custom_get_the_date(get_the_ID()); ?></span></li>
                                             </ul>
                                             <div style="margin-top: 8px;">
                                                 <?php echo get_post_meta(get_the_ID(), 'desc', true) ?>

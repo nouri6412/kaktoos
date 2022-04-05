@@ -87,7 +87,7 @@ $count = $the_query->post_count;
                                                 <ul>
                                                     <li><span><i class="fa fa-dollar-sign wt-viewjobdollar"></i><?php echo ' ' . get_post_meta(get_the_ID(), 'price', true) ; ?></span></li>
                                                     <li><span><i class="far fa-clock wt-viewjobclock"></i><?php echo 'زمان' . ' : ' . get_post_meta(get_the_ID(), 'time', true) . ' ' . 'روز'; ?></span></li>
-                                                    <li><span><i class="far fa-clock "></i><?php echo  get_the_date() ; ?></span></li>
+                                                    <li><span><i class="far fa-clock "></i><?php echo  custom_get_the_date(get_the_ID()) ; ?></span></li>
                                                 </ul>
                                             </div>
                                         </div>

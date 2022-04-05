@@ -15,7 +15,7 @@ $user_id = get_current_user_id();
         <label for="tab2">شش ماه گذشته</label>
 
         <input type="radio" id="tab3" name="tabGroup1" class="tab">
-        <label for="tab3">سال کذشته</label>
+        <label for="tab3">سال گذشته</label>
 
 
         <input type="radio" id="tab4" name="tabGroup1" class="tab">

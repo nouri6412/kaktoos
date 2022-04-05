@@ -61,7 +61,9 @@ Author: جلیل نوری
 .dashboard-icon{
     color: #cdcdcd;
 }
-
+.list-group .list-group-item{
+    cursor: pointer;
+}
 @media (max-width: 1680px)
 {
     .wt-openmenu .wt-companysdetails.wt-usersidebar .wt-companysimg img {

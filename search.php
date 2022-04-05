@@ -70,7 +70,7 @@ get_header();
 													<li>
 														<a href="javascript:void(0);">
 															<i class="lnr lnr-clock"></i>
-															<span><?php echo get_the_date(); ?> </span>
+															<span><?php echo custom_get_the_date(get_the_ID()); ?> </span>
 														</a>
 													</li>
 													<li>

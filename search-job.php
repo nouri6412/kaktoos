@@ -318,7 +318,7 @@ $count = $the_query->post_count;
                                                     <li><span><i class="far fa-folder wt-viewjobfolder"></i> <?php $cat = get_post(get_post_meta(get_the_ID(), 'cat_id', true));
                                                     echo $cat->post_title; ?></span></li>
                                                     <li><span><i class="far fa-clock wt-viewjobclock"></i><?php echo 'زمان' . ' : ' . get_post_meta(get_the_ID(), 'time', true) . ' ' . 'روز'; ?></span></li>
-                                                    <li><span><i class="far fa-clock "></i><?php echo  get_the_date() ; ?></span></li>
+                                                    <li><span><i class="far fa-clock "></i><?php echo  custom_get_the_date(get_the_ID()) ; ?></span></li>
 
                                                     <li><a href="javascript:void(0);" class="wt-clicklike wt-clicksave"><i class="fa fa-heart"></i> ذخیره</a></li>
                                                     <li class="wt-btnarea"><a href="<?php echo get_the_permalink(); ?>" class="wt-btn">مشاهده پروژه</a></li>

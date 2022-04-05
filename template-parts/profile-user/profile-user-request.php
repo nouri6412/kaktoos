@@ -45,7 +45,7 @@ $count = $the_query->post_count;
                     </div>
                     <div class="posted-info clearfix">
                         <p class="m-tb0 text-primary float-left"><span class="text-black m-r10">ارسال شده:</span> <?php echo get_the_date('', $job_id); ?></p>
-                        <p class="m-tb0 text-primary float-right"><span class="text-black m-r10">ارسال رزومه:</span> <?php echo get_the_date(); ?></p>
+                        <p class="m-tb0 text-primary float-right"><span class="text-black m-r10">ارسال رزومه:</span> <?php echo custom_get_the_date(get_the_ID()); ?></p>
                         <br>
                         <div>
                             <label>وضعیت درخواست</label>

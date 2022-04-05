@@ -178,7 +178,12 @@ function time_ago_date($the_date)
 
     return human_time_diff(get_the_time('U'), current_time('timestamp')) . ' ' . 'پیش';
 }
-add_filter('get_the_date', 'time_ago_date', 10, 1);
+//add_filter('get_the_date', 'time_ago_date', 10, 1);
+
+function custom_get_the_date($post)
+{
+    return human_time_diff(get_the_time('U',$post), current_time('timestamp')) . ' ' . 'پیش';
+}
 
 
 

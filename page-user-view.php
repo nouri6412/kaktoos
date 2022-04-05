@@ -27,6 +27,7 @@ if ($user_id == 0) {
 $cur_user_id = get_current_user_id();
 
 if ($cur_user_id > 0) {
+    $search = array();
     $search["relation"] = "AND";
     $search[] =           array(
         'key' => 'user_id',

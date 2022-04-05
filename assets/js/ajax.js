@@ -77,11 +77,12 @@ function repoert_change_project(obj) {
     document.location.href = custom_theme_mbm_object.siteurl + "/profile?action=my-activity&user_type=" + user_type;
 }
 
-function custom_theme_mbm_chart_coin(type, element, header, x_label = true, y_label = true) {
+function custom_theme_mbm_chart_project(type,report_type, element, header, x_label = true, y_label = true,click_item='') {
     custom_theme_mbm_base_ajax({
         'action': 'mbm_chart_project',
         'element': element,
-        'type': type
+        'report_type': report_type,
+        'chart_type': type
     }, function (result) {
         console.log(result);
 
@@ -95,6 +96,12 @@ function custom_theme_mbm_chart_coin(type, element, header, x_label = true, y_la
         canvas = document.getElementById(element);
         const context = canvas.getContext('2d');
         context.clearRect(0, 0, canvas.width, canvas.height);
+
+        if(click_item!='')
+        {
+            jQuery('.list-group .active').removeClass('active');
+            click_item.addClass('active');
+        }
 
         new Chart(element, {
             type: "line",

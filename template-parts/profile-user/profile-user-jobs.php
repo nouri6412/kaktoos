@@ -66,7 +66,7 @@ $count = $the_query->post_count;
                         <?php } ?>
                     </div>
                     <div class="posted-info clearfix">
-                        <p class="m-tb0 text-primary float-left"><span class="text-black m-r10">ارسال شده:</span> <?php echo get_the_date(); ?></p>
+                        <p class="m-tb0 text-primary float-left"><span class="text-black m-r10">ارسال شده:</span> <?php echo custom_get_the_date(get_the_ID()); ?></p>
                         <?php
                         $user_id = get_current_user_id();
                         $args = array(

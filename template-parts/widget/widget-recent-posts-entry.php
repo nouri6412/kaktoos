@@ -20,7 +20,7 @@ $the_query = new WP_Query($args);
                     </div>
                     <div class="dez-post-meta">
                         <ul class="d-flex align-items-center">
-                            <li class="post-date"><i class="fa fa-calendar"></i><?php echo get_the_date(); ?></li>
+                            <li class="post-date"><i class="fa fa-calendar"></i><?php echo custom_get_the_date(get_the_ID()); ?></li>
                             <li class="post-comment"><a href="<?php echo get_permalink();  ?>"><i class="fa fa-comments-o"></i><?php echo get_comments_number(); ?></a> </li>
                         </ul>
                     </div>
