@@ -16,7 +16,7 @@ if (isset($_GET["job_id"])) {
 }
 
 ?>
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-9">
+<div class="col-12 col-md-8 col-lg-9 col-xl-10">
     <div class="wt-haslayout wt-dbsectionspace">
         <div class="wt-dashboardbox wt-dashboardtabsholder">
             <div class="wt-dashboardboxtitle">

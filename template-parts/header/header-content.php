@@ -10,10 +10,10 @@
     </div>
     <!-- Preloader End -->
     <!-- Wrapper Start -->
-    <div id="wt-wrapper" class="wt-wrapper wt-haslayout">
+    <div id="wt-wrapper" class="wt-wrapper wt-haslayout wt-openmenu">
         <!-- Content Wrapper Start -->
         <div class="wt-contentwrapper">
-            <!-- Header Start -->
+            <!-- Header Start --> 
             <header id="wt-header" class="wt-header wt-haslayout">
                 <div class="wt-navigationarea">
                     <div class="container-fluid">

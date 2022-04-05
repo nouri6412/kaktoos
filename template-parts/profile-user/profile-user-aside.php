@@ -3,14 +3,14 @@ $user_info = get_query_var('user_info');
 $user_meta = get_query_var('user_meta');
 $page_action = get_query_var('page_action');
 ?>
-<div id="wt-sidebarwrapper" class="wt-sidebarwrapper">
-	<div id="wt-btnmenutoggle" class="wt-btnmenutoggle">
+<div id="" class="wt-sidebarwrapper">
+	<!-- <div id="wt-btnmenutoggle" class="wt-btnmenutoggle">
 		<span class="menu-icon">
 			<em></em>
 			<em></em>
 			<em></em>
 		</span>
-	</div>
+	</div> -->
 	<div id="wt-verticalscrollbar" class="wt-verticalscrollbar">
 		<div class="wt-companysdetails wt-usersidebar">
 			<figure class="wt-companysimg">

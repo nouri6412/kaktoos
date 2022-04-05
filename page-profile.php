@@ -41,8 +41,9 @@ set_query_var('user_meta', $user_meta);
     ?>
     <!--Sidebar Start-->
     <!--Register Form Start-->
-    <section class="wt-haslayout">
-        <div class="row">
+    <section class="wt-haslayout wt-dbsectionspace">
+        <div class="row"> 
+        <div class="col-md-4 col-lg-3 col-xl-2"></div>
             <?php
             if ($user_id > 0) {
                 $user_type = "user";

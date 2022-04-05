@@ -458,7 +458,7 @@ a {
     transition: 0.5s opacity ease-in, 0.8s transform ease;
     position: relative;
     top: 0;
-    z-index: 1;
+    z-index: 100;
     transform: translateY(0px);
     text-shadow: 0 0 0;
 }
@@ -468,7 +468,7 @@ a {
     transition: 0.5s opacity ease-in, 0.8s transform ease;
     position: relative;
     top: 0;
-    z-index: 1;
+    z-index: 100;
     transform: translateY(0px);
     text-shadow: 0 0 0;
 }
@@ -478,7 +478,7 @@ a {
     transition: 0.5s opacity ease-in, 0.8s transform ease;
     position: relative;
     top: 0;
-    z-index: 1;
+    z-index: 100;
     transform: translateY(0px);
     text-shadow: 0 0 0;
 }
@@ -488,7 +488,7 @@ a {
     transition: 0.5s opacity ease-in, 0.8s transform ease;
     position: relative;
     top: 0;
-    z-index: 1;
+    z-index: 100;
     transform: translateY(0px);
     text-shadow: 0 0 0;
 }
@@ -498,7 +498,7 @@ a {
     transition: 0.5s opacity ease-in, 0.8s transform ease;
     position: relative;
     top: 0;
-    z-index: 1;
+    z-index: 100;
     transform: translateY(0px);
     text-shadow: 0 0 0;
 }
@@ -1514,4 +1514,9 @@ body .owl-carousel .owl-nav.disabled {
 .css:hover+.gg {
     display: flex;
     flex-direction: column;
+}
+@media (max-width: 768px){
+.wt-wrapper.wt-openmenu .wt-sidebarwrapper {
+    width: 0px !important;
+}
 }

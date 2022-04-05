@@ -48,7 +48,7 @@ $the_query = new WP_Query($args);
 $count = $the_query->post_count;
 ?>
 
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+<div class="col-12 col-md-8 col-lg-9 col-xl-10">
     <div class="wt-dashboardbox">
         <div class="wt-dashboardboxtitle">
             <h2> پیشنهادات پروژه </h2>
