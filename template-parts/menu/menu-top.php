@@ -68,14 +68,14 @@
 </li>
 
 <li>
-    <a href="<?php echo home_url('profile?action=my-following') ?>">
+    <a href="<?php echo home_url('profile?action=following') ?>">
         <i class="fa fa-users"></i>
         <span>دنبال شونده گان</span>
     </a>
 </li>
 
 <li>
-    <a href="<?php echo home_url('profile?action=my-followers') ?>">
+    <a href="<?php echo home_url('profile?action=followers') ?>">
         <i class="fa fa-users"></i>
         <span>دنبال کنند گان</span>
     </a>

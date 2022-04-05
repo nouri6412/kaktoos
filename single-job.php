@@ -80,7 +80,6 @@ if (isset($_GET["liked_by"])) {
 
     if ($user_id > 0) {
 
-
         if ($count == 0) {
             $args_post = array(
                 'post_title'   => $user_id,
