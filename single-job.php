@@ -245,10 +245,10 @@ if (isset($_GET["liked_by"])) {
                                     <div class="wt-widget wt-companysinfo-jobsingle">
                                         <div class="wt-companysdetails">
                                             <figure class="wt-companysimg">
-                                                <img src="<?php echo get_the_author_meta('avatar_bg') ?>" alt="img description">
+                                                <img src="<?php echo (strlen(get_the_author_meta('avatar_bg'))>0) ? get_the_author_meta('avatar_bg'):get_template_directory_uri()."/assets/images/bannerimg/img-02.jpg" ?>" alt="img description">
                                             </figure>
                                             <div class="wt-companysinfo">
-                                                <figure><img src="<?php echo get_the_author_meta('avatar') ?>" alt="img description"></figure>
+                                                <figure><img style="min-height: 90px;" src="<?php echo (strlen(get_the_author_meta('avatar'))>0) ? get_the_author_meta('avatar'):get_template_directory_uri()."/assets/img/male.jpg" ?>" alt="img description"></figure>
                                                 <div class="wt-title">
                                                     <a href="javascript:void(0);"><i class="fa fa-check-circle"></i> شرکت تأیید شده</a>
                                                     <h2><?php echo get_the_author_meta('company_name') ?></h2>
