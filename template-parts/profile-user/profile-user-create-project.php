@@ -125,26 +125,26 @@ if (isset($_GET["job_id"])) {
                                 <div class="form-group plan-project">
                                     <span class="wt-checkbox ">
                                         <input <?php echo (get_post_meta($job_id, 'plan_1', true)=='1'? 'checked' :'') ?> data-id="plan_1" style="display: inline;"  class="input-profile-check" type="checkbox" value="termsconditions">
-                                        <span class="plan-project-title"><?php echo 'برجسته' .' '.'(50 $)'?></span><span class="plan-project-detail">پروژه برجسته به دلیل برجسته بودن بیشتر مورد توجه فریلنسرهای حرفه ای قرار می گیرد و فریلنسرهای بیشتری در پروژه شرکت خواهند کرد.</span>
+                                        <div class="plan-project-title"><?php echo 'برجسته' .' '.'(50 $)'?></div><span class="plan-project-detail">پروژه برجسته به دلیل برجسته بودن بیشتر مورد توجه فریلنسرهای حرفه ای قرار می گیرد و فریلنسرهای بیشتری در پروژه شرکت خواهند کرد.</span>
                                     </span>
                                 </div>
                                 <div class="form-group plan-project">
                                     <span class="wt-checkbox ">
                                         <input <?php echo (get_post_meta($job_id, 'plan_2', true)=='1'? 'checked' :'') ?> data-id="plan_2" style="display: inline;"  class="input-profile-check" type="checkbox" value="termsconditions">
-                                        <span class="plan-project-title"><?php echo 'فوری' .' '.' '.'(50 $)'?></span><span class="plan-project-detail">پروژه فوری نشانگر عجله کارفرما برای انجام هرچه سریع تر پروژه است و مورد توجه فریلنسرهای حرفه ای که علاقه دارند زودتر پروژه دریافت کنند قرار می گیرد.</span>
+                                        <div class="plan-project-title"><?php echo 'فوری' .' '.' '.'(50 $)'?></div><span class="plan-project-detail">پروژه فوری نشانگر عجله کارفرما برای انجام هرچه سریع تر پروژه است و مورد توجه فریلنسرهای حرفه ای که علاقه دارند زودتر پروژه دریافت کنند قرار می گیرد.</span>
                                     </span>
                                 </div>
                                 <div class="form-group plan-project">
                                     <span class="wt-checkbox ">
                                         <input <?php echo (get_post_meta($job_id, 'plan_3', true)=='1'? 'checked' :'') ?> data-id="plan_3" style="display: inline;"  class="input-profile-check" type="checkbox" value="termsconditions">
-                                        <span class="plan-project-title"><?php echo 'محرمانه' .' '.' '.'(50 $)'?></span><span class="plan-project-detail">
+                                        <div class="plan-project-title"><?php echo 'محرمانه' .' '.' '.'(50 $)'?></div><span class="plan-project-detail">
 با انتخاب این قسمت توضیحات پروژه شما فقط به کاربرانی که وارد سایت شده اند نمایش داده می شود و پروژه به موتور های جستجو معرفی نمی شود.</span>
                                     </span>
                                 </div>
                                 <div class="form-group plan-project">
                                     <span class="wt-checkbox ">
                                         <input <?php echo (get_post_meta($job_id, 'plan_4', true)=='1'? 'checked' :'') ?> data-id="plan_4" style="display: inline;"  class="input-profile-check" type="checkbox" value="termsconditions">
-                                        <span class="plan-project-title"><?php echo 'تمام وقت' .' '.' '.'(50 $)'?></span><span class="plan-project-detail">
+                                        <div class="plan-project-title"><?php echo 'تمام وقت' .' '.' '.'(50 $)'?></div><span class="plan-project-detail">
                                         در پروژه تمام وقت از کارفرما و فریلنسر تا سقف 1000 دلار کمیسیون دریافت نمی شود. پروژه های بازاریابی و استخدامی و حضوری می بایست بصورت تمام وقت ایجاد شود.
                                         </span>
                                     </span>
@@ -152,7 +152,7 @@ if (isset($_GET["job_id"])) {
                                 <div class="form-group plan-project">
                                     <span class="wt-checkbox ">
                                         <input <?php echo (get_post_meta($job_id, 'plan_5', true)=='1'? 'checked' :'') ?> data-id="plan_5" style="display: inline;"  class="input-profile-check" type="checkbox" value="termsconditions">
-                                        <span class="plan-project-title"><?php echo 'متمایز' .' '.' '.'(50 $)'?></span><span class="plan-project-detail">
+                                        <div class="plan-project-title"><?php echo 'متمایز' .' '.' '.'(50 $)'?></div><span class="plan-project-detail">
                                         رنگ پیش زمینه پروژه شما در فهرست پروژه ها متمایز از بقیه پروژه ها خواهد بود. این کار باعث می شود فریلنسرهای بیشتری به پروژه شما توجه کنند.                                        </span>
                                     </span>
                                 </div>
