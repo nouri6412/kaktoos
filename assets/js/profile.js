@@ -3,10 +3,31 @@ function ajax_submit_mbm_post_data_resume(data, element_error, type_fun = 0) {
     var error = '';
     element_error.html('');
 
+
+    if(type_fun==1)
+    {
+        if (data['profile']["title"].length == 0) {
+            error += '<br>' +'نام پروژه نباید خالی بماند';
+        }
+        if (data['profile']["cat_id"].length == 0) {
+            error += '<br>' +'دسته بندی پروژه نباید خالی بماند';
+        }
+        if (data['profile']["desc"].length == 0) {
+            error += '<br>' +'توضیحات پروژه نباید خالی بماند';
+        }
+        if (data['profile']["time"].length == 0) {
+            error += '<br>' +'زمان  پروژه نباید خالی بماند';
+        }
+        if (data['profile']["skills"].length == 0) {
+            error += '<br>' +'مهارت های موردنیاز پروژه نباید خالی بماند';
+        }
+    }
+
     if (error.length > 0) {
         element_error.html(error);
         return;
     }
+
 
     custom_theme_mbm_base_ajax(data, function (result) {
 
@@ -16,7 +37,7 @@ function ajax_submit_mbm_post_data_resume(data, element_error, type_fun = 0) {
         else {
             // console.log(result.html);
             if (type_fun == 0) {
-                document.location.href = custom_theme_mbm_object.siteurl + "/profile";
+                document.location.href = custom_theme_mbm_object.siteurl + "/profile?action=edit-profile";
             }
             else if (type_fun == 1) {
                 document.location.href = custom_theme_mbm_object.siteurl + "/profile?action=create-project&job_id=" + result.job_id + '&created=1';

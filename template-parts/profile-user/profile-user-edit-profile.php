@@ -163,7 +163,7 @@ $user_meta = get_query_var('user_meta');
 
                                 <div class="form-group">
                                     <label>مهارت های من</label>
-                                <input type="text" value="<?php echo get_post_meta($job_id, 'skills', true); ?>" class="form-control input-profile tags_input" data-id="skills" placeholder=" مهارت های من ">
+                                <input type="text" value="<?php echo isset($user_meta["skills"]) ? $user_meta["skills"][0] : ''; ?>" class="form-control input-profile tags_input" data-id="skills" placeholder=" مهارت های من ">
                                 </div>
 
                             </fieldset>

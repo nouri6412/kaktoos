@@ -47,7 +47,7 @@ $user_id = get_current_user_id();
 
                 <div class="actions pv+">
                     <span class="desc tc-9 mr"></span>
-                    <a class="tc-4 mr" title="" href="<?php echo home_url('search-job?skill_id=' . $str) ?>">مشاهده پروژه ها با مهارت شما</a>
+                    <a class="tc-4 mr" title="" href="<?php echo home_url('search-job?search_word=' . $str) ?>">مشاهده پروژه ها با مهارت شما</a>
                     <a class="tc-4" title=""></a>
                 </div>
             </div>
