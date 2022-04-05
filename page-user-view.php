@@ -59,10 +59,57 @@ if ($cur_user_id > 0) {
         $id = wp_insert_post($args_post);
     }
 }
+$followed=0;
+$search = array();
+$search["relation"] = "AND";
+$search[] =           array(
+    'key' => 'user_id',
+    'value' => $user_id,
+    'compare' => '='
+);
+
+$args = array(
+    'post_type' => 'follow',
+    'post_author'  => $cur_user_id,
+    'title'        => $title,
+    'meta_query' => $search
+);
+$the_query = new WP_Query($args);
+
+$count = $the_query->post_count;
+
+if ($count > 0)
+{
+    $followed=1;
+}
+
+if ($cur_user_id > 0 && isset($_GET["follow"])) {
 
 
+    if ($count == 0) {
+        $args_post = array(
+            'post_title'   => $cur_user_id,
+            'post_type'    => 'follow',
+            'post_author'  => $cur_user_id,
+            'post_status'  => 'publish',
+            'meta_input'   => array(
+                'user_id' => $user_id
+            )
+        );
+        $id = wp_insert_post($args_post);
+        $followed=1;
+    }
+    else
+    {
+        $followed=0;
+        while ($the_query->have_posts()) :
+            $the_query->the_post();
+            wp_delete_post(get_the_ID());
+        endwhile; 
+    }
+}
 
-
+wp_reset_query();
 ?>
 
 <!--Inner Home Banner Start-->
@@ -94,6 +141,20 @@ if ($cur_user_id > 0) {
                                     </figure>
                                     <div class="wt-title">
                                         <h3><i class="fa fa-check-circle"></i> <?php echo get_the_author_meta('user_name', $user_id)  ?></h3>
+                                        <div>
+                                        <?php if ($followed == 0) {
+                                        $text="دنبال کردن";
+                                        $color="#d5ab11";
+                                         }
+                                         else
+                                         {
+                                            $text="دنبال نکردن";
+                                         }
+                                    ?>
+                                        <div class="wt-btnarea"><a style="background: <?php echo $color ?>;margin-right: 10px;margin-left: 10px;" href="<?php echo home_url('user-view?id=' . $cur_user_id.'&follow=1') ?>" class="wt-btn"><?php echo $text; ?></a></div>
+
+                                        
+                                        </div>
                                     </div>
                                 </div>
                             </div>

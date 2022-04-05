@@ -11,10 +11,9 @@
  */
 
 get_header();
-
+$user_id = get_current_user_id();
 if (isset($_GET["viewed_by"])) {
 
-    $user_id = get_current_user_id();
     if ($user_id > 0) {
         $search = array();
         $search["relation"] = "AND";
@@ -52,28 +51,35 @@ if (isset($_GET["viewed_by"])) {
 }
 
 $liked=0;
+$search = array();
+$search["relation"] = "AND";
+$search[] =           array(
+    'key' => 'job_id',
+    'value' => get_the_ID(),
+    'compare' => '='
+);
+
+$args = array(
+    'post_type' => 'like-project',
+    'post_author'  => $user_id,
+    'title'        => $title,
+    'meta_query' => $search
+);
+$the_query = new WP_Query($args);
+
+$count = $the_query->post_count;
+wp_reset_query();
+
+if($count>0)
+{
+    $liked=1; 
+}
+
 if (isset($_GET["liked_by"])) {
 
-    $user_id = get_current_user_id();
+
     if ($user_id > 0) {
-        $search = array();
-        $search["relation"] = "AND";
-        $search[] =           array(
-            'key' => 'job_id',
-            'value' => get_the_ID(),
-            'compare' => '='
-        );
 
-        $args = array(
-            'post_type' => 'like-project',
-            'post_author'  => $user_id,
-            'title'        => $title,
-            'meta_query' => $search
-        );
-        $the_query = new WP_Query($args);
-
-        $count = $the_query->post_count;
-        wp_reset_query();
 
         if ($count == 0) {
             $args_post = array(
@@ -87,10 +93,7 @@ if (isset($_GET["liked_by"])) {
                 )
             );
             $id = wp_insert_post($args_post);
-        }
-        else
-        {
-            $liked=1;
+            $liked=1; 
         }
     }
 }
