@@ -73,7 +73,7 @@ if (isset($_GET["job_id"])) {
 
                                 <div class="form-group">
                                     <label> زمان انقضا (روز)</label>
-                                    <input value="<?php echo get_post_meta($job_id, 'expire', true); ?>" type="number" name="expire" data-id="expire" class="form-control input-profile" placeholder="زمان انقضا (روز)">
+                                    <input value="<?php echo (strlen(get_post_meta($job_id, 'expire', true))>0) ? get_post_meta($job_id, 'expire', true) : '60'; ?>" type="number" name="expire" data-id="expire" class="form-control input-profile" placeholder="زمان انقضا (روز)">
                                 </div>
 
                                 <div class="form-group form-group-half">
