@@ -151,7 +151,7 @@ $user_meta = get_query_var('user_meta');
                                 <div class="form-group form-group-half">
                                     <input value="<?php echo isset($user_meta["user_country"]) ? $user_meta["user_country"][0] : ''; ?>" type="text" name="rate" class="form-control input-profile" data-id="user_country" placeholder="کشور">
                                 </div>
-                                <div class="form-group wt-formmap">
+                                <!-- <div class="form-group wt-formmap">
                                     <div id="wt-locationmap" class="wt-locationmap"></div>
                                 </div>
                                 <div class="form-group form-group-half">
@@ -159,86 +159,15 @@ $user_meta = get_query_var('user_meta');
                                 </div>
                                 <div class="form-group form-group-half">
                                     <input value="<?php echo isset($user_meta["user_lat"]) ? $user_meta["user_lat"][0] : ''; ?>" data-id="user_lat" type="text" name="text" class="form-control input-profile" placeholder=" عرض جغرافیایی وارد کنید (اختیاری)">
+                                </div> -->
+
+                                <div class="form-group">
+                                    <label>مهارت های من</label>
+                                <input type="text" value="<?php echo get_post_meta($job_id, 'skills', true); ?>" class="form-control input-profile tags_input" data-id="skills" placeholder=" مهارت های من ">
                                 </div>
+
                             </fieldset>
                         </form>
-                    </div>
-                    <div class="wt-skills">
-                        <div class="wt-tabscontenttitle">
-                            <h2>مهارت های من</h2>
-                        </div>
-                        <div class="wt-skillscontent-holder">
-                            <form class="wt-formtheme wt-skillsform">
-                                <fieldset>
-                                    <div class="form-group">
-                                        <div class="form-group-holder">
-                                            <span class="wt-select">
-                                                <select id="skill-select">
-                                                <option value=""> انتخاب مهارت </option>
-                                                    <?php
-                                                    $args = array(
-                                                        'post_type' => 'skill'
-                                                    );
-                                                    $the_query1 = new WP_Query($args);
-                                                    ?>
-                                                    <?php
-                                                    while ($the_query1->have_posts()) :
-                                                        $the_query1->the_post();
-                                                    ?>
-                                                        <option  value="<?php echo get_the_ID(); ?>"><?php echo get_the_title(); ?></option>
-                                                    <?php
-                                                    endwhile;
-                                                    wp_reset_query();
-                                                    ?>
-                                                </select>
-                                            </span>
-                                            <input id="skill-select-persent" type="number" name="rate" class="form-control" placeholder="مهارت خود را ارزیابی کنید (0٪ تا 100٪)">
-                                        </div>
-                                    </div>
-                                    <div class="form-group wt-btnarea">
-                                        <a onclick="ajax_submit_mbm_post_data_resume_get_form(
-            {
-                'action': 'mbm_profile_user_get_form',
-                'meta_action':'skill-form',
-                'skill':jQuery('#skill-select').val(),
-                'persent':jQuery('#skill-select-persent').val()
-            }
-            ,'items-skill'
-        )" href="javascript:void(0);" class="wt-btn"> افزودن مهارت ها</a>
-                                    </div>
-                                </fieldset>
-                            </form>
-                            <div class="wt-myskills">
-                                <ul data-id="user_skills" id="items-skill" class="sortable list loop-input-profile">
-                                    <?php
-                                    if (isset($user_meta["user_skills"])) {
-                                        $json = json_decode($user_meta["user_skills"][0], true);
-                                        foreach ($json as $item) {
-                                            $skill = $item["user_skill"];
-                                            $persent = $item["user_skill_persent"];
-                                            $post = get_post($skill);
-                                    ?>
-                                            <li class="loop-input-profile-item">
-                                                <div class="wt-dragdroptool">
-                                                    <a href="javascript:void(0)" class="lnr lnr-menu"></a>
-                                                </div>
-                                                <span class="skill-dynamic-html"><?php echo $post->post_title; ?> (<em class="skill-val"><?php echo $persent; ?></em>%)</span>
-                                                <span class="skill-dynamic-field">
-
-                                                    <input data-id="user_skill_persent" type="text" name="skills[1][percentage]" value="<?php echo $persent; ?>">
-                                                    <input data-id="user_skill" type="hidden" value="<?php echo $skill; ?>" />
-                                                </span>
-                                                <div id="item-skills-btn" class="wt-rightarea">
-                                                    <a onclick="my_skill_btn_add(jQuery(this))" href="javascript:void(0);" class="wt-addinfo"><i class="lnr lnr-pencil"></i></a>
-                                                    <a onclick="my_skill_btn_delete(jQuery(this))" href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-                                                </div>
-                                            </li>
-                                    <?php
-                                        }
-                                    }
-                                    ?>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div class="wt-educationholder tab-pane fade" id="wt-education">

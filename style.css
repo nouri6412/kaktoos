@@ -111,6 +111,9 @@ margin-top: 20px;
     padding: 5px 12px 5px 12px;
 }
 
+.form-group label{
+    margin-top: 15px;
+}
 
 @media (max-width: 1680px)
 {

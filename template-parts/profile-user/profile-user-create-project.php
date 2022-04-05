@@ -119,7 +119,7 @@ if (isset($_GET["job_id"])) {
 
                                 <div class="form-group">
                                     <label>مهارت های مورد نیاز</label>
-                                    <input type="text" value="<?php echo get_post_meta($job_id, 'user_skills', true); ?>" class="form-control input-profile tags_input" data-id="user_skills" placeholder="مهارت های موردنیاز">
+                                    <input type="text" value="<?php echo get_post_meta($job_id, 'skills', true); ?>" class="form-control input-profile tags_input" data-id="skills" placeholder="مهارت های موردنیاز">
                                 </div>
                             </fieldset>
                         </div>

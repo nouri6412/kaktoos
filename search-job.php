@@ -65,6 +65,12 @@ if (strlen($search_word) > 0) {
         'compare' => 'LIKE'
     );
 
+    $search_title[] =           array(
+        'key' => 'skills',
+        'value' => $search_word,
+        'compare' => 'LIKE'
+    );
+
     $search[] = $search_title;
 }
 
@@ -192,7 +198,7 @@ $count = $the_query->post_count;
                                             </div>
                                         </div>
                                     </div>
-                                    <div style="padding-top: 5px;padding-bottom:5px" class="wt-widget wt-effectiveholder">
+                                    <div style="display:none; padding-top: 5px;padding-bottom:5px" class="wt-widget wt-effectiveholder">
                                         <div class="wt-widgettitle">
                                             <h2>مهارت های لازم</h2>
                                         </div>
