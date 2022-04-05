@@ -303,18 +303,13 @@ $count = $the_query->post_count;
                                                     <p><?php echo  wp_trim_words(get_post_meta(get_the_ID(), 'desc', true), 50, null) ?></p>
                                                 </div>
                                                 <div class="wt-tag wt-widgettag">
-                                                    <?php
-                                                    $json = json_decode(get_post_meta(get_the_ID(), 'skills', true), true);
-                                                    if (is_array($json)) {
-                                                        foreach ($json as $item) {
-                                                            $skill = $item["skill"];
-                                                            $sk = get_post($skill);
-                                                    ?>
-                                                            <a href="javascript:void(0);"> <?php echo $sk->post_title ?></a>
-                                                    <?php
-                                                        }
-                                                    }
-                                                    ?>
+                                                <?php
+                                            $tags_str = get_post_meta(get_the_ID(), 'skills', true);
+                                            $tags = explode(',', $tags_str);
+                                            foreach ($tags as $tag) {
+                                            ?>
+                                                <a href="javascript:void(0);"><span><?php echo $tag; ?></span></a>
+                                            <?php } ?>
                                                 </div>
                                             </div>
                                             <div class="wt-viewjobholder">

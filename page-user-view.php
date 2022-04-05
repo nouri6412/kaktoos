@@ -59,7 +59,7 @@ if ($cur_user_id > 0) {
         $id = wp_insert_post($args_post);
     }
 }
-$followed=0;
+$followed = 0;
 $search = array();
 $search["relation"] = "AND";
 $search[] =           array(
@@ -78,9 +78,8 @@ $the_query = new WP_Query($args);
 
 $count = $the_query->post_count;
 
-if ($count > 0)
-{
-    $followed=1;
+if ($count > 0) {
+    $followed = 1;
 }
 
 if ($cur_user_id > 0 && isset($_GET["follow"])) {
@@ -97,15 +96,13 @@ if ($cur_user_id > 0 && isset($_GET["follow"])) {
             )
         );
         $id = wp_insert_post($args_post);
-        $followed=1;
-    }
-    else
-    {
-        $followed=0;
+        $followed = 1;
+    } else {
+        $followed = 0;
         while ($the_query->have_posts()) :
             $the_query->the_post();
             wp_delete_post(get_the_ID());
-        endwhile; 
+        endwhile;
     }
 }
 
@@ -142,18 +139,16 @@ wp_reset_query();
                                     <div class="wt-title">
                                         <h3><i class="fa fa-check-circle"></i> <?php echo get_the_author_meta('user_name', $user_id)  ?></h3>
                                         <div>
-                                        <?php if ($followed == 0) {
-                                        $text="دنبال کردن";
-                                        $color="#d5ab11";
-                                         }
-                                         else
-                                         {
-                                            $text="دنبال نکردن";
-                                         }
-                                    ?>
-                                        <div class="wt-btnarea"><a style="background: <?php echo $color ?>;margin-right: 10px;margin-left: 10px;" href="<?php echo home_url('user-view?id=' . $cur_user_id.'&follow=1') ?>" class="wt-btn"><?php echo $text; ?></a></div>
+                                            <?php if ($followed == 0) {
+                                                $text = "دنبال کردن";
+                                                $color = "#d5ab11";
+                                            } else {
+                                                $text = "دنبال نکردن";
+                                            }
+                                            ?>
+                                            <div class="wt-btnarea"><a style="background: <?php echo $color ?>;margin-right: 10px;margin-left: 10px;" href="<?php echo home_url('user-view?id=' . $cur_user_id . '&follow=1') ?>" class="wt-btn"><?php echo $text; ?></a></div>
 
-                                        
+
                                         </div>
                                     </div>
                                 </div>
@@ -330,24 +325,19 @@ wp_reset_query();
                                     <h2>مهارت های من</h2>
                                 </div>
                                 <div class="wt-widgetcontent wt-skillscontent">
+
                                     <?php
-                                    $json = json_decode(get_the_author_meta('user_skills', $user_id), true);
-                                    if (is_array($json)) {
-                                        foreach ($json as $item) {
-                                            $skill = $item["user_skill"];
-                                            $persent = $item["user_skill_persent"];
-                                            $post = get_post($skill);
+                                    $tags_str = get_post_meta(get_the_ID(), 'skills', true);
+                                    $tags = explode(',', $tags_str);
+                                    foreach ($tags as $tag) {
                                     ?>
-                                            <div class="wt-skillholder" data-percent="<?php echo $persent ?>%">
-                                                <span><?php echo $post->post_title ?> <em style="margin-left: 10px;"><?php echo $persent ?>%</em></span>
-                                                <div class="wt-skillbarholder">
-                                                    <div class="wt-skillbar"></div>
-                                                </div>
+                                        <div class="wt-skillholder" data-percent="100%">
+                                            <span><?php echo $tag ?> <em style="margin-left: 10px;">100%</em></span>
+                                            <div class="wt-skillbarholder">
+                                                <div class="wt-skillbar"></div>
                                             </div>
-                                    <?php
-                                        }
-                                    }
-                                    ?>
+                                        </div>
+                                    <?php } ?>
                                 </div>
                             </div>
                             <div class="wt-widget wt-sharejob">

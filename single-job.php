@@ -42,7 +42,7 @@ if (isset($_GET["viewed_by"])) {
                 'post_status'  => 'publish',
                 'meta_input'   => array(
                     'job_id' => get_the_ID(),
-                    'user_id'=>get_post_field( 'post_author',get_the_ID() )
+                    'user_id' => get_post_field('post_author', get_the_ID())
                 )
             );
             $id = wp_insert_post($args_post);
@@ -50,7 +50,7 @@ if (isset($_GET["viewed_by"])) {
     }
 }
 
-$liked=0;
+$liked = 0;
 $search = array();
 $search["relation"] = "AND";
 $search[] =           array(
@@ -70,9 +70,8 @@ $the_query = new WP_Query($args);
 $count = $the_query->post_count;
 wp_reset_query();
 
-if($count>0)
-{
-    $liked=1; 
+if ($count > 0) {
+    $liked = 1;
 }
 
 if (isset($_GET["liked_by"])) {
@@ -88,11 +87,11 @@ if (isset($_GET["liked_by"])) {
                 'post_status'  => 'publish',
                 'meta_input'   => array(
                     'job_id' => get_the_ID(),
-                    'user_id'=>get_post_field( 'post_author',get_the_ID() )
+                    'user_id' => get_post_field('post_author', get_the_ID())
                 )
             );
             $id = wp_insert_post($args_post);
-            $liked=1; 
+            $liked = 1;
         }
     }
 }
@@ -163,12 +162,11 @@ if (isset($_GET["liked_by"])) {
                                     } ?>
 
                                     <?php if (get_post_meta(get_the_ID(), 'project_state', true) == 1) {
-                                        $text=" می پسندم ";
-                                        $color="#d5ab11";
-                                        if($liked==1)
-                                        {
-                                            $text="   پسندیده اید";
-                                            $color="green";
+                                        $text = " می پسندم ";
+                                        $color = "#d5ab11";
+                                        if ($liked == 1) {
+                                            $text = "   پسندیده اید";
+                                            $color = "green";
                                         }
                                     ?>
                                         <div class="wt-btnarea"><a style="background: <?php echo $color ?>;margin-right: 10px;margin-left: 10px;" href="<?php echo get_the_permalink() . '?liked_by=' . get_current_user_id(); ?>" class="wt-btn"><?php echo $text; ?></a></div>
@@ -192,17 +190,12 @@ if (isset($_GET["liked_by"])) {
                                         </div>
                                         <div class="wt-tag wt-widgettag">
                                             <?php
-                                            $json = json_decode(get_post_meta(get_the_ID(), 'skills', true), true);
-                                            if (is_array($json)) {
-                                                foreach ($json as $item) {
-                                                    $skill = $item["skill"];
-                                                    $sk = get_post($skill);
+                                            $tags_str = get_post_meta(get_the_ID(), 'skills', true);
+                                            $tags = explode(',', $tags_str);
+                                            foreach ($tags as $tag) {
                                             ?>
-                                                    <a href="javascript:void(0);"> <?php echo $sk->post_title ?></a>
-                                            <?php
-                                                }
-                                            }
-                                            ?>
+                                                <a href="javascript:void(0);"><span><?php echo $tag; ?></span></a>
+                                            <?php } ?>
                                         </div>
                                     </div>
                                     <div style="display: none;" class="wt-attachments">

@@ -11,24 +11,18 @@ $user_id = get_current_user_id();
                 <div class="pb clearfix">
                     <?php
                     $json = [];
-                    $str = get_the_author_meta('user_skills', $user_id);
-                    if (strlen($str) > 0) {
-                        $json = json_decode($str, true);
-                    }
-                    $skill_id = 0;
+                    $str = get_the_author_meta('skills', $user_id);
+
                     $search = array();
                     $search["relation"] = "OR";
                     $index = 0;
+                    $json=explode(',',$str);
                     foreach ($json as $item) {
-                        $skill = $item["user_skill"];
-                        if ($index == 0) {
-                            $skill_id = $skill;
-                        }
+                        $skill =  $item;
 
-                        $index = 1;
                         $search[] =           array(
                             'key' => 'skills',
-                            'value' => '"skill":"' . $skill . '"',
+                            'value' =>  $skill ,
                             'compare' => 'LIKE'
                         );
                     }
@@ -53,7 +47,7 @@ $user_id = get_current_user_id();
 
                 <div class="actions pv+">
                     <span class="desc tc-9 mr"></span>
-                    <a class="tc-4 mr" title="" href="<?php echo home_url('search-job?skill_id=' . $skill_id) ?>">مشاهده پروژه ها با مهارت شما</a>
+                    <a class="tc-4 mr" title="" href="<?php echo home_url('search-job?skill_id=' . $str) ?>">مشاهده پروژه ها با مهارت شما</a>
                     <a class="tc-4" title=""></a>
                 </div>
             </div>
