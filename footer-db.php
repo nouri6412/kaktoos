@@ -29,6 +29,9 @@
 	}
 	menu_icon.addEventListener('click', addClassFunThree);
 </script>
+<?php  
+  get_template_part('template-parts/custom-js/custom-js', 'create-job');
+?>
 </body>
 
 </html>

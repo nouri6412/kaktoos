@@ -1,7 +1,7 @@
 <?php
 $user_id = get_current_user_id();
 ?>
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-9 dashboard">
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 dashboard">
 <a class="collapse-heading no-link-inherit"><span
                                         class="pointer tc-hover-3 noselect active"><i class="pf pf-minus-o"></i>
                                         فعالیت‌های فریلنسینگ</span></a>

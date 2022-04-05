@@ -1,7 +1,7 @@
 <?php
 $user_id = get_current_user_id();
 ?>
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-9">
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
 
 
 

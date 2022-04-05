@@ -49,7 +49,7 @@ set_query_var('user_meta', $user_meta);
                 set_query_var('back_action', get_the_author_meta('page_action', $user_id));
                 update_user_meta($user_id, "page_action", $action);
                 get_template_part('template-parts/profile-' . $user_type . '/profile-' . $user_type, $action);
-                get_template_part('template-parts/profile-user/profile-user', 'aside-left');
+              //  get_template_part('template-parts/profile-user/profile-user', 'aside-left');
             } else {
             ?>
             <div style="height: 500px;">

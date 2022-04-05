@@ -1,12 +1,12 @@
-<?php if (is_page('profile') && isset($_GET["action"]) && ($_GET["action"] == "create-job" || $_GET["action"] == "resume")) : ?>
+<?php if (is_page('profile') && isset($_GET["action"]) && ($_GET["action"] == "create-project" || $_GET["action"] == "edit-profile")) : ?>
     <!--profile page custom JS-->
-    <link rel="stylesheet" type="text/css" href="<?php echo get_template_directory_uri(); ?>/assets/plugins/tagcomplete/tagcomplete.css">
-    <script src="<?php echo get_template_directory_uri(); ?>/assets/plugins/tagcomplete/tagcomplete.js"></script>
+    <link rel="stylesheet" type="text/css" href="<?php echo get_template_directory_uri(); ?>/assets/css/tagcomplete.css">
+    <script src="<?php echo get_template_directory_uri(); ?>/assets/js/tagcomplete.js"></script>
     <script>
         $(function() {
             <?php
             $args = array(
-                'post_type' => 'job-tag'
+                'post_type' => 'skill'
             );
             $the_query = new WP_Query($args);
             ?>

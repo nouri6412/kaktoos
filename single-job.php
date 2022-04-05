@@ -205,7 +205,7 @@ if (isset($_GET["liked_by"])) {
                                             ?>
                                         </div>
                                     </div>
-                                    <div class="wt-attachments">
+                                    <div style="display: none;" class="wt-attachments">
                                         <div class="wt-title">
                                             <h3>پیوست ها</h3>
                                         </div>

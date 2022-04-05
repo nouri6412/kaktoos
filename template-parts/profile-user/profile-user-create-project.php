@@ -31,7 +31,10 @@ if (isset($_GET["job_id"])) {
                         <div class="wt-formtheme wt-userform">
                             <fieldset>
                                 <div class="form-group">
-
+                                    <div class="desc-label">
+                                        <span>1</span>
+                                        <label>چه کاری می خواهید برای شما انجام شود؟</label>
+                                    </div>
                                     <label>دسته بندی پروژه</label>
                                     <span class="wt-select">
                                         <select data-id="cat_id" class="input-profile">
@@ -61,22 +64,43 @@ if (isset($_GET["job_id"])) {
                                     </span>
                                 </div>
                                 <div class="form-group">
+                                    <div class="desc-label">
+                                        <span>2</span>
+                                        <label>پروژه شما درباره چیست؟</label>
+                                    </div>
 
                                     <label for="title">عنوان پروژه</label>
                                     <input value="<?php echo get_post_meta($job_id, 'title', true); ?>" type="text" name="title" data-id="title" class="form-control input-profile" placeholder="عنوان پروژه">
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group ">
+                                    <div class="desc-label">
+                                        <span>3</span>
+                                        <label>چقدر زمان لازم است پروژه پیاده سازی شود؟</label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group form-group-half">
                                     <label> زمان پروژه (روز)</label>
                                     <input value="<?php echo get_post_meta($job_id, 'time', true); ?>" type="number" name="time" data-id="time" class="form-control input-profile" placeholder="زمان پروژه (روز)">
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group form-group-half">
                                     <label> زمان انقضا (روز)</label>
-                                    <input value="<?php echo (strlen(get_post_meta($job_id, 'expire', true))>0) ? get_post_meta($job_id, 'expire', true) : '60'; ?>" type="number" name="expire" data-id="expire" class="form-control input-profile" placeholder="زمان انقضا (روز)">
+                                    <input value="<?php echo (strlen(get_post_meta($job_id, 'expire', true)) > 0) ? get_post_meta($job_id, 'expire', true) : '60'; ?>" type="number" name="expire" data-id="expire" class="form-control input-profile" placeholder="زمان انقضا (روز)">
+                                </div>
+
+
+                                <div class="form-group ">
+                                    <div class="desc-label">
+                                        <span>4</span>
+                                        <label>بودجه شما چقدر است</label>
+                                    </div>
+
                                 </div>
 
                                 <div class="form-group form-group-half">
+
                                     <label>حداقل بودجه (دلار)</label>
                                     <input value="<?php echo get_post_meta($job_id, 'min_price', true); ?>" type="number" name="rate" class="form-control input-profile" data-id="min_price" placeholder="حداقل بودجه (دلار)">
                                 </div>
@@ -85,135 +109,24 @@ if (isset($_GET["job_id"])) {
                                     <input value="<?php echo get_post_meta($job_id, 'max_price', true); ?>" type="number" name="rate" class="form-control input-profile" data-id="max_price" placeholder="حداکثر بودجه (دلار)">
                                 </div>
                                 <div class="form-group">
+                                    <div class="desc-label">
+                                        <span>5</span>
+                                        <label>درباره پروژه خود بیشتر بگویید</label>
+                                    </div>
                                     <label>پروژه خود را توضیح دهید</label>
                                     <textarea data-id="desc" name="message" class="form-control input-profile" placeholder="پروژه خود را توضیح دهید"><?php echo get_post_meta($job_id, 'desc', true); ?></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>مهارت های مورد نیاز</label>
+                                    <input type="text" value="<?php echo get_post_meta($job_id, 'user_skills', true); ?>" class="form-control input-profile tags_input" data-id="user_skills" placeholder="مهارت های موردنیاز">
                                 </div>
                             </fieldset>
                         </div>
                     </div>
-                    <!-- <div class="wt-bannerphoto wt-tabsinfo">
-                        <div class="wt-tabscontenttitle">
-                            <h2>عکس بنر</h2>
-                        </div>
-                        <div class="wt-profilephotocontent">
-                            <div class="wt-description">
-                            </div>
-                            <form class="wt-formtheme wt-formprojectinfo wt-formcategory">
-                                <fieldset>
-                                    <div class="form-group form-group-label">
-                                        <div class="wt-labelgroup">
-                                            <label for="filew">
-                                                <span class="wt-btn">انتخاب فایل </span>
-                                                <input onchange="ajax_mbm_upload_image($(this),'profile-avatar-bg','avatar_bg')" type="file" name="file" id="filew">
-                                            </label>
-                                            <span> فایل را برای بارگذاری اینجا رها کنید </span>
-                                            <em class="wt-fileuploading">بارگذاری<i class="fa fa-spinner fa-spin"></i></em>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <ul class="wt-attachfile wt-attachfilevtwo">
-                                            <li class="wt-uploadingholder">
-                                                <div class="wt-uploadingbox">
-                                                    <div class="wt-designimg">
-                                                        <input id="demoq" type="radio" name="employees" value="company" checked="">
-                                                        <label for="demoq">
-                                                            <?php
-                                                            $avatar = get_template_directory_uri() . "/assets/images/company/img-10.jpg";
-                                                            if (isset($job_meta['avatar_bg'])) {
-                                                                $avatar = $job_meta['avatar_bg'][0];
-                                                            }
-                                                            ?>
-                                                            <img id="profile-avatar-bg" src="<?php echo $avatar; ?>">
-                                                            <i class="fa fa-check"></i></label>
-                                                    </div>
-                                                    <div class="wt-uploadingbar">
-                                                        <span class="uploadprogressbar"></span>
-                                                        <span>Banner Photo.jpg</span>
-                                                        <em>سایز فایل : 300 کیلوبایت<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </fieldset>
-                            </form>
-                        </div>
-                    </div> -->
-                    <div class="wt-skills">
-                        <div class="wt-tabscontenttitle">
-                            <h2>مهارت های موردنیاز</h2>
-                        </div>
-                        <div class="wt-skillscontent-holder">
-                            <form class="wt-formtheme wt-skillsform">
-                                <fieldset>
-                                    <div style="padding-left: 0;" class="form-group">
-                                        <div class="form-group-holder">
-                                            <span class="wt-select">
-                                                <select id="skill-select">
-                                                    <option value=""> انتخاب مهارت </option>
-                                                    <?php
-                                                    $args = array(
-                                                        'post_type' => 'skill'
-                                                    );
-                                                    $the_query1 = new WP_Query($args);
-                                                    ?>
-                                                    <?php
-                                                    while ($the_query1->have_posts()) :
-                                                        $the_query1->the_post();
-                                                    ?>
-                                                        <option value="<?php echo get_the_ID(); ?>"><?php echo get_the_title(); ?></option>
-                                                    <?php
-                                                    endwhile;
-                                                    wp_reset_query();
-                                                    ?>
-                                                </select>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group wt-btnarea">
-                                        <a onclick="ajax_submit_mbm_post_data_resume_get_form(
-            {
-                'action': 'mbm_profile_user_get_form',
-                'meta_action':'skill-form-project',
-                'skill':jQuery('#skill-select').val()
-            }
-            ,'items-skill'
-        )" href="javascript:void(0);" class="wt-btn"> افزودن مهارت ها</a>
-                                    </div>
-                                </fieldset>
-                            </form>
-                            <div class="wt-myskills">
-                                <ul data-id="skills" id="items-skill" class="sortable list loop-input-profile">
-                                    <?php
-                                    $json = json_decode(get_post_meta($job_id, 'skills', true), true);
-                                    if (is_array($json)) {
-                                        foreach ($json as $item) {
-                                            $skill = $item["skill"];
-                                            $post = get_post($skill);
-                                    ?>
-                                            <li class="loop-input-profile-item">
-                                                <div class="wt-dragdroptool">
-                                                    <a href="javascript:void(0)" class="lnr lnr-menu"></a>
-                                                </div>
-                                                <span class="skill-dynamic-html"><?php echo $post->post_title; ?></span>
-                                                <span class="skill-dynamic-field">
-                                                    <input data-id="skill" type="hidden" value="<?php echo $skill; ?>" />
-                                                </span>
-                                                <div id="item-skills-btn" class="wt-rightarea">
-                                                    <a onclick="my_skill_btn_delete(jQuery(this))" href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-                                                </div>
-                                            </li>
-                                    <?php
-                                        }
-                                    }
-                                    ?>
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
                     <br>
                     <br>
-                    <div class="wt-addprojectsholder wt-tabsinfo">
+                    <div style="display: none;" class="wt-addprojectsholder wt-tabsinfo">
                         <div style="padding-top: 40px;" class="wt-tabscontenttitle wt-addnew">
                             <h2>فایل های پروژه را اضافه کنید</h2>
                             <a onclick="ajax_submit_mbm_post_data_resume_get_form(

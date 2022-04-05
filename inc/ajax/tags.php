@@ -16,14 +16,14 @@ class Common_Job_Tags
 
         $args = array(
             'post_title'   => $title,
-            'post_type'    => 'job-tag',
+            'post_type'    => 'skill',
             'post_author'  => $user_id,
             'post_status'  => 'publish'
         );
         $id = wp_insert_post($args);
 
         $args = array(
-            'post_type' => 'job-tag',
+            'post_type' => 'skill',
             'post_author'  => $user_id,
             'post_title'        => $title
         );

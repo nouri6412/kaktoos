@@ -35,7 +35,7 @@ if (isset($_GET["job_id"]) && isset($_GET["project_state"])) {
 }
 ?>
 
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-9">
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
             <div class="wt-dashboardbox">
                 <div class="wt-dashboardboxtitle">
                     <h2> مدیریت پروژه ها </h2>
