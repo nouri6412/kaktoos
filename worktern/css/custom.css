@@ -1515,3 +1515,8 @@ body .owl-carousel .owl-nav.disabled {
     display: flex;
     flex-direction: column;
 }
+@media (max-width: 768px){
+.wt-wrapper.wt-openmenu .wt-sidebarwrapper {
+    width: 0px !important;
+}
+}

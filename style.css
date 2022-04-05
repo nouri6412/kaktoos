@@ -115,6 +115,23 @@ margin-top: 20px;
     margin-top: 15px;
 }
 
+.plan-project{
+margin-top: 15px !important;
+}
+.plan-project .plan-project-title{
+    margin-left: 50px;
+    color: #df8704;
+    font-weight: bold;
+    font-size: 16px;
+}
+.plan-project .plan-project-detail{
+    font-size: 14px;
+}
+
+.plan-project input{
+
+}
+
 @media (max-width: 1680px)
 {
     .wt-openmenu .wt-companysdetails.wt-usersidebar .wt-companysimg img {

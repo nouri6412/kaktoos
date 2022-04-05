@@ -45,7 +45,7 @@ $user_meta = get_query_var('user_meta');
                                     <input value="<?php echo isset($user_meta["job_title"]) ? $user_meta["job_title"][0] : ''; ?>" type="text" name="first name" data-id="job_title" class="form-control input-profile" placeholder="عنوان شغلی">
                                 </div>
                                 <div class="form-group form-group-half">
-                                    <input value="<?php echo isset($user_meta["user_nerx"]) ? $user_meta["user_nerx"][0] : ''; ?>" type="number" name="rate" class="form-control input-profile" data-id="user_nerx" placeholder="نرخ ساعتی خدمات شما (دلار)">
+                                    <input value="<?php echo isset($user_meta["user_nerx"]) ? $user_meta["user_nerx"][0] : ''; ?>" type="number"  class="form-control input-profile" data-id="user_nerx" placeholder="نرخ ساعتی خدمات شما (دلار)">
                                 </div>
                                 <div class="form-group">
                                     <input value="<?php echo isset($user_meta["user_address"]) ? $user_meta["user_address"][0] : ''; ?>" data-id="user_address" type="text" name="tagline" class="form-control input-profile" placeholder="نشانی خود را اینجا اضافه کنید">
@@ -149,7 +149,7 @@ $user_meta = get_query_var('user_meta');
                         <form class="wt-formtheme wt-userform">
                             <fieldset>
                                 <div class="form-group form-group-half">
-                                    <input value="<?php echo isset($user_meta["user_country"]) ? $user_meta["user_country"][0] : ''; ?>" type="text" name="rate" class="form-control input-profile" data-id="user_country" placeholder="کشور">
+                                    <input value="<?php echo isset($user_meta["user_country"]) ? $user_meta["user_country"][0] : ''; ?>" type="text"  class="form-control input-profile" data-id="user_country" placeholder="کشور">
                                 </div>
                                 <!-- <div class="form-group wt-formmap">
                                     <div id="wt-locationmap" class="wt-locationmap"></div>

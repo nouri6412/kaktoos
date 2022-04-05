@@ -40,6 +40,19 @@ function ajax_submit_mbm_post_data_resume_save_form(data_in, element_load, eleme
         data_form[$(input).attr("data-id")] = $(input).val();
     });
 
+    var inputs = $('input.input-profile-check', forms);
+    inputs.each(function (j, input) {
+
+        if ($(input).prop('checked') == false) {
+            data_form[$(input).attr("data-id")] = 0;
+        }
+        else
+        {
+            data_form[$(input).attr("data-id")] = 1;
+        }
+       
+    });
+
     var inputs = $('select.input-profile', forms);
     inputs.each(function (j, input) {
         data_form[$(input).attr("data-id")] = $(input).val();
