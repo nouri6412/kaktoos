@@ -158,31 +158,31 @@ input[type="color"],
   box-sizing: border-box;
 }
 .form-group textarea::placeholder {
-  color: #999;
+  color: #000;
 }
 textarea.form-control {
   resize: none;
   height: 210px;
 }
 .form-control::-webkit-input-placeholder {
-  color: #999;
+  color: #000;
 } /* WebKit, Blink, Edge */
 .form-control:-moz-placeholder {
-  color: #999;
+  color: #000;
 } /* Mozilla Firefox 4 to 18 */
 .form-control::-moz-placeholder {
-  color: #999;
+  color: #000;
 } /* Mozilla Firefox 19+ */
 .form-control:-ms-input-placeholder {
-  color: #999;
+  color: #000;
 } /* Internet Explorer 10-11 */
 .form-control::-ms-input-placeholder {
-  color: #999;
+  color: #000;
 } /* Microsoft Edge */
 input:focus,
 .select select:focus,
 .form-control:focus {
-  color: #999;
+  color: #000;
   border-color: #ddd;
   -webkit-box-shadow: none !important;
   box-shadow: none !important;
@@ -193,7 +193,7 @@ input:focus,
   margin: 0 0 20px;
 }
 label {
-  color: #666;
+  color: #000;
   display: block;
   margin-bottom: 10px;
 }
