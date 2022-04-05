@@ -26,7 +26,7 @@ class Kaktos_Chart_Ajax
         ]);
         die();
     }
-    function chart_1($chart_type, $type)
+    function chart_1($chart_type, $type, $is_count = 0)
     {
         $user_id = get_current_user_id();
         $search = [];
@@ -121,8 +121,10 @@ class Kaktos_Chart_Ajax
         $the_query = new WP_Query($args);
 
 
-        $count = $the_query->post_count;
-
+        $count_query = $the_query->post_count;
+        if ($is_count == 1) {
+            return $count_query;
+        }
 
         $data = [];
 
@@ -183,10 +185,18 @@ class Kaktos_Chart_Ajax
         }
 
         rsort($data);
+
+        $result = [];
+        $result["color"] = "#d53838";
+        $result["data"] = [];
+        $result["x"] = [];
+        $result["y"] = [];
+
         foreach ($data as $item) {
             $result["y"][] = $item["count"];
             $result["x"][] = $item["title"];
         }
+
         return $result;
     }
 }
