@@ -21,6 +21,12 @@ function ajax_submit_mbm_post_data_resume(data, element_error, type_fun = 0) {
         if (data['profile']["skills"].length == 0) {
             error += '<br>' +'مهارت های موردنیاز پروژه نباید خالی بماند';
         }
+        if (data['profile']["min_price"].length == 0) {
+            error += '<br>' +'  حداقل بودجه پروژه نباید خالی بماند';
+        }
+        if (data['profile']["max_price"].length == 0) {
+            error += '<br>' +'  حداکثر بودجه پروژه نباید خالی بماند';
+        }
     }
 
     if (error.length > 0) {
