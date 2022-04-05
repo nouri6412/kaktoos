@@ -145,14 +145,14 @@ if (isset($_GET["job_id"])) {
                                     <span class="wt-checkbox ">
                                         <input <?php echo (get_post_meta($job_id, 'plan_4', true)=='1'? 'checked' :'') ?> data-id="plan_4" style="display: inline;"  class="input-profile-check" type="checkbox" value="termsconditions">
                                         <span class="plan-project-title"><?php echo 'تمام وقت' .' '.' '.'(50 $)'?></span><span class="plan-project-detail">
-                                        در پروژه تمام وقت از کارفرما و فریلنسر تا سقف 50,000,000ریال کمیسیون دریافت نمی شود. پروژه های بازاریابی و استخدامی و حضوری می بایست بصورت تمام وقت ایجاد شود.
+                                        در پروژه تمام وقت از کارفرما و فریلنسر تا سقف 1000 دلار کمیسیون دریافت نمی شود. پروژه های بازاریابی و استخدامی و حضوری می بایست بصورت تمام وقت ایجاد شود.
                                         </span>
                                     </span>
                                 </div>
                                 <div class="form-group plan-project">
                                     <span class="wt-checkbox ">
                                         <input <?php echo (get_post_meta($job_id, 'plan_5', true)=='1'? 'checked' :'') ?> data-id="plan_5" style="display: inline;"  class="input-profile-check" type="checkbox" value="termsconditions">
-                                        <span class="plan-project-title"><?php echo 'تمام وقت' .' '.' '.'(50 $)'?></span><span class="plan-project-detail">
+                                        <span class="plan-project-title"><?php echo 'متمایز' .' '.' '.'(50 $)'?></span><span class="plan-project-detail">
                                         رنگ پیش زمینه پروژه شما در فهرست پروژه ها متمایز از بقیه پروژه ها خواهد بود. این کار باعث می شود فریلنسرهای بیشتری به پروژه شما توجه کنند.                                        </span>
                                     </span>
                                 </div>
