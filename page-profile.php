@@ -43,7 +43,7 @@ $active = get_the_author_meta('active_state', $user_id);
     ?>
     <!--Sidebar Start-->
     <!--Register Form Start-->
-    <section class="wt-haslayout wt-dbsectionspace">
+    <section style="min-height: 600px;" class="wt-haslayout wt-dbsectionspace">
         <div class="row">
             <div class="col-md-4 col-lg-3 col-xl-2"></div>
             <?php
