@@ -47,7 +47,7 @@ $active = get_the_author_meta('active_state', $user_id);
         <div class="row">
             <div class="col-md-4 col-lg-3 col-xl-2"></div>
             <?php
-            if ($user_id > 0 && ($active == 1 || is_admin())) {
+            if ($user_id > 0 && ($active == 1 || current_user_can('administrator'))) {
                 $user_type = "user";
                 set_query_var('back_action', get_the_author_meta('page_action', $user_id));
                 update_user_meta($user_id, "page_action", $action);
