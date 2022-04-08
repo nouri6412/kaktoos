@@ -75,6 +75,12 @@ class Kaktos_Contact_Ajax
             update_user_meta($user_id, 'user_sex', $_SESSION["user_sex"]);
         }
 
+        $code = rand(1000000, 9999999);
+        update_user_meta($user_id, 'user_email_code', $code);
+
+        wp_set_current_user($user_id);
+        wp_set_auth_cookie($user_id);
+
         update_user_meta($user_id, 'active_state', '0');
     }
 
@@ -96,13 +102,15 @@ class Kaktos_Contact_Ajax
 
     function confirm()
     {
+        $user_id = get_current_user_id();
         $code = "";
         $state = 0;
         $message = "کد وارد شده صحیح نمی باشد ";
         if (isset($_POST["code"])) {
             $code = $_POST["code"];
-            if ($code == 123456) {
+            if ($code == get_the_author_meta('user_email_code', $user_id)) {
                 $state = 1;
+                update_user_meta($user_id, 'active_state', '1');
             }
         }
 

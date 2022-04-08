@@ -14,6 +14,31 @@
 
 
 get_header();
+$step_class_1 = "";
+$step_class_2 = "";
+$step_st_1 = "";
+$step_st_2 = "";
+
+if (isset($_GET["action"]) && $_GET["action"] == "verify") {
+	$step_class_2 = "wt-active";
+	$step_st_1 = 'style="display: none;';
+
+	$user_id = get_current_user_id();
+	$message  = 'با تشکر از ثبت نام شما' . '<br>';
+	$message .= 'کد تایید ' . '<br>';
+	$message .= get_the_author_meta('user_email_code', $user_id);
+
+	wp_mail(
+		get_the_author_meta('user_email', $user_id),
+		wp_specialchars_decode(sprintf('تایید ایمیل سایت' . ' ' . get_bloginfo('name'))),
+		$message,
+		array('Content-Type: text/html; charset=UTF-8')
+	);
+} else {
+	$step_class_1 = "wt-active";
+	$step_st_2 = 'style="display: none;';
+}
+
 ?>
 <!--Inner Home Banner Start-->
 <div class="wt-haslayout wt-innerbannerholder">
@@ -54,13 +79,13 @@ get_header();
 							<div class="wt-joinforms">
 								<ul class="wt-joinsteps">
 
-									<li id="step-1" class="wt-active"><a href="javascrip:void(0);">1</a></li>
-									<li id="step-2"><a href="javascrip:void(0);">2</a></li>
+									<li id="step-1" class="<?php echo $step_class_1;  ?>"><a href="javascrip:void(0);">1</a></li>
+									<li id="step-2" class="<?php echo $step_class_2;  ?>"><a href="javascrip:void(0);">2</a></li>
 									<li id="step-3"><a href="javascrip:void(0);">3</a></li>
 								</ul>
 								<div class="wt-formtheme wt-formregister">
 									<fieldset class="wt-registerformgroup">
-										<div id="page-step-1">
+										<div <?php echo $step_st_1 ?> id="page-step-1">
 											<div class="form-group wt-form-group-dropdown form-group-half">
 												<span class="wt-select">
 													<select id="user_sex" name="user_sex">
@@ -102,9 +127,9 @@ get_header();
 										" name="wp-submit" id="wp-submit" class="wt-btn">ایجاد حساب</button>
 											</div>
 										</div>
-										<div style="display: none;" id="page-step-2">
+										<div <?php echo $step_st_2 ?> id="page-step-2">
 											<div class="form-group">
-												<label>ما کد تأیید را به ایمیل شما ارسال کرده ایم برای تایید تستی 123456 را وارد نمائید.</label>
+												<label>ما کد تأیید را به ایمیل شما ارسال کرده ایم صندوق و اسپم را بررسی نمائید.</label>
 												<input type="text" id="user_confirm" name="user_confirm" class="form-control" placeholder="کد تایید را وارد کنید">
 											</div>
 											<div class="form-group">
