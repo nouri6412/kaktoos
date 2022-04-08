@@ -21,7 +21,7 @@ $step_st_2 = "";
 
 if (isset($_GET["action"]) && $_GET["action"] == "verify") {
 	$step_class_2 = "wt-active";
-	$step_st_1 = 'style="display: none;';
+	$step_st_1 = 'style="display: none;"';
 
 	$user_id = get_current_user_id();
 	$message  = 'با تشکر از ثبت نام شما' . '<br>';
@@ -36,7 +36,7 @@ if (isset($_GET["action"]) && $_GET["action"] == "verify") {
 	);
 } else {
 	$step_class_1 = "wt-active";
-	$step_st_2 = 'style="display: none;';
+	$step_st_2 = 'style="display: none;"';
 }
 
 ?>
