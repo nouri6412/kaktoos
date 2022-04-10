@@ -85,7 +85,7 @@ class MyTmpTelegramBot
             $id = str_replace('company-job-edit-', "", $data);
             update_user_meta($user->ID, "create_job_id", $id);
             update_user_meta($user->ID, "bot_step", 'company-create-job-name-edit');
-            $this->sendMessage($chatId, 'عنوان آگهی را وارد نمایید');
+            $this->sendMessage($chatId, 'عنوان پروژه را وارد نمایید');
             return;
         }
 
@@ -862,7 +862,7 @@ class MyTmpTelegramBot
 
                     update_user_meta($user->ID, "create_job_id", $id);
                     update_user_meta($user->ID, "bot_step", 'company-create-job-email');
-                    $this->sendMessage($chatId, 'ایمیل آگهی را وارد نمایید');
+                    $this->sendMessage($chatId, 'ایمیل پروژه را وارد نمایید');
 
                     break;
                 }
@@ -881,7 +881,7 @@ class MyTmpTelegramBot
                     if ($id > 0) {
                         update_user_meta($user->ID, "create_job_id", $id);
                         update_user_meta($user->ID, "bot_step", 'company-create-job-email');
-                        $this->sendMessage($chatId, 'ایمیل آگهی را وارد نمایید');
+                        $this->sendMessage($chatId, 'ایمیل پروژه را وارد نمایید');
                     } else {
                         $this->sendMessage($chatId, 'خطا لطفا عنوان تکراری وارد  ننمایید');
                     }
@@ -946,7 +946,7 @@ class MyTmpTelegramBot
                     wp_update_post($my_post);
                     update_post_meta(get_the_author_meta("create_job_id", $user->ID), 'desc', $text);
                     update_user_meta($user->ID, "bot_step", 'company-create-job-finish');
-                    $this->sendMessage($chatId, 'آگهی پس از بررسی ادمین منتشر خواهد شد');
+                    $this->sendMessage($chatId, 'پروژه پس از بررسی ادمین منتشر خواهد شد');
                     $this->company_menu($user, $chatId);
                     break;
                 }
@@ -1104,7 +1104,7 @@ class MyTmpTelegramBot
     {
         $user =  $this->get_login($chatId);
         wp_delete_post($job_id);
-        $this->sendMessage($chatId, urlencode("آگهی مورد نظر حذف شد"));
+        $this->sendMessage($chatId, urlencode("پروژه مورد نظر حذف شد"));
     }
     public function company_request_status($job_id, $chatId, $status)
     {
@@ -1154,7 +1154,7 @@ class MyTmpTelegramBot
     {
         update_user_meta($user->ID, "bot_step", 'company-create-job-name');
 
-        $this->sendMessage($chatId, "عنوان آگهی را وارد نمایید");
+        $this->sendMessage($chatId, "پروژه شما درباره چیست (عنوان پروژه)");
     }
 
     public function company_my_jobs($user, $chatId)
@@ -1175,20 +1175,20 @@ class MyTmpTelegramBot
         );
         $the_query = new WP_Query($args);
         $count = $the_query->post_count;
-        $this->sendMessage($chatId, $count . " " . "آگهی پیدا شده است");
+        $this->sendMessage($chatId, $count . " " . "پروژه پیدا شده است");
         while ($the_query->have_posts()) :
             $the_query->the_post();
             $keyboard = [
                 'inline_keyboard' => [
                     [
-                        ['text' => 'حذف آگهی', 'callback_data' => 'company-job-remove-' . get_the_ID()],
-                        ['text' => 'ویرایش آگهی', 'callback_data' => 'company-job-edit-' . get_the_ID()]
+                        ['text' => 'حذف پروژه', 'callback_data' => 'company-job-remove-' . get_the_ID()],
+                        ['text' => 'ویرایش پروژه', 'callback_data' => 'company-job-edit-' . get_the_ID()]
                     ]
                 ]
             ];
             $encodedKeyboard = json_encode($keyboard);
             $desc = "";
-            $desc .= PHP_EOL . "وضعیت آگهی" . " : " . get_the_job_status(get_post_meta(get_the_ID(), 'active', true), false);
+            $desc .= PHP_EOL . "وضعیت پروژه" . " : " . get_the_job_status(get_post_meta(get_the_ID(), 'active', true), false);
             $desc .= PHP_EOL . "نوع همکاری" . " : " . get_post_meta(get_the_ID(), 'coop-type', true);
             $desc .= PHP_EOL . "سابقه کاری" . " : " . get_post_meta(get_the_ID(), 'exp', true);
             $desc .= PHP_EOL . "حداقل حقوق برای هر ساعت" . " : " . get_post_meta(get_the_ID(), 'min-salary', true) . ' ' . 'دلار';
