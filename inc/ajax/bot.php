@@ -824,7 +824,7 @@ class MyTmpTelegramBot
                                 ['user_nicename' => $text],
                                 ['ID' => $user->ID]
                             );
-                            update_user_meta($user->ID, "company_email", $text);
+                            update_user_meta($user->ID, "user_e_email", $text);
                             $this->sendMessage($chatId, "ایمیل ویرایش شد");
                             $this->company_menu($user, $chatId);
                         }
@@ -1135,13 +1135,7 @@ class MyTmpTelegramBot
                     ['text' => 'نام شرکت' . ' : ' . get_the_author_meta('company_name', $user->ID), 'callback_data' => 'company-profile-name']
                 ],
                 [
-                    ['text' => 'ایمیل' . ' : ' . get_the_author_meta('company_email', $user->ID), 'callback_data' => 'company-profile-email']
-                ],
-                [
-                    ['text' => 'وب سایت' . ' : ' . get_the_author_meta('web', $user->ID), 'callback_data' => 'company-profile-web']
-                ],
-                [
-                    ['text' => 'دسته' . ' : ' . $selected_cat, 'callback_data' => 'company-profile-cat']
+                    ['text' => 'ایمیل' . ' : ' . get_the_author_meta('user_e_email', $user->ID), 'callback_data' => 'company-profile-email']
                 ],
                 [
                     ['text' => 'تلفن' . ' : ' . get_the_author_meta('tel', $user->ID), 'callback_data' => 'company-profile-tel']
