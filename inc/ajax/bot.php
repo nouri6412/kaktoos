@@ -298,13 +298,13 @@ class MyTmpTelegramBot
 
         $desc = "";
         $desc .=  "نام" . " : " . get_the_author_meta('user_name', $user_id);
-        $desc .= PHP_EOL . "عنوان شغلی" . " : " . get_the_author_meta('user_exp', $user_id);
+        $desc .= PHP_EOL . "عنوان شغلی" . " : " . get_the_author_meta('job_title', $user_id);
+        $desc .= PHP_EOL . "نرخ ساعتی خدمات به دلار" . " : " . get_the_author_meta('user_nerx', $user_id);
         $desc .= PHP_EOL . "ایمیل" . " : " . get_the_author_meta('user_e_email', $user_id);
-        $desc .= PHP_EOL . "سال تولد" . " : " . get_the_author_meta('user_date_year', $user_id);
-        $desc .= PHP_EOL . "آدرس سکونت" . " : " . get_the_author_meta('user_state', $user_id) . ' - ' . get_the_author_meta('user_city', $user_id);
+        $desc .= PHP_EOL . "آدرس سکونت" . " : " . get_the_author_meta('user_country', $user_id) . ' - ' . get_the_author_meta('user_address', $user_id);
         $desc .= PHP_EOL . "تلفن" . " : " . get_the_author_meta('tel', $user_id);
 
-        $data = json_decode(get_the_author_meta('resume-skills', $user_id));
+        $data = json_decode(get_the_author_meta('skills', $user_id));
         $skills = PHP_EOL .  "خالی است";
         if (isset($data->skills)) {
             $skills = $data->skills;
@@ -312,89 +312,46 @@ class MyTmpTelegramBot
         $desc .= PHP_EOL .  "-----------";
         $desc .= PHP_EOL .  "مهارت" . " : " . $skills;
 
-        $data = json_decode(get_the_author_meta('resume-about', $user_id));
-        $about = PHP_EOL .  "خالی است";
-        if (isset($data->about)) {
-            $about = $data->about;
-        }
+        $about = PHP_EOL .  get_the_author_meta('user_desc', $user_id);
         $desc .= PHP_EOL .  "-----------";
         $desc .= PHP_EOL .  "درباره" . " : " . $about;
 
         /// exp
         $data = [];
-        $data_1 = json_decode(get_the_author_meta('resume-exp', $user_id));
+        $data_1 = json_decode(get_the_author_meta('user_exp', $user_id), true);
 
-        if (isset($data_1->exp) && !is_array($data_1->exp)) {
-            $data = json_decode($data_1->exp);
+        if (is_array($data_1)) {
+            $data = $data_1;
         }
 
-        if (!$data && isset($data_1->exp)) {
-            $data = $data_1->exp;
-        }
         $desc .= PHP_EOL .  "-----------";
         $desc .= PHP_EOL .  "سوابق شغلی" . " : ";
 
         foreach ($data as $item) {
-            $desc .= PHP_EOL .  "شرکت" . " : " . $item->company;
-            $desc .= PHP_EOL .  "عنوان شغلی" . " : " . $item->title;
-            $desc .= PHP_EOL .  "از سال" . " : " . $item->date_from . ' - ' . "تا سال" . " : " . $item->date_from;
-            $desc .= PHP_EOL .  "توضیحات شغلی" . " : " . $item->desc;
+            $desc .= PHP_EOL .  "شرکت" . " : " . $item["company_title"];
+            $desc .= PHP_EOL .  "عنوان شغلی" . " : " . $item["job_title"];
+            $desc .= PHP_EOL .  "از سال" . " : " . $item["start"] . ' - ' . "تا سال" . " : " . $item["end"];
+            $desc .= PHP_EOL .  "توضیحات شغلی" . " : " . $item["job_desc"];
         }
         // end exp
 
 
         // edu
         $data = [];
-        $data_1 = json_decode(get_the_author_meta('resume-edu', $user_id));
+        $data_1 = json_decode(get_the_author_meta('user_edu', $user_id), true);
 
-        if (isset($data_1->exp) && !is_array($data_1->exp)) {
-            $data = json_decode($data_1->exp);
-        }
-
-        if (!$data && isset($data_1->exp)) {
-            $data = $data_1->exp;
+        if (is_array($data_1)) {
+            $data = $data_1;
         }
         $desc .= PHP_EOL .  "-----------";
         $desc .= PHP_EOL .  "سوابق تحصیلی" . " : ";
 
         foreach ($data as $item) {
-            $desc .= PHP_EOL .  "دانشگاه" . " : " . $item->uni;
-            $desc .= PHP_EOL .  "رشته" . " : " . $item->major;
-            $desc .= PHP_EOL .  "مقطع" . " : " . $item->grade;
-            $desc .= PHP_EOL .  "از سال" . " : " . $item->date_from . ' - ' . "تا سال" . " : " . $item->date_from;
+            $desc .= PHP_EOL .  "دانشگاه" . " : " . $item["uni_title"];
+            $desc .= PHP_EOL .  "رشته" . " : " . $item["major_title"];
+            $desc .= PHP_EOL .  "از سال" . " : " . $item["start"] . ' - ' . "تا سال" . " : " . $item["end"];
         }
         //end edu
-
-        $data = [];
-        // lang
-
-        $data_1 = json_decode(get_the_author_meta('resume-lang', $user_id));
-
-        if (isset($data_1->exp) && !is_array($data_1->exp)) {
-            $data = json_decode($data_1->exp);
-        }
-
-        if (!$data && isset($data_1->exp)) {
-            $data = $data_1->exp;
-        }
-        $desc .= PHP_EOL .  "-----------";
-        $desc .= PHP_EOL .  "زبان های مسلط" . " : ";
-
-        foreach ($data as $item) {
-            $desc .= PHP_EOL .  "زبان" . " : " . $item->title;
-        }
-        //end lang
-
-        // prefer
-        $data = [];
-        $data = json_decode(get_the_author_meta('resume-prefer', $user_id));
-
-        if (isset($data->salary)) {
-            $desc .= PHP_EOL .  "-----------";
-            $desc .= PHP_EOL .  "حقوق در خواستی بر حسب ساعت " . " : " . $data->salary . " " . 'دلار';
-        }
-
-        //end prefer
 
 
         $this->sendMessage($chatId, urlencode($desc));
@@ -609,9 +566,7 @@ class MyTmpTelegramBot
                     break;
                 }
             case "menu-user-create-resume-about": {
-                    $data = [];
-                    $data["about"] = $text;
-                    update_user_meta($user->ID, "user_desc", json_encode($data, JSON_UNESCAPED_UNICODE));
+                    update_user_meta($user->ID, "user_desc", $text);
                     update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-skills');
                     $this->sendMessage($chatId, urlencode("  مهارت های خود را با جدا کننده " . ' , ' . "وارد نمایید مانند:" . ' java,wordpress'));
                     break;
