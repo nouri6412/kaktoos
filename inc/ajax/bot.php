@@ -751,40 +751,6 @@ class MyTmpTelegramBot
                     }
                     $data[0]["end"] = $text;
                     update_user_meta($user->ID, "user_edu", json_encode($data, JSON_UNESCAPED_UNICODE));
-                    update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-lang');
-                    $this->sendMessage($chatId, urlencode("به کدام زبان ها تسلط دارید با , جدا کنید"));
-                    break;
-                }
-            case "menu-user-create-resume-lang": {
-                    $db = json_decode(get_the_author_meta("resume-lang", $user->ID), JSON_UNESCAPED_UNICODE);
-                    $data = [];
-                    $data["exp"] = [];
-                    $data["exp"][] = [];
-                    if (isset($db["exp"])) {
-                        $data = $db;
-                    }
-                    $ex = explode(',', $text);
-                    $index = 0;
-                    foreach ($ex as $item) {
-                        $data["exp"][$index]["title"] = $item;
-                        $data["exp"][$index]["degree"] = "مسلط";
-                        $index++;
-                    }
-
-                    update_user_meta($user->ID, "resume-lang", json_encode($data, JSON_UNESCAPED_UNICODE));
-                    update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-prefer');
-                    $this->sendMessage($chatId, urlencode("حقوق درخواستی به دلار بر حسب ساعت"));
-                    break;
-                }
-
-            case "menu-user-create-resume-prefer": {
-                    $db = json_decode(get_the_author_meta("resume-prefer", $user->ID), JSON_UNESCAPED_UNICODE);
-                    $data = [];
-                    if (isset($db["salary"])) {
-                        $data = $db;
-                    }
-                    $data["salary"] = $text;
-                    update_user_meta($user->ID, "resume-prefer", json_encode($data, JSON_UNESCAPED_UNICODE));
                     update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-finish');
                     $this->sendMessage($chatId, urlencode("رزومه شما کامل شد"));
                     $this->user_menu($user, $chatId);
