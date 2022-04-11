@@ -1175,7 +1175,7 @@ class MyTmpTelegramBot
 
         $job_id = get_post_meta($request_id, 'job_id', true);
 
-        update_post_meta($job_id, 'request_id', $user->ID);
+        update_post_meta($job_id, 'request_id', get_post_field('post_author', $request_id));
         update_post_meta($job_id, 'user_id', get_post_field('post_author', $job_id));
         update_post_meta($job_id, 'request_req_id', $request_id);
         update_post_meta($job_id, 'request_accept_time', current_time('timestamp'));
@@ -1589,7 +1589,8 @@ class MyTmpTelegramBot
         while ($the_query->have_posts()) :
             $the_query->the_post();
             $avg=0;
-            $sql       = $wpdb->prepare("select (select pm1.meta_value from " . $wpdb->prefix . "post_meta pm1 where p.ID=pm1.post_id and pm1.meta_value='price') as price from " . $wpdb->prefix . "posts p left join " . $wpdb->prefix . "post_meta pm on p.ID=pm.post_id where p.post_status='publish' and pm.meta_key='job_id' and pm.meta_value='" . get_the_ID() . "'", array());
+            $sql       = $wpdb->prepare("select (select pm1.meta_value from " . $wpdb->prefix . "postmeta pm1 where p.ID=pm1.post_id and pm1.meta_key='price') as price from " . $wpdb->prefix . "posts p left join " . $wpdb->prefix . "postmeta pm on p.ID=pm.post_id where p.post_type='request' and  p.post_status='publish' and pm.meta_key='job_id' and pm.meta_value='" . get_the_ID() . "'", array());
+           // echo '<br>'.$sql;
             $result = $wpdb->get_results($sql, 'ARRAY_A');
             $count1 = count($result);
 

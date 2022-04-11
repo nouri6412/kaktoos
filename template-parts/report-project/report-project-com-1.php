@@ -62,7 +62,7 @@ $count = $the_query->post_count;
                             <td><?php echo get_the_title() ?></td>
                             <?php
                             $avg = 0;
-                            $sql       = $wpdb->prepare("select (select pm1.meta_value from " . $wpdb->prefix . "post_meta pm1 where p.ID=pm1.post_id and pm1.meta_value='price') as price from " . $wpdb->prefix . "posts p left join " . $wpdb->prefix . "post_meta pm on p.ID=pm.post_id where p.post_status='publish' and pm.meta_key='job_id' and pm.meta_value='" . get_the_ID() . "'", array());
+                            $sql       = $wpdb->prepare("select (select pm1.meta_value from " . $wpdb->prefix . "postmeta pm1 where p.ID=pm1.post_id and pm1.meta_key='price') as price from " . $wpdb->prefix . "posts p left join " . $wpdb->prefix . "postmeta pm on p.ID=pm.post_id where p.post_type='request' and  p.post_status='publish' and pm.meta_key='job_id' and pm.meta_value='" . get_the_ID() . "'", array());
                             $result = $wpdb->get_results($sql, 'ARRAY_A');
                             $count1 = count($result);
 
