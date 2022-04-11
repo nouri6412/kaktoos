@@ -778,7 +778,7 @@ class MyTmpTelegramBot
                                 ['user_nicename' => $text],
                                 ['ID' => $user->ID]
                             );
-                            update_user_meta($user->ID, "company_email", $text);
+                            update_user_meta($user->ID, "user_e_email", $text);
                             update_user_meta($user->ID, "bot_step", 'company-profile-register-pass');
                             $this->sendMessage($chatId, urlencode("برای ورود به پنل کاربری خود از طریق وبسایت کاکتوس رمز عبور دلخواه خود را وارد نمایید"));
                         }
@@ -901,6 +901,14 @@ class MyTmpTelegramBot
 
                     update_post_meta(get_the_author_meta("create_request_id", $user->ID), 'desc', $text);
                     update_user_meta($user->ID, "bot_step", 'user-create-request-desc');
+                    
+                    $my_post = array(
+                        'ID'            => get_the_author_meta("create_request_id", $user->ID),
+                        'post_content'      => $text,
+                        'post_status'  => 'publish'
+                    );
+                    wp_update_post($my_post);
+
                     $this->sendMessage($chatId, urlencode("پیشنهاد شما با موفقیت برای این  پروژه ارسال شد،کارفرما پس از بررسی با شما تماس خواهد گرفت."));
                     update_user_meta($user->ID, "create_request_id", 0);
                     $this->user_menu($user, $chatId);
@@ -936,6 +944,7 @@ class MyTmpTelegramBot
                     $id = wp_insert_post($args_post);
                     if ($id > 0) {
                         update_user_meta($user->ID, "create_job_id", $id);
+                        update_post_meta($id,  'request_id', '0');
                         update_user_meta($user->ID, "bot_step", 'company-create-job-time');
                         $this->sendMessage($chatId, 'چقدر زمان لازم است پروژه پیاده سازی شود؟(روز)');
                     } else {
