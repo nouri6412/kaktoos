@@ -549,14 +549,19 @@ class MyTmpTelegramBot
                 }
             case "menu-user-create-resume-tel": {
                     update_user_meta($user->ID, "tel", $text);
-                    update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-about');
+                    update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-nerx');
                     $this->sendMessage($chatId, urlencode("نرخ ساعتی خدمات شما (دلار)"));
                     break;
                 }
             case "menu-user-create-resume-nerx": {
-                    update_user_meta($user->ID, "user_nerx", $text);
-                    update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-about');
-                    $this->sendMessage($chatId, urlencode("نشانی خود بنویسید"));
+                    if (!is_numeric($text)) {
+                        update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-nerx');
+                        $this->sendMessage($chatId, urlencode("لطفا نرخ ساعتی را بصورت عدد وارد نمایید"));
+                    } else {
+                        update_user_meta($user->ID, "user_nerx", $text);
+                        update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-address');
+                        $this->sendMessage($chatId, urlencode("نشانی خود بنویسید"));
+                    }
                     break;
                 }
             case "menu-user-create-resume-address": {
@@ -880,20 +885,45 @@ class MyTmpTelegramBot
                     $id = wp_insert_post($args_post);
                     if ($id > 0) {
                         update_user_meta($user->ID, "create_job_id", $id);
-                        update_user_meta($user->ID, "bot_step", 'company-create-job-email');
-                        $this->sendMessage($chatId, 'ایمیل پروژه را وارد نمایید');
+                        update_user_meta($user->ID, "bot_step", 'company-create-job-time');
+                        $this->sendMessage($chatId, 'چقدر زمان لازم است پروژه پیاده سازی شود؟(روز)');
                     } else {
                         $this->sendMessage($chatId, 'خطا لطفا عنوان تکراری وارد  ننمایید');
                     }
 
                     break;
                 }
-            case "company-create-job-email": {
-                    if (!filter_var($text, FILTER_VALIDATE_EMAIL)) {
-                        update_user_meta($user->ID, "bot_step", 'company-create-job-email');
-                        $this->sendMessage($chatId, urlencode("فرمت ایمیل صحیح نمی باشد لطفا بصورت صحیح وارد نمایید"));
+            case "company-create-job-time": {
+                    if (!is_numeric($text)) {
+                        update_user_meta($user->ID, "bot_step", 'company-create-job-time');
+                        $this->sendMessage($chatId, urlencode("لطفا زمان را بصورت عدد وارد نمایید"));
                     } else {
-                        update_post_meta(get_the_author_meta("create_job_id", $user->ID), 'job-email', $text);
+                        update_post_meta(get_the_author_meta("create_job_id", $user->ID), 'time', $text);
+                        update_post_meta(get_the_author_meta("create_job_id", $user->ID), 'expire', 60);
+                        update_user_meta($user->ID, "bot_step", 'company-create-job-min-price');
+                        $this->sendMessage($chatId, urlencode("حداقل بودجه شما چقدر است؟(روز)" . " " . "مثال" . " : " . "php,wordpress"));
+                    }
+
+                    break;
+                }
+            case "company-create-job-min-price": {
+                    if (!is_numeric($text)) {
+                        update_user_meta($user->ID, "bot_step", 'company-create-job-min-price');
+                        $this->sendMessage($chatId, urlencode("لطفا حداقل بودجه را بصورت عدد وارد نمایید"));
+                    } else {
+                        update_post_meta(get_the_author_meta("create_job_id", $user->ID), 'min_price', $text);
+                        update_user_meta($user->ID, "bot_step", 'company-create-job-max-price');
+                        $this->sendMessage($chatId, urlencode("حداکثر بودجه شما چقدر است؟(روز)"));
+                    }
+
+                    break;
+                }
+            case "company-create-job-max-price": {
+                    if (!is_numeric($text)) {
+                        update_user_meta($user->ID, "bot_step", 'company-create-job-max-price');
+                        $this->sendMessage($chatId, urlencode("لطفا حداکثر بودجه را بصورت عدد وارد نمایید"));
+                    } else {
+                        update_post_meta(get_the_author_meta("create_job_id", $user->ID), 'max_price', $text);
                         update_user_meta($user->ID, "bot_step", 'company-create-job-tag');
                         $this->sendMessage($chatId, urlencode("تگ و مهارت های موردنیاز شغل را  وارد نمایید با حرف , جدا کنید" . " " . "مثال" . " : " . "php,wordpress"));
                     }
@@ -901,40 +931,9 @@ class MyTmpTelegramBot
                     break;
                 }
             case "company-create-job-tag": {
-                    update_post_meta(get_the_author_meta("create_job_id", $user->ID), 'tag', $text);
-                    update_user_meta($user->ID, "bot_step", 'company-create-job-coop-type');
-                    $this->sendMessage($chatId, 'نوع همکاری برای مثال دورکاری یا پروژه ای یا تمام وقت یا پاره وقت');
-                    break;
-                }
-            case "company-create-job-coop-type": {
-                    update_post_meta(get_the_author_meta("create_job_id", $user->ID), 'coop-type', $text);
-                    update_user_meta($user->ID, "bot_step", 'company-create-job-exp');
-                    $this->sendMessage($chatId, "سابقه کاری برای شغل");
-                    break;
-                }
-            case "company-create-job-exp": {
-                    update_post_meta(get_the_author_meta("create_job_id", $user->ID), 'exp', $text);
-                    update_user_meta($user->ID, "bot_step", 'company-create-job-min-salary');
-                    $this->sendMessage($chatId, urlencode("حداقل حقوق به دلار برای هر ساعت"));
-                    break;
-                }
-            case "company-create-job-min-salary": {
-                    update_post_meta(get_the_author_meta("create_job_id", $user->ID), 'min-salary', $text);
-                    update_user_meta($user->ID, "bot_step", 'company-create-job-max-salary');
-                    $this->sendMessage($chatId, urlencode("حداکثر حقوق  به دلار برای هر ساعت"));
-                    break;
-                }
-            case "company-create-job-max-salary": {
-                    update_post_meta(get_the_author_meta("create_job_id", $user->ID), 'max-salary', $text);
-
-                    update_user_meta($user->ID, "bot_step", 'company-create-job-address');
-                    $this->sendMessage($chatId, "موقعیت مکانی و آدرس شغل");
-                    break;
-                }
-            case "company-create-job-address": {
-                    update_post_meta(get_the_author_meta("create_job_id", $user->ID), 'address', $text);
+                    update_post_meta(get_the_author_meta("create_job_id", $user->ID), 'skills', $text);
                     update_user_meta($user->ID, "bot_step", 'company-create-job-desc');
-                    $this->sendMessage($chatId, urlencode('شرح شغل را ذکر کنید'));
+                    $this->sendMessage($chatId, 'درباره پروژه خود بیشتر توضیح دهید');
                     break;
                 }
             case "company-create-job-desc": {
