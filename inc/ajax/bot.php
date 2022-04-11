@@ -873,6 +873,39 @@ class MyTmpTelegramBot
                     $this->company_menu($user, $chatId);
                     break;
                 }
+            case "user-create-request-price": {
+                    if (!is_numeric($text)) {
+                        update_user_meta($user->ID, "bot_step", 'user-create-request-price');
+                        $this->sendMessage($chatId, urlencode("لطفا مقدار پیشنهاد را بصورت عدد وارد نمایید"));
+                    } else {
+                        update_post_meta(get_the_author_meta("create_request_id", $user->ID), 'price', $text);
+                        update_user_meta($user->ID, "bot_step", 'user-create-request-time');
+                        $this->sendMessage($chatId, urlencode("زمان پیشنهادی شما چقدر است(روز)"));
+                    }
+
+                    break;
+                }
+            case "user-create-request-time": {
+                    if (!is_numeric($text)) {
+                        update_user_meta($user->ID, "bot_step", 'user-create-request-time');
+                        $this->sendMessage($chatId, urlencode("لطفا زمان پیشنهاد را بصورت عدد وارد نمایید"));
+                    } else {
+                        update_post_meta(get_the_author_meta("create_request_id", $user->ID), 'price', $text);
+                        update_user_meta($user->ID, "bot_step", 'user-create-request-desc');
+                        $this->sendMessage($chatId, urlencode("توضیحات پیشنهادتان را قید نمایید"));
+                    }
+
+                    break;
+                }
+            case "user-create-request-desc": {
+
+                    update_post_meta(get_the_author_meta("create_request_id", $user->ID), 'desc', $text);
+                    update_user_meta($user->ID, "bot_step", 'user-create-request-desc');
+                    $this->sendMessage($chatId, urlencode("پیشنهاد شما با موفقیت برای این  پروژه ارسال شد،کارفرما پس از بررسی با شما تماس خواهد گرفت."));
+                    update_user_meta($user->ID, "create_request_id", 0);
+                    $this->user_menu($user, $chatId);
+                    break;
+                }
             case "company-create-job-name-edit": {
                     $args_post = array(
                         'ID'           => get_the_author_meta("create_job_id", $user->ID),
@@ -1283,76 +1316,54 @@ class MyTmpTelegramBot
     public function user_job_request($job_id, $chatId)
     {
         $user =  $this->get_login($chatId);
-        $owner_id = get_post_field('post_author', $job_id);
-
-
-
-        $search = array();
-
-        $search["relation"] = "AND";
-
-        $search[] =           array(
-            'key' => 'job_id',
-            'value' => $job_id,
-            'compare' => '='
-        );
-
-        $search[] =           array(
-            'key' => 'owner_id',
-            'value' => $owner_id,
-            'compare' => '='
-        );
-
-        $args = array(
-            'post_type' => 'request',
-            'author__in'  => [$user->ID],
-            'meta_query'        => $search
-        );
-        $the_query = new WP_Query($args);
-
-        $count = $the_query->post_count;
-
-
-        if ($count > 0) {
-            $this->sendMessage($chatId, urlencode("شما قبلا به این موقعیت پروژه درخواست ارسال کرده اید"));
-
-            return;
-        }
 
         $args_post = array(
-            'post_title'   => get_the_author_meta('user_name', $user->ID),
+            'post_title'   => get_the_author_meta('user_name', $user->ID) . ' ' . date('Y-m-d H:i:s'),
             'post_type'    => 'request',
             'post_author'  => $user->ID,
-            'post_status'  => 'publish',
-            'meta_input'   => array(
-                'status' => 0,
-                'job_id' => $job_id,
-                'owner_id' => $owner_id
-            )
+            'post_status'  => 'draft'
         );
         $id = wp_insert_post($args_post);
-        $this->sendMessage($chatId, urlencode("رزومه شما با موفقیت برای این موقعیت پروژه ارسال شد،کارفرما پس از بررسی با شما تماس خواهد گرفت."));
-        $this->user_menu($user, $chatId);
+
+        update_post_meta($id,  "job_id", $job_id);
+        update_post_meta($id,  "sender_id", $user->ID);
+        update_post_meta($id,  "owner_id", get_post_field('post_author', $job_id));
+
+        update_user_meta($user->ID, "create_request_id", $id);
+        update_user_meta($user->ID, "bot_step", 'user-create-request-price');
+        $this->sendMessage($chatId, urlencode("مقدار پیشنهاد خود را بیان کنید(دلار)"));
     }
 
     public function user_jobs($user, $chatId)
     {
 
-        $data = json_decode(get_the_author_meta('resume-skills', $user->ID));
+        $data = json_decode(get_the_author_meta('skills', $user->ID));
         $skills = [];
         if (isset($data->skills)) {
             $skills = explode(',', $data->skills);
         }
 
+
         $search = array();
-        $search["relation"] = "OR";
+        $search["relation"] = "AND";
+
+        $search[] =           array(
+            'key' => 'project_state',
+            'value' => 1,
+            'compare' => '!='
+        );
+
+        $search1 = array();
+        $search1["relation"] = "OR";
         foreach ($skills as $item) {
-            $search[] =           array(
-                'key' => 'tag',
+            $search1[] =           array(
+                'key' => 'skills',
                 'value' => $item,
                 'compare' => 'LIKE'
             );
         }
+
+        $search[] = $search1;
 
         $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 
@@ -1361,7 +1372,7 @@ class MyTmpTelegramBot
             'post_status' => 'publish',
             'meta_key' => 'active',
             'meta_value' => '1',
-            'posts_per_page' => 10,
+            'posts_per_page' => 30,
             'paged' => $paged,
             'meta_query' => $search
         );
@@ -1373,20 +1384,18 @@ class MyTmpTelegramBot
             $keyboard = [
                 'inline_keyboard' => [
                     [
-                        ['text' => 'ارسال درخواست همکاری', 'callback_data' => 'user-request-job-' . get_the_ID()]
+                        ['text' => 'ارسال پیشنهاد', 'callback_data' => 'user-request-job-' . get_the_ID()]
                     ]
                 ]
             ];
             $encodedKeyboard = json_encode($keyboard);
             $desc = "";
-            $desc .= PHP_EOL . "نوع همکاری" . " : " . get_post_meta(get_the_ID(), 'coop-type', true);
-            $desc .= PHP_EOL . "سابقه کاری" . " : " . get_post_meta(get_the_ID(), 'exp', true);
-            $desc .= PHP_EOL . "حداقل حقوق برای هر ساعت" . " : " . get_post_meta(get_the_ID(), 'min-salary', true) . ' ' . 'دلار';
-            $desc .= PHP_EOL . "حداکثر حقوق برای هر ساعت" . " : " . get_post_meta(get_the_ID(), 'max-salary', true) . ' ' . 'دلار';
-            $desc .= PHP_EOL . "موقعیت مکانی" . " : " . get_post_meta(get_the_ID(), 'address', true);
-            $desc .= PHP_EOL . "شرح پروژه" . " : " . strip_tags(get_post_meta(get_the_ID(), 'desc', true));
+            $desc .= PHP_EOL . "زمان پیاده سازی موردنیاز" . " : " . get_post_meta(get_the_ID(), 'time', true) . ' ' . 'روز';
+            $desc .= PHP_EOL . "حداقل بودجه برای پروژه" . " : " . get_post_meta(get_the_ID(), 'min_price', true) . ' ' . 'دلار';
+            $desc .= PHP_EOL . "حداکثر بودجه برای پروژه" . " : " . get_post_meta(get_the_ID(), 'max_price', true) . ' ' . 'دلار';
+            $desc .= PHP_EOL . "شرح پروژه" . " : " . get_post_meta(get_the_ID(), 'desc', true);
 
-            $this->sendMessage($chatId, urlencode(get_the_title() . ' / ' . get_the_title(get_post_meta(get_the_ID(), 'cat_id', true)) . ' ' . PHP_EOL . get_post_meta(get_the_ID(), 'tag', true) . $desc), "&reply_markup=" . $encodedKeyboard);
+            $this->sendMessage($chatId, urlencode(get_the_title()  . PHP_EOL . get_post_meta(get_the_ID(), 'skills', true) . $desc), "&reply_markup=" . $encodedKeyboard);
         endwhile;
         wp_reset_query();
         $this->user_menu($user, $chatId);
@@ -1493,7 +1502,7 @@ class MyTmpTelegramBot
         $search = array();
 
         $search["relation"] = "AND";
-        
+
         $search[] =           array(
             'key' => 'request_id',
             'value' => $user->ID,
@@ -1504,8 +1513,8 @@ class MyTmpTelegramBot
             'value' => 1,
             'compare' => '='
         );
-        
-        
+
+
         $args = array(
             'post_type' => 'job',
             'post_status' => 'publish',
@@ -1527,7 +1536,7 @@ class MyTmpTelegramBot
             $date = date_create();
             date_modify($date, "+" . get_post_meta(get_the_ID(), 'time', true) . " day");
 
-            $d =get_post_meta(get_the_ID(), 'project_state_time', true);
+            $d = get_post_meta(get_the_ID(), 'project_state_time', true);
             $cur = current_time('timestamp');
             if ($d > $cur) {
                 $desc .= PHP_EOL . "زمان تحویل" . " : " .  human_time_diff($cur, $d) . ' ' . 'دیگر';
