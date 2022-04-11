@@ -866,9 +866,8 @@ class MyTmpTelegramBot
                     $id = wp_update_post($args_post);
 
                     update_user_meta($user->ID, "create_job_id", $id);
-                    update_user_meta($user->ID, "bot_step", 'company-create-job-email');
-                    $this->sendMessage($chatId, 'ایمیل پروژه را وارد نمایید');
-
+                    update_user_meta($user->ID, "bot_step", 'company-create-job-time');
+                    $this->sendMessage($chatId, 'چقدر زمان لازم است پروژه پیاده سازی شود؟(روز)');
                     break;
                 }
             case "company-create-job-name": {
@@ -901,7 +900,7 @@ class MyTmpTelegramBot
                         update_post_meta(get_the_author_meta("create_job_id", $user->ID), 'time', $text);
                         update_post_meta(get_the_author_meta("create_job_id", $user->ID), 'expire', 60);
                         update_user_meta($user->ID, "bot_step", 'company-create-job-min-price');
-                        $this->sendMessage($chatId, urlencode("حداقل بودجه شما چقدر است؟(روز)" . " " . "مثال" . " : " . "php,wordpress"));
+                        $this->sendMessage($chatId, urlencode("حداقل بودجه شما چقدر است؟(دلار)" ));
                     }
 
                     break;
@@ -913,7 +912,7 @@ class MyTmpTelegramBot
                     } else {
                         update_post_meta(get_the_author_meta("create_job_id", $user->ID), 'min_price', $text);
                         update_user_meta($user->ID, "bot_step", 'company-create-job-max-price');
-                        $this->sendMessage($chatId, urlencode("حداکثر بودجه شما چقدر است؟(روز)"));
+                        $this->sendMessage($chatId, urlencode("حداکثر بودجه شما چقدر است؟(دلار)"));
                     }
 
                     break;
