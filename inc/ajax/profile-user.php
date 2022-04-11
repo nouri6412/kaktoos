@@ -98,7 +98,7 @@ class Kaktos_User
         $meta_key = sanitize_text_field($_POST["meta_key"]);
 
         $data_str = "";
-        $result["html"] = $data_str;
+        $result["html"] = $data_str; 
 
         $job_id = $_POST["job_id"];
 

@@ -96,7 +96,11 @@ class MyTmpTelegramBot
         }
 
         if (strpos($data, 'company-request-job-accept-') !== false) {
-            $this->company_request_status(str_replace('company-request-job-accept-', "", $data), $chatId, 2);
+            $this->company_accept_request(str_replace('company-request-job-accept-', "", $data), $chatId, 2);
+            return;
+        }
+        if (strpos($data, 'company-request-job-complete-') !== false) {
+            $this->company_complete_project(str_replace('company-request-job-complete-', "", $data), $chatId, 2);
             return;
         }
         if (strpos($data, 'company-request-job-emp-accept-') !== false) {
@@ -106,6 +110,11 @@ class MyTmpTelegramBot
 
         if (strpos($data, 'user-profile-view-') !== false) {
             $this->user_profile_view(str_replace('user-profile-view-', "", $data), $chatId);
+            return;
+        }
+
+        if (strpos($data, 'project-requests-') !== false) {
+            $this->company_request_0(str_replace('project-requests-', "", $data), $chatId);
             return;
         }
 
@@ -151,19 +160,19 @@ class MyTmpTelegramBot
                     $this->company_my_jobs($user, $chatId);
                     break;
                 }
-            case "menu-company-request-0": {
+            case "menu-company-project-1": {
                     update_user_meta($user->ID, "bot_step", $data);
-                    $this->company_request_0($user, 0, $chatId);
-                    break;
-                }
-            case "menu-company-request-1": {
-                    update_user_meta($user->ID, "bot_step", $data);
-                    $this->company_request_0($user, 2, $chatId);
+                    $this->company_project_0($user, 1, $chatId);
                     break;
                 }
             case "menu-company-request-2": {
                     update_user_meta($user->ID, "bot_step", $data);
-                    $this->company_request_0($user, 4, $chatId);
+                    $this->company_project_1($user, 2, $chatId);
+                    break;
+                }
+            case "menu-company-request-3": {
+                    update_user_meta($user->ID, "bot_step", $data);
+                    $this->company_project_2($user, 3, $chatId);
                     break;
                 }
             case "menu-user-resume": {
@@ -188,7 +197,7 @@ class MyTmpTelegramBot
                 }
             case "user-profile-exp": {
                     update_user_meta($user->ID, "bot_step", $data);
-                    $this->sendMessage($chatId, "عنوان پروژهی را وارد نمایید");
+                    $this->sendMessage($chatId, "عنوان شغل را وارد نمایید");
                     break;
                 }
             case "user-profile-email": {
@@ -298,7 +307,7 @@ class MyTmpTelegramBot
 
         $desc = "";
         $desc .=  "نام" . " : " . get_the_author_meta('user_name', $user_id);
-        $desc .= PHP_EOL . "عنوان پروژهی" . " : " . get_the_author_meta('job_title', $user_id);
+        $desc .= PHP_EOL . "عنوان شغلی" . " : " . get_the_author_meta('job_title', $user_id);
         $desc .= PHP_EOL . "نرخ ساعتی خدمات به دلار" . " : " . get_the_author_meta('user_nerx', $user_id);
         $desc .= PHP_EOL . "ایمیل" . " : " . get_the_author_meta('user_e_email', $user_id);
         $desc .= PHP_EOL . "آدرس سکونت" . " : " . get_the_author_meta('user_country', $user_id) . ' - ' . get_the_author_meta('user_address', $user_id);
@@ -325,13 +334,13 @@ class MyTmpTelegramBot
         }
 
         $desc .= PHP_EOL .  "-----------";
-        $desc .= PHP_EOL .  "سوابق پروژهی" . " : ";
+        $desc .= PHP_EOL .  "سوابق پروژه" . " : ";
 
         foreach ($data as $item) {
             $desc .= PHP_EOL .  "شرکت" . " : " . $item["company_title"];
-            $desc .= PHP_EOL .  "عنوان پروژهی" . " : " . $item["job_title"];
+            $desc .= PHP_EOL .  "عنوان شغل" . " : " . $item["job_title"];
             $desc .= PHP_EOL .  "از سال" . " : " . $item["start"] . ' - ' . "تا سال" . " : " . $item["end"];
-            $desc .= PHP_EOL .  "توضیحات پروژهی" . " : " . $item["job_desc"];
+            $desc .= PHP_EOL .  "توضیحات پروژه" . " : " . $item["job_desc"];
         }
         // end exp
 
@@ -504,7 +513,7 @@ class MyTmpTelegramBot
             case "menu-user-create-resume-name": {
                     update_user_meta($user->ID, "user_name", $text);
                     update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-exp');
-                    $this->sendMessage($chatId, urlencode("عنوان پروژهی را وارد نمایید"));
+                    $this->sendMessage($chatId, urlencode("عنوان شغل را وارد نمایید"));
                     break;
                 }
             case "menu-user-create-resume-exp": {
@@ -595,7 +604,7 @@ class MyTmpTelegramBot
                     $data[0]["company_title"] = $text;
                     update_user_meta($user->ID, "user_exp", json_encode($data, JSON_UNESCAPED_UNICODE));
                     update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-job-title');
-                    $this->sendMessage($chatId, urlencode("عنوان پروژهی که در آن شرکت مشغول بوده اید؟"));
+                    $this->sendMessage($chatId, urlencode("عنوان شغلی که در آن شرکت مشغول بوده اید؟"));
                     break;
                 }
             case "menu-user-create-resume-job-title": {
@@ -900,7 +909,7 @@ class MyTmpTelegramBot
                         update_post_meta(get_the_author_meta("create_job_id", $user->ID), 'time', $text);
                         update_post_meta(get_the_author_meta("create_job_id", $user->ID), 'expire', 60);
                         update_user_meta($user->ID, "bot_step", 'company-create-job-min-price');
-                        $this->sendMessage($chatId, urlencode("حداقل بودجه شما چقدر است؟(دلار)" ));
+                        $this->sendMessage($chatId, urlencode("حداقل بودجه شما چقدر است؟(دلار)"));
                     }
 
                     break;
@@ -1044,16 +1053,13 @@ class MyTmpTelegramBot
                     ['text' => 'پروژه های من', 'callback_data' => 'menu-company-jobs']
                 ],
                 [
-                    ['text' => 'پیشنهاد های بررسی نشده', 'callback_data' => 'menu-company-request-0']
+                    ['text' => 'پروژه های باز', 'callback_data' => 'menu-company-project-1']
                 ],
                 [
-                    ['text' => 'پروژه های باز', 'callback_data' => 'menu-company-request-1']
+                    ['text' => 'پروژه های در حال انجام', 'callback_data' => 'menu-company-project-2']
                 ],
                 [
-                    ['text' => 'پروژه های در حال انجام', 'callback_data' => 'menu-company-request-1']
-                ],
-                [
-                    ['text' => 'پروژه های تکمیل شده', 'callback_data' => 'menu-company-request-2']
+                    ['text' => 'پروژه های تکمیل شده', 'callback_data' => 'menu-company-project-3']
                 ]
             ]
         ];
@@ -1111,6 +1117,34 @@ class MyTmpTelegramBot
         $this->sendMessage($chatId, urlencode("وضعیت درخواست تغییر یافت"));
     }
 
+    public function company_accept_request($request_id, $chatId, $status)
+    {
+        $user =  $this->get_login($chatId);
+
+        $job_id = get_post_meta($request_id, 'job_id', true);
+
+            update_post_meta($job_id, 'request_id', $user->ID);
+            update_post_meta($job_id, 'user_id', get_post_field('post_author', $job_id));
+            update_post_meta($job_id, 'request_req_id', $request_id);
+            update_post_meta($job_id, 'request_accept_time', current_time('timestamp'));
+            update_post_meta($job_id, 'request_accept_date', date('Y-m-d H:i:s'));
+
+        $this->sendMessage($chatId, urlencode("وضعیت پروژه به حالت در حال انجام تغییر یافت"));
+        $this->company_menu($user, $chatId);
+    }
+
+    public function company_complete_project($job_id, $chatId, $status)
+    {
+        $user =  $this->get_login($chatId);
+
+        update_post_meta($job_id, 'project_state', 1);
+        update_post_meta($job_id, 'project_state_date', date('Y-m-d H:i:s'));
+        $d = mktime(date("H"), date("i"), date("s"), date("m"), date("d"), date("Y"));
+        update_post_meta($job_id, 'project_state_time', $d);
+
+        $this->sendMessage($chatId, urlencode("وضعیت پروژه به حالت در حال انجام تغییر یافت"));
+        $this->company_menu($user, $chatId);
+    }
 
 
     public function company_profile($user, $chatId)
@@ -1200,7 +1234,7 @@ class MyTmpTelegramBot
                     ['text' => 'نام' . ' : ' . get_the_author_meta('user_name', $user->ID), 'callback_data' => 'user-profile-name']
                 ],
                 [
-                    ['text' => 'عنوان پروژهی' . ' : ' . get_the_author_meta('user_exp', $user->ID), 'callback_data' => 'user-profile-exp']
+                    ['text' => 'عنوان شغل' . ' : ' . get_the_author_meta('user_exp', $user->ID), 'callback_data' => 'user-profile-exp']
                 ],
                 [
                     ['text' => 'ایمیل' . ' : ' . get_the_author_meta('user_e_email', $user->ID), 'callback_data' => 'user-profile-email']
@@ -1273,7 +1307,7 @@ class MyTmpTelegramBot
 
 
         if ($count > 0) {
-            $this->sendMessage($chatId, urlencode("شما قبلا به این موقعیت پروژهی درخواست ارسال کرده اید"));
+            $this->sendMessage($chatId, urlencode("شما قبلا به این موقعیت پروژه درخواست ارسال کرده اید"));
 
             return;
         }
@@ -1290,7 +1324,7 @@ class MyTmpTelegramBot
             )
         );
         $id = wp_insert_post($args_post);
-        $this->sendMessage($chatId, urlencode("رزومه شما با موفقیت برای این موقعیت پروژهی ارسال شد،کارفرما پس از بررسی با شما تماس خواهد گرفت."));
+        $this->sendMessage($chatId, urlencode("رزومه شما با موفقیت برای این موقعیت پروژه ارسال شد،کارفرما پس از بررسی با شما تماس خواهد گرفت."));
         $this->user_menu($user, $chatId);
     }
 
@@ -1391,81 +1425,232 @@ class MyTmpTelegramBot
         $this->user_menu($user, $chatId);
     }
 
-    public function company_request_0($user, $status = 0, $chatId)
+    public function company_project_0($user, $status = 0, $chatId)
     {
 
-        $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+        $search = array();
 
-        $meta_arg = [];
-        $meta_arg["relation"] = "AND";
-        $meta_arg[] = ["key" => "status", "value" => $status, "compare" => "="];
+        $search["relation"] = "AND";
+
+        $search[] =           array(
+            'key' => 'request_id',
+            'value' => 0,
+            'compare' => '='
+        );
+
 
         $args = array(
-            'post_type' => 'request',
-            'meta_key'  => 'owner_id',
-            'posts_per_page' => 1000,
-            'paged' => $paged,
-            'meta_value' => $user->ID,
-            "meta_query" => $meta_arg
+            'post_type' => 'job',
+            'post_status' => 'publish',
+            'author'  => $user->ID,
+            'meta_query' => $search
         );
         $the_query = new WP_Query($args);
         $count = $the_query->post_count;
-        if ($status == 0) {
-            $this->sendMessage($chatId, 'شما' . ' ' . $count . " "  . "رزومه بررسی نشده دارید");
-        } else if ($status == 2) {
-            $this->sendMessage($chatId, 'شما' . ' ' . $count . " "  . "رزومه تایید شده برای مصاحبه دارید");
-        } else if ($status == 4) {
-            $this->sendMessage($chatId, 'شما' . ' ' . $count . " "  . "رزومه استخدام شده دارید");
-        }
+
+        $this->sendMessage($chatId, $count . " " . "پروژه پیدا شده است");
+        while ($the_query->have_posts()) :
+            $the_query->the_post();
+
+            $args1 = array(
+                'post_type' => 'request',
+                'post_status' => 'publish',
+                'meta_key' => 'job_id',
+                'meta_value' => get_the_ID()
+            );
+            $the_query1 = new WP_Query($args1);
+            $count1 = $the_query1->post_count;
+            $avg = 0;
+            $preserve_post = get_post();
+            while ($the_query1->have_posts()) :
+                $the_query1->the_post();
+                $avg += get_post_meta(get_the_ID(), 'price', true);
+            endwhile;
+
+
+            $post = $preserve_post;
+            setup_postdata($post);
+            if ($count1 > 0) {
+                $avg = round($avg / $count1);
+            }
+
+            $desc = "";
+            $desc .= PHP_EOL . "تعداد پیشنهادات" . " : " . $count1;
+            $desc .= PHP_EOL . "میانگین پیشنهادات" . " : " . $avg;
+
+            $date = date_create();
+            date_modify($date, "+" . get_post_meta(get_the_ID(), 'expire', true) . " day");
+
+            $d = mktime(date_format($date, "H"), date_format($date, "i"), date_format($date, "s"), date_format($date, "m"), date_format($date, "d"), date_format($date, "Y"));
+            $cur = current_time('timestamp');
+            if ($d > $cur) {
+                $desc .= PHP_EOL . "تاریخ پایان" . " : " . human_time_diff($cur, $d) . ' ' . 'دیگر';
+            } else {
+                $desc .= PHP_EOL . "تاریخ پایان" . " : " . human_time_diff($d, $cur) . ' ' . 'گذشته';
+            }
+
+
+            $keyboard = [
+                'inline_keyboard' => [
+                    [
+                        ['text' => 'مشاهده پیشنهادات', 'callback_data' => 'project-requests-' . get_the_ID()]
+                    ]
+                ]
+            ];
+            $encodedKeyboard = json_encode($keyboard);
+
+
+            $this->sendMessage($chatId, urlencode(get_the_title()  . ' ' . PHP_EOL . get_post_meta(get_the_ID(), 'skills', true) . $desc), "&reply_markup=" . $encodedKeyboard);
+        endwhile;
+        wp_reset_query();
+        $this->company_menu($user, $chatId);
+    }
+
+    public function company_project_1($user, $status = 0, $chatId)
+    {
+
+        $search = array();
+
+        $search["relation"] = "AND";
+
+        $search[] =           array(
+            'key' => 'request_id',
+            'value' => 0,
+            'compare' => '>'
+        );
+        $search[] =           array(
+            'key' => 'project_state',
+            'value' => 1,
+            'compare' => '!='
+        );
+
+
+        $args = array(
+            'post_type' => 'job',
+            'post_status' => 'publish',
+            'author'  => $user->ID,
+            'meta_query' => $search
+        );
+        $the_query = new WP_Query($args);
+        $count = $the_query->post_count;
+
+        $this->sendMessage($chatId, $count . " " . "پروژه پیدا شده است");
+        while ($the_query->have_posts()) :
+            $the_query->the_post();
+
+            $desc = "";
+            $desc .= PHP_EOL . "فریلنسر" . " : " . get_the_author_meta('user_name', get_post_meta(get_the_ID(), 'request_id', true));
+            $desc .= PHP_EOL . "پیشنهاد انتخاب شده" . " : " . get_post_meta(get_post_meta(get_the_ID(), 'request_req_id', true), 'price', true);
+
+            $date = date_create();
+            date_modify($date, "+" . get_post_meta(get_the_ID(), 'time', true) . " day");
+
+            $d = mktime(date_format($date, "H"), date_format($date, "i"), date_format($date, "s"), date_format($date, "m"), date_format($date, "d"), date_format($date, "Y"));
+            $cur = current_time('timestamp');
+            if ($d > $cur) {
+                $desc .= PHP_EOL . "زمان تحویل" . " : " .  human_time_diff($cur, $d) . ' ' . 'دیگر';
+            } else {
+                $desc .= PHP_EOL . "زمان تحویل" . " : " .  human_time_diff($d, $cur) . ' ' . 'گذشته';
+            }
+
+            $keyboard = [
+                'inline_keyboard' => [
+                    [
+                        ['text' => 'اعلام اتمام پروژه', 'callback_data' => 'company-request-job-complete-' . get_the_ID()]
+                    ]
+                ]
+            ];
+            $encodedKeyboard = json_encode($keyboard);
+
+            $this->sendMessage($chatId, urlencode(get_the_title()  . ' ' . PHP_EOL . get_post_meta(get_the_ID(), 'skills', true) . $desc), "&reply_markup=" . $encodedKeyboard);
+        endwhile;
+        wp_reset_query();
+        $this->company_menu($user, $chatId);
+    }
+
+    public function company_project_2($user, $status = 0, $chatId)
+    {
+
+        $search = array();
+
+        $search["relation"] = "AND";
+
+        $search[] =           array(
+            'key' => 'request_id',
+            'value' => 0,
+            'compare' => '>'
+        );
+
+        $search[] =           array(
+            'key' => 'project_state',
+            'value' => 1,
+            'compare' => '='
+        );
+
+
+        $args = array(
+            'post_type' => 'job',
+            'post_status' => 'publish',
+            'author'  => $user->ID,
+            'meta_query' => $search
+        );
+        $the_query = new WP_Query($args);
+        $count = $the_query->post_count;
+
+        $this->sendMessage($chatId, $count . " " . "پروژه پیدا شده است");
+        while ($the_query->have_posts()) :
+            $the_query->the_post();
+
+            $desc = "";
+            $desc .= PHP_EOL . "فریلنسر" . " : " . get_the_author_meta('user_name', get_post_meta(get_the_ID(), 'request_id', true));
+            $desc .= PHP_EOL . "پیشنهاد انتخاب شده" . " : " . get_post_meta(get_post_meta(get_the_ID(), 'request_req_id', true), 'price', true);
+
+            $d = get_post_meta(get_the_ID(), 'project_state_time', true);
+            $cur = current_time('timestamp');
+            if ($d > $cur) {
+                $desc .= PHP_EOL . "زمان اتمام" . " : " .  human_time_diff($cur, $d) . ' ' . 'دیگر';
+            } else {
+                $desc .= PHP_EOL . "زمان اتمام" . " : " .  human_time_diff($d, $cur) . ' ' . 'گذشته';
+            }
+
+            $this->sendMessage($chatId, urlencode(get_the_title()  . ' ' . PHP_EOL . get_post_meta(get_the_ID(), 'skills', true) . $desc));
+        endwhile;
+        wp_reset_query();
+        $this->company_menu($user, $chatId);
+    }
+
+    public function company_request_0($job_id, $chatId)
+    {
+        $user =  $this->get_login($chatId);
+
+        $args = array(
+            'post_type' => 'request',
+            'post_status' => 'publish',
+            'meta_key' => 'job_id',
+            'meta_value' => $job_id
+        );
+        $the_query = new WP_Query($args);
+        $count = $the_query->post_count;
+
+        $this->sendMessage($chatId, 'شما' . ' ' . $count . " "  . "پیشنهاد برای این پروژه دارید");
+
 
         while ($the_query->have_posts()) :
             $the_query->the_post();
             $job_id = get_post_meta(get_the_ID(), 'job_id', true);
 
-            $st = "وضعیت درخواست" . " : ";
-            $status = get_post_meta(get_the_ID(), 'status', true);
-            if ($status == 1) {
-                $st = $st . 'بررسی شده';
-            } else if ($status == 2) {
-                $st = $st . 'تایید برای مصاحبه';
-            } else if ($status == 3) {
-                $st = $st . 'رد درخواست';
-            } else if ($status == 4) {
-                $st = $st . 'استخدام شده';
-            } else {
-                $st = $st . 'در انتظار وضعیت';
-            }
 
             $desc = "";
-            $desc .= PHP_EOL . "درخواست کننده" . " : " . get_the_author_meta('user_name');
-            $desc .= PHP_EOL .  "عنوان پروژهی" . " : " . get_the_author_meta('user_exp');
-            $desc .= PHP_EOL . "ایمیل" . " : " . get_the_author_meta('user_e_email');
-            $desc .= PHP_EOL . "سال تولد" . " : " . get_the_author_meta('user_date_year');
-            $desc .= PHP_EOL . "استان و شهر" . " : " . get_the_author_meta('user_state') . ' ' . get_the_author_meta('user_city');
-            $desc .= PHP_EOL . "تلفن" . " : " . get_the_author_meta('tel');
+            $desc .= PHP_EOL . "درخواست کننده" . " : " . get_the_author_meta('user_name').' '.custom_get_the_date(get_the_ID());
+            $desc .= PHP_EOL . "پیشنهاد" . " : " . get_post_meta(get_the_ID(), 'price', true) . ' ' . 'دلار';
+            $desc .= PHP_EOL . "زمان تحویل" . " : " . get_post_meta(get_the_ID(), 'time', true) . ' ' . 'روز';
+            $desc .= PHP_EOL . "توضیحات" . " : " . get_post_meta(get_the_ID(), 'desc', true);
 
-            $data = json_decode(get_the_author_meta('resume-skills'));
-            $skills = PHP_EOL .  "خالی است";
-            if (isset($data->skills)) {
-                $skills = $data->skills;
-            }
-
-            $desc .= PHP_EOL .  "مهارت" . " : " . $skills;
-
-            $data = json_decode(get_the_author_meta('resume-about'));
-            $about = PHP_EOL .  "خالی است";
-            if (isset($data->about)) {
-                $about = $data->about;
-            }
-
-            $desc .= PHP_EOL .  "درباره" . " : " . $about;
 
             $keyboard = [
                 'inline_keyboard' => [
                     [
-                        ['text' => 'رد درخواست', 'callback_data' => 'company-request-job-not-accept-' . get_the_ID()],
-                        ['text' => 'تایید برای مصاحبه', 'callback_data' => 'company-request-job-accept-' . get_the_ID()],
-                        ['text' => 'استخدام شد', 'callback_data' => 'company-request-job-emp-accept-' . get_the_ID()]
+                        ['text' => 'استخدام و قبول درخواست', 'callback_data' => 'company-request-job-accept-' . get_the_ID()]
                     ],
                     [
                         ['text' => 'مشاهده رزومه', 'callback_data' => 'user-profile-view-' . get_the_author_meta('ID')]
@@ -1475,7 +1660,7 @@ class MyTmpTelegramBot
             $encodedKeyboard = json_encode($keyboard);
 
 
-            $this->sendMessage($chatId, urlencode(get_the_title($job_id) . ' / ' . get_the_title(get_post_meta($job_id, 'cat_id', true)) . ' ' . PHP_EOL . get_post_meta($job_id, 'tag', true) . PHP_EOL . $st . $desc), "&reply_markup=" . $encodedKeyboard);
+            $this->sendMessage($chatId, urlencode( PHP_EOL  . $desc), "&reply_markup=" . $encodedKeyboard);
         endwhile;
         wp_reset_query();
         $this->company_menu($user, $chatId);

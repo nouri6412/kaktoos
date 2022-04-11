@@ -79,8 +79,11 @@ $count = $the_query->post_count;
                             
                             $post = $preserve_post;
                             setup_postdata( $post );
-
-                            $avg = round($avg / $count1);
+                             if($count1>0)
+                             {
+                                $avg = round($avg / $count1);
+                             }
+                         
                             ?>
                             <td><?php echo $count1 ?></td>
                             <td><?php echo $avg ?></td>
