@@ -3,7 +3,7 @@ $user_id = get_current_user_id();
 
 $search = array();
 
-$search["relation"] = "AND"; 
+$search["relation"] = "AND";
 
 $search[] =           array(
     'key' => 'request_id',
@@ -61,29 +61,20 @@ $count = $the_query->post_count;
                         <tr>
                             <td><?php echo get_the_title() ?></td>
                             <?php
-                            $args1 = array(
-                                'post_type' => 'request',
-                                'post_status' => 'publish',
-                                'meta_key' => 'job_id',
-                                'meta_value' => get_the_ID()
-                            );
-                            $the_query1 = new WP_Query($args1);
-                            $count1 = $the_query1->post_count;
                             $avg = 0;
-                            $preserve_post = get_post();
-                            while ($the_query1->have_posts()) :
-                                $the_query1->the_post();
-                                $avg += get_post_meta(get_the_ID(), 'price', true);
-                            endwhile;
-                         
-                            
-                            $post = $preserve_post;
-                            setup_postdata( $post );
-                             if($count1>0)
-                             {
+                            $sql       = $wpdb->prepare("select (select pm1.meta_value from " . $wpdb->prefix . "post_meta pm1 where p.ID=pm1.post_id and pm1.meta_value='price') as price from " . $wpdb->prefix . "posts p left join " . $wpdb->prefix . "post_meta pm on p.ID=pm.post_id where p.post_status='publish' and pm.meta_key='job_id' and pm.meta_value='" . get_the_ID() . "'", array());
+                            $result = $wpdb->get_results($sql, 'ARRAY_A');
+                            $count1 = count($result);
+
+                            if (count($result) > 0) {
+                                foreach ($result as $item) {
+                                    $avg += $item["price"];
+                                }
+                            }
+                            if ($count1 > 0) {
                                 $avg = round($avg / $count1);
-                             }
-                         
+                            }
+
                             ?>
                             <td><?php echo $count1 ?></td>
                             <td><?php echo $avg ?></td>

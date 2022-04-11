@@ -63,6 +63,7 @@ class MyTmpTelegramBot
     }
     public function callback($item, $user)
     {
+        // echo 'step 2 :'.$user->ID.'<br>';
         $chatId = $item["callback_query"]['message']['chat']['id'];
         $data = $item["callback_query"]['data'];
 
@@ -528,7 +529,7 @@ class MyTmpTelegramBot
                 }
             case "menu-user-create-resume-exp": {
                     update_user_meta($user->ID, "job_title", $text);
-                    update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-email');
+                    update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-country');
                     $this->sendMessage($chatId, urlencode("ایمیل را وارد نمایید"));
                     break;
                 }
@@ -901,7 +902,7 @@ class MyTmpTelegramBot
 
                     update_post_meta(get_the_author_meta("create_request_id", $user->ID), 'desc', $text);
                     update_user_meta($user->ID, "bot_step", 'user-create-request-desc');
-                    
+
                     $my_post = array(
                         'ID'            => get_the_author_meta("create_request_id", $user->ID),
                         'post_content'      => $text,
@@ -1040,7 +1041,7 @@ class MyTmpTelegramBot
 
     public function login_user($chatid)
     {
-        $user = $this->get_login($chatid);
+        $user = get_user_by('login', $chatid);
         if ($user) {
             update_user_meta($user->ID, "user_type_login", "user");
             $this->user_menu($user, $chatid);
@@ -1052,7 +1053,8 @@ class MyTmpTelegramBot
 
     public function login_company($chatid)
     {
-        $user = $this->get_login($chatid);
+        $user = get_user_by('login', $chatid);
+        // echo 'step 1 :'.$user->ID.'<br>';
         if ($user) {
             update_user_meta($user->ID, "user_type_login", "com");
             $this->company_menu($user, $chatid);
@@ -1217,7 +1219,7 @@ class MyTmpTelegramBot
                     ['text' => 'نام شرکت' . ' : ' . get_the_author_meta('company_name', $user->ID), 'callback_data' => 'company-profile-name']
                 ],
                 [
-                    ['text' => 'ایمیل' . ' : ' . get_the_author_meta('user_e_email', $user->ID), 'callback_data' => 'company-profile-email']
+                    ['text' => 'ایمیل' . ' : ' . get_the_author_meta('user_e_email', $user->ID), 'callback_data' => 'company-profile-email-1']
                 ],
                 [
                     ['text' => 'تلفن' . ' : ' . get_the_author_meta('tel', $user->ID), 'callback_data' => 'company-profile-tel']
@@ -1562,7 +1564,7 @@ class MyTmpTelegramBot
 
     public function company_project_0($user, $status = 0, $chatId)
     {
-
+        global $wpdb;
         $search = array();
 
         $search["relation"] = "AND";
@@ -1586,25 +1588,17 @@ class MyTmpTelegramBot
         $this->sendMessage($chatId, $count . " " . "پروژه پیدا شده است");
         while ($the_query->have_posts()) :
             $the_query->the_post();
+            $avg=0;
+            $sql       = $wpdb->prepare("select (select pm1.meta_value from " . $wpdb->prefix . "post_meta pm1 where p.ID=pm1.post_id and pm1.meta_value='price') as price from " . $wpdb->prefix . "posts p left join " . $wpdb->prefix . "post_meta pm on p.ID=pm.post_id where p.post_status='publish' and pm.meta_key='job_id' and pm.meta_value='" . get_the_ID() . "'", array());
+            $result = $wpdb->get_results($sql, 'ARRAY_A');
+            $count1 = count($result);
 
-            $args1 = array(
-                'post_type' => 'request',
-                'post_status' => 'publish',
-                'meta_key' => 'job_id',
-                'meta_value' => get_the_ID()
-            );
-            $the_query1 = new WP_Query($args1);
-            $count1 = $the_query1->post_count;
-            $avg = 0;
-            $preserve_post = get_post();
-            while ($the_query1->have_posts()) :
-                $the_query1->the_post();
-                $avg += get_post_meta(get_the_ID(), 'price', true);
-            endwhile;
+            if (count($result) > 0) {
+                foreach ($result as $item) {
+                    $avg += $item["price"];
+                }
+            }
 
-
-            $post = $preserve_post;
-            setup_postdata($post);
             if ($count1 > 0) {
                 $avg = round($avg / $count1);
             }
@@ -1759,7 +1753,7 @@ class MyTmpTelegramBot
     public function company_request_0($job_id, $chatId)
     {
         $user =  $this->get_login($chatId);
-
+        echo $job_id;
         $args = array(
             'post_type' => 'request',
             'post_status' => 'publish',
