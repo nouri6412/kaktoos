@@ -188,7 +188,7 @@ class MyTmpTelegramBot
                 }
             case "user-profile-exp": {
                     update_user_meta($user->ID, "bot_step", $data);
-                    $this->sendMessage($chatId, "عنوان شغلی را وارد نمایید");
+                    $this->sendMessage($chatId, "عنوان پروژهی را وارد نمایید");
                     break;
                 }
             case "user-profile-email": {
@@ -298,7 +298,7 @@ class MyTmpTelegramBot
 
         $desc = "";
         $desc .=  "نام" . " : " . get_the_author_meta('user_name', $user_id);
-        $desc .= PHP_EOL . "عنوان شغلی" . " : " . get_the_author_meta('job_title', $user_id);
+        $desc .= PHP_EOL . "عنوان پروژهی" . " : " . get_the_author_meta('job_title', $user_id);
         $desc .= PHP_EOL . "نرخ ساعتی خدمات به دلار" . " : " . get_the_author_meta('user_nerx', $user_id);
         $desc .= PHP_EOL . "ایمیل" . " : " . get_the_author_meta('user_e_email', $user_id);
         $desc .= PHP_EOL . "آدرس سکونت" . " : " . get_the_author_meta('user_country', $user_id) . ' - ' . get_the_author_meta('user_address', $user_id);
@@ -325,13 +325,13 @@ class MyTmpTelegramBot
         }
 
         $desc .= PHP_EOL .  "-----------";
-        $desc .= PHP_EOL .  "سوابق شغلی" . " : ";
+        $desc .= PHP_EOL .  "سوابق پروژهی" . " : ";
 
         foreach ($data as $item) {
             $desc .= PHP_EOL .  "شرکت" . " : " . $item["company_title"];
-            $desc .= PHP_EOL .  "عنوان شغلی" . " : " . $item["job_title"];
+            $desc .= PHP_EOL .  "عنوان پروژهی" . " : " . $item["job_title"];
             $desc .= PHP_EOL .  "از سال" . " : " . $item["start"] . ' - ' . "تا سال" . " : " . $item["end"];
-            $desc .= PHP_EOL .  "توضیحات شغلی" . " : " . $item["job_desc"];
+            $desc .= PHP_EOL .  "توضیحات پروژهی" . " : " . $item["job_desc"];
         }
         // end exp
 
@@ -504,7 +504,7 @@ class MyTmpTelegramBot
             case "menu-user-create-resume-name": {
                     update_user_meta($user->ID, "user_name", $text);
                     update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-exp');
-                    $this->sendMessage($chatId, urlencode("عنوان شغلی را وارد نمایید"));
+                    $this->sendMessage($chatId, urlencode("عنوان پروژهی را وارد نمایید"));
                     break;
                 }
             case "menu-user-create-resume-exp": {
@@ -595,7 +595,7 @@ class MyTmpTelegramBot
                     $data[0]["company_title"] = $text;
                     update_user_meta($user->ID, "user_exp", json_encode($data, JSON_UNESCAPED_UNICODE));
                     update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-job-title');
-                    $this->sendMessage($chatId, urlencode("عنوان شغلی که در آن شرکت مشغول بوده اید؟"));
+                    $this->sendMessage($chatId, urlencode("عنوان پروژهی که در آن شرکت مشغول بوده اید؟"));
                     break;
                 }
             case "menu-user-create-resume-job-title": {
@@ -924,7 +924,7 @@ class MyTmpTelegramBot
                     } else {
                         update_post_meta(get_the_author_meta("create_job_id", $user->ID), 'max_price', $text);
                         update_user_meta($user->ID, "bot_step", 'company-create-job-tag');
-                        $this->sendMessage($chatId, urlencode("تگ و مهارت های موردنیاز شغل را  وارد نمایید با حرف , جدا کنید" . " " . "مثال" . " : " . "php,wordpress"));
+                        $this->sendMessage($chatId, urlencode("تگ و مهارت های موردنیاز پروژه را  وارد نمایید با حرف , جدا کنید" . " " . "مثال" . " : " . "php,wordpress"));
                     }
 
                     break;
@@ -1158,12 +1158,6 @@ class MyTmpTelegramBot
     public function company_my_jobs($user, $chatId)
     {
 
-        $data = json_decode(get_the_author_meta('resume-skills', $user->ID));
-        $skills = [];
-        if (isset($data->skills)) {
-            $skills = explode(',', $data->skills);
-        }
-
         $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 
         $args = array(
@@ -1186,15 +1180,12 @@ class MyTmpTelegramBot
             ];
             $encodedKeyboard = json_encode($keyboard);
             $desc = "";
-            $desc .= PHP_EOL . "وضعیت پروژه" . " : " . get_the_job_status(get_post_meta(get_the_ID(), 'active', true), false);
-            $desc .= PHP_EOL . "نوع همکاری" . " : " . get_post_meta(get_the_ID(), 'coop-type', true);
-            $desc .= PHP_EOL . "سابقه کاری" . " : " . get_post_meta(get_the_ID(), 'exp', true);
-            $desc .= PHP_EOL . "حداقل حقوق برای هر ساعت" . " : " . get_post_meta(get_the_ID(), 'min-salary', true) . ' ' . 'دلار';
-            $desc .= PHP_EOL . "حداکثر حقوق برای هر ساعت" . " : " . get_post_meta(get_the_ID(), 'max-salary', true) . ' ' . 'دلار';
-            $desc .= PHP_EOL . "موقعیت مکانی" . " : " . get_post_meta(get_the_ID(), 'address', true);
-            $desc .= PHP_EOL . "شرح شغل" . " : " . get_post_meta(get_the_ID(), 'desc', true);
+            $desc .= PHP_EOL . "زمان پیاده سازی موردنیاز" . " : " . get_post_meta(get_the_ID(), 'time', true) . ' ' . 'روز';
+            $desc .= PHP_EOL . "حداقل بودجه برای پروژه" . " : " . get_post_meta(get_the_ID(), 'min_price', true) . ' ' . 'دلار';
+            $desc .= PHP_EOL . "حداکثر بودجه برای پروژه" . " : " . get_post_meta(get_the_ID(), 'max_price', true) . ' ' . 'دلار';
+            $desc .= PHP_EOL . "شرح پروژه" . " : " . get_post_meta(get_the_ID(), 'desc', true);
 
-            $this->sendMessage($chatId, urlencode(get_the_title() . ' / ' . get_the_title(get_post_meta(get_the_ID(), 'cat_id', true)) . ' ' . PHP_EOL . get_post_meta(get_the_ID(), 'tag', true) . $desc), "&reply_markup=" . $encodedKeyboard);
+            $this->sendMessage($chatId, urlencode(get_the_title()  . ' ' . PHP_EOL . get_post_meta(get_the_ID(), 'skills', true) . $desc), "&reply_markup=" . $encodedKeyboard);
         endwhile;
         wp_reset_query();
         $this->company_menu($user, $chatId);
@@ -1209,7 +1200,7 @@ class MyTmpTelegramBot
                     ['text' => 'نام' . ' : ' . get_the_author_meta('user_name', $user->ID), 'callback_data' => 'user-profile-name']
                 ],
                 [
-                    ['text' => 'عنوان شغلی' . ' : ' . get_the_author_meta('user_exp', $user->ID), 'callback_data' => 'user-profile-exp']
+                    ['text' => 'عنوان پروژهی' . ' : ' . get_the_author_meta('user_exp', $user->ID), 'callback_data' => 'user-profile-exp']
                 ],
                 [
                     ['text' => 'ایمیل' . ' : ' . get_the_author_meta('user_e_email', $user->ID), 'callback_data' => 'user-profile-email']
@@ -1282,7 +1273,7 @@ class MyTmpTelegramBot
 
 
         if ($count > 0) {
-            $this->sendMessage($chatId, urlencode("شما قبلا به این موقعیت شغلی درخواست ارسال کرده اید"));
+            $this->sendMessage($chatId, urlencode("شما قبلا به این موقعیت پروژهی درخواست ارسال کرده اید"));
 
             return;
         }
@@ -1299,7 +1290,7 @@ class MyTmpTelegramBot
             )
         );
         $id = wp_insert_post($args_post);
-        $this->sendMessage($chatId, urlencode("رزومه شما با موفقیت برای این موقعیت شغلی ارسال شد،کارفرما پس از بررسی با شما تماس خواهد گرفت."));
+        $this->sendMessage($chatId, urlencode("رزومه شما با موفقیت برای این موقعیت پروژهی ارسال شد،کارفرما پس از بررسی با شما تماس خواهد گرفت."));
         $this->user_menu($user, $chatId);
     }
 
@@ -1335,7 +1326,7 @@ class MyTmpTelegramBot
         );
         $the_query = new WP_Query($args);
         $count = $the_query->post_count;
-        $this->sendMessage($chatId, $count . " " . "شغل پیدا شده است");
+        $this->sendMessage($chatId, $count . " " . "پروژه پیدا شده است");
         while ($the_query->have_posts()) :
             $the_query->the_post();
             $keyboard = [
@@ -1352,7 +1343,7 @@ class MyTmpTelegramBot
             $desc .= PHP_EOL . "حداقل حقوق برای هر ساعت" . " : " . get_post_meta(get_the_ID(), 'min-salary', true) . ' ' . 'دلار';
             $desc .= PHP_EOL . "حداکثر حقوق برای هر ساعت" . " : " . get_post_meta(get_the_ID(), 'max-salary', true) . ' ' . 'دلار';
             $desc .= PHP_EOL . "موقعیت مکانی" . " : " . get_post_meta(get_the_ID(), 'address', true);
-            $desc .= PHP_EOL . "شرح شغل" . " : " . strip_tags(get_post_meta(get_the_ID(), 'desc', true));
+            $desc .= PHP_EOL . "شرح پروژه" . " : " . strip_tags(get_post_meta(get_the_ID(), 'desc', true));
 
             $this->sendMessage($chatId, urlencode(get_the_title() . ' / ' . get_the_title(get_post_meta(get_the_ID(), 'cat_id', true)) . ' ' . PHP_EOL . get_post_meta(get_the_ID(), 'tag', true) . $desc), "&reply_markup=" . $encodedKeyboard);
         endwhile;
@@ -1447,7 +1438,7 @@ class MyTmpTelegramBot
 
             $desc = "";
             $desc .= PHP_EOL . "درخواست کننده" . " : " . get_the_author_meta('user_name');
-            $desc .= PHP_EOL .  "عنوان شغلی" . " : " . get_the_author_meta('user_exp');
+            $desc .= PHP_EOL .  "عنوان پروژهی" . " : " . get_the_author_meta('user_exp');
             $desc .= PHP_EOL . "ایمیل" . " : " . get_the_author_meta('user_e_email');
             $desc .= PHP_EOL . "سال تولد" . " : " . get_the_author_meta('user_date_year');
             $desc .= PHP_EOL . "استان و شهر" . " : " . get_the_author_meta('user_state') . ' ' . get_the_author_meta('user_city');
