@@ -160,17 +160,27 @@ class MyTmpTelegramBot
                     $this->company_my_jobs($user, $chatId);
                     break;
                 }
+            case "menu-user-project-1": {
+                    update_user_meta($user->ID, "bot_step", $data);
+                    $this->user_project_0($user, 1, $chatId);
+                    break;
+                }
+            case "menu-user-project-2": {
+                    update_user_meta($user->ID, "bot_step", $data);
+                    $this->user_project_1($user, 2, $chatId);
+                    break;
+                }
             case "menu-company-project-1": {
                     update_user_meta($user->ID, "bot_step", $data);
                     $this->company_project_0($user, 1, $chatId);
                     break;
                 }
-            case "menu-company-request-2": {
+            case "menu-company-project-2": {
                     update_user_meta($user->ID, "bot_step", $data);
                     $this->company_project_1($user, 2, $chatId);
                     break;
                 }
-            case "menu-company-request-3": {
+            case "menu-company-project-3": {
                     update_user_meta($user->ID, "bot_step", $data);
                     $this->company_project_2($user, 3, $chatId);
                     break;
@@ -1024,13 +1034,10 @@ class MyTmpTelegramBot
                     ['text' => 'پروژه ها با مهارت من', 'callback_data' => 'menu-user-jobs']
                 ],
                 [
-                    ['text' => 'درخواست های من', 'callback_data' => 'menu-user-request']
+                    ['text' => 'پروژه های در حال انجام', 'callback_data' => 'menu-user-project-1']
                 ],
                 [
-                    ['text' => 'پروژه های در حال انجام', 'callback_data' => 'menu-user-request']
-                ],
-                [
-                    ['text' => 'پروژه های تکمیل شده', 'callback_data' => 'menu-user-request']
+                    ['text' => 'پروژه های تکمیل شده', 'callback_data' => 'menu-user-project-2']
                 ]
             ]
         ];
@@ -1123,11 +1130,11 @@ class MyTmpTelegramBot
 
         $job_id = get_post_meta($request_id, 'job_id', true);
 
-            update_post_meta($job_id, 'request_id', $user->ID);
-            update_post_meta($job_id, 'user_id', get_post_field('post_author', $job_id));
-            update_post_meta($job_id, 'request_req_id', $request_id);
-            update_post_meta($job_id, 'request_accept_time', current_time('timestamp'));
-            update_post_meta($job_id, 'request_accept_date', date('Y-m-d H:i:s'));
+        update_post_meta($job_id, 'request_id', $user->ID);
+        update_post_meta($job_id, 'user_id', get_post_field('post_author', $job_id));
+        update_post_meta($job_id, 'request_req_id', $request_id);
+        update_post_meta($job_id, 'request_accept_time', current_time('timestamp'));
+        update_post_meta($job_id, 'request_accept_date', date('Y-m-d H:i:s'));
 
         $this->sendMessage($chatId, urlencode("وضعیت پروژه به حالت در حال انجام تغییر یافت"));
         $this->company_menu($user, $chatId);
@@ -1425,6 +1432,115 @@ class MyTmpTelegramBot
         $this->user_menu($user, $chatId);
     }
 
+    public function user_project_1($user, $status = 0, $chatId)
+    {
+
+        $search = array();
+        $search = array();
+
+        $search["relation"] = "AND";
+
+        $search[] =           array(
+            'key' => 'request_id',
+            'value' => $user->ID,
+            'compare' => '='
+        );
+        $search[] =           array(
+            'key' => 'project_state',
+            'value' => 1,
+            'compare' => '!='
+        );
+
+
+        $args = array(
+            'post_type' => 'job',
+            'post_status' => 'publish',
+            'meta_query' => $search
+        );
+        $the_query = new WP_Query($args);
+        $count = $the_query->post_count;
+
+        $this->sendMessage($chatId, $count . " " . "پروژه پیدا شده است");
+        while ($the_query->have_posts()) :
+            $the_query->the_post();
+
+            $desc = "";
+            $desc .= PHP_EOL . "نام پروژه" . " : " . get_the_title();
+            $desc .= PHP_EOL . "کارفرما" . " : " . get_the_author_meta('user_name');
+            $desc .= PHP_EOL . "پیشنهاد انتخاب شده" . " : " . get_post_meta(get_post_meta(get_the_ID(), 'request_req_id', true), 'price', true);
+
+
+            $date = date_create();
+            date_modify($date, "+" . get_post_meta(get_the_ID(), 'time', true) . " day");
+
+            $d = mktime(date_format($date, "H"), date_format($date, "i"), date_format($date, "s"), date_format($date, "m"), date_format($date, "d"), date_format($date, "Y"));
+            $cur = current_time('timestamp');
+            if ($d > $cur) {
+                $desc .= PHP_EOL . "زمان تحویل" . " : " .  human_time_diff($cur, $d) . ' ' . 'دیگر';
+            } else {
+                $desc .= PHP_EOL . "زمان تحویل" . " : " .  human_time_diff($d, $cur) . ' ' . 'گذشته';
+            }
+
+            $this->sendMessage($chatId, urlencode($desc));
+        endwhile;
+        wp_reset_query();
+        $this->user_menu($user, $chatId);
+    }
+
+    public function user_project_2($user, $status = 0, $chatId)
+    {
+
+        $search = array();
+
+        $search["relation"] = "AND";
+        
+        $search[] =           array(
+            'key' => 'request_id',
+            'value' => $user->ID,
+            'compare' => '='
+        );
+        $search[] =           array(
+            'key' => 'project_state',
+            'value' => 1,
+            'compare' => '='
+        );
+        
+        
+        $args = array(
+            'post_type' => 'job',
+            'post_status' => 'publish',
+            'meta_query' => $search
+        );
+        $the_query = new WP_Query($args);
+        $count = $the_query->post_count;
+
+        $this->sendMessage($chatId, $count . " " . "پروژه پیدا شده است");
+        while ($the_query->have_posts()) :
+            $the_query->the_post();
+
+            $desc = "";
+            $desc .= PHP_EOL . "نام پروژه" . " : " . get_the_title();
+            $desc .= PHP_EOL . "کارفرما" . " : " . get_the_author_meta('user_name');
+            $desc .= PHP_EOL . "پیشنهاد انتخاب شده" . " : " . get_post_meta(get_post_meta(get_the_ID(), 'request_req_id', true), 'price', true);
+
+
+            $date = date_create();
+            date_modify($date, "+" . get_post_meta(get_the_ID(), 'time', true) . " day");
+
+            $d =get_post_meta(get_the_ID(), 'project_state_time', true);
+            $cur = current_time('timestamp');
+            if ($d > $cur) {
+                $desc .= PHP_EOL . "زمان تحویل" . " : " .  human_time_diff($cur, $d) . ' ' . 'دیگر';
+            } else {
+                $desc .= PHP_EOL . "زمان تحویل" . " : " .  human_time_diff($d, $cur) . ' ' . 'گذشته';
+            }
+
+            $this->sendMessage($chatId, urlencode($desc));
+        endwhile;
+        wp_reset_query();
+        $this->user_menu($user, $chatId);
+    }
+
     public function company_project_0($user, $status = 0, $chatId)
     {
 
@@ -1619,6 +1735,8 @@ class MyTmpTelegramBot
         $this->company_menu($user, $chatId);
     }
 
+
+
     public function company_request_0($job_id, $chatId)
     {
         $user =  $this->get_login($chatId);
@@ -1641,7 +1759,7 @@ class MyTmpTelegramBot
 
 
             $desc = "";
-            $desc .= PHP_EOL . "درخواست کننده" . " : " . get_the_author_meta('user_name').' '.custom_get_the_date(get_the_ID());
+            $desc .= PHP_EOL . "درخواست کننده" . " : " . get_the_author_meta('user_name') . ' ' . custom_get_the_date(get_the_ID());
             $desc .= PHP_EOL . "پیشنهاد" . " : " . get_post_meta(get_the_ID(), 'price', true) . ' ' . 'دلار';
             $desc .= PHP_EOL . "زمان تحویل" . " : " . get_post_meta(get_the_ID(), 'time', true) . ' ' . 'روز';
             $desc .= PHP_EOL . "توضیحات" . " : " . get_post_meta(get_the_ID(), 'desc', true);
@@ -1660,7 +1778,7 @@ class MyTmpTelegramBot
             $encodedKeyboard = json_encode($keyboard);
 
 
-            $this->sendMessage($chatId, urlencode( PHP_EOL  . $desc), "&reply_markup=" . $encodedKeyboard);
+            $this->sendMessage($chatId, urlencode(PHP_EOL  . $desc), "&reply_markup=" . $encodedKeyboard);
         endwhile;
         wp_reset_query();
         $this->company_menu($user, $chatId);
