@@ -162,12 +162,12 @@ class MyTmpTelegramBot
                 }
             case "menu-user-project-1": {
                     update_user_meta($user->ID, "bot_step", $data);
-                    $this->user_project_0($user, 1, $chatId);
+                    $this->user_project_1($user, 1, $chatId);
                     break;
                 }
             case "menu-user-project-2": {
                     update_user_meta($user->ID, "bot_step", $data);
-                    $this->user_project_1($user, 2, $chatId);
+                    $this->user_project_2($user, 2, $chatId);
                     break;
                 }
             case "menu-company-project-1": {
