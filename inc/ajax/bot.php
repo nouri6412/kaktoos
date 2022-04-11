@@ -945,6 +945,7 @@ class MyTmpTelegramBot
                     if ($id > 0) {
                         update_user_meta($user->ID, "create_job_id", $id);
                         update_post_meta($id,  'request_id', '0');
+                        update_post_meta($id,  'project_state', '0');
                         update_user_meta($user->ID, "bot_step", 'company-create-job-time');
                         $this->sendMessage($chatId, 'چقدر زمان لازم است پروژه پیاده سازی شود؟(روز)');
                     } else {
@@ -1365,7 +1366,7 @@ class MyTmpTelegramBot
         $search1 = array();
         $search1["relation"] = "OR";
         foreach ($skills as $item) {
-            $search1[] =           array(
+            $search[] =           array(
                 'key' => 'skills',
                 'value' => $item,
                 'compare' => 'LIKE'

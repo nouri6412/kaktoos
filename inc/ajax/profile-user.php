@@ -222,6 +222,7 @@ class Kaktos_User
 
 
         update_post_meta($job_id,  'request_id', '0');
+        update_post_meta($job_id,  'project_state', '0');
 
         foreach ($data_str as $key => $item) {
             $result["html"] = $result["html"] . $key . '  - ' . $item;
