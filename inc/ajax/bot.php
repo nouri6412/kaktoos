@@ -1488,7 +1488,7 @@ class MyTmpTelegramBot
             $desc = "";
             $desc .= PHP_EOL . "نام پروژه" . " : " . get_the_title();
             $desc .= PHP_EOL . "کارفرما" . " : " . get_the_author_meta('user_name');
-            $desc .= PHP_EOL . "پیشنهاد انتخاب شده" . " : " . get_post_meta(get_post_meta(get_the_ID(), 'request_req_id', true), 'price', true);
+            $desc .= PHP_EOL . "پیشنهاد انتخاب شده" . " : " . get_post_meta(get_post_meta(get_the_ID(), 'request_req_id', true), 'price', true).' '.'دلار';
 
 
             $date = date_create();
@@ -1542,7 +1542,7 @@ class MyTmpTelegramBot
             $desc = "";
             $desc .= PHP_EOL . "نام پروژه" . " : " . get_the_title();
             $desc .= PHP_EOL . "کارفرما" . " : " . get_the_author_meta('user_name');
-            $desc .= PHP_EOL . "پیشنهاد انتخاب شده" . " : " . get_post_meta(get_post_meta(get_the_ID(), 'request_req_id', true), 'price', true);
+            $desc .= PHP_EOL . "پیشنهاد انتخاب شده" . " : " . get_post_meta(get_post_meta(get_the_ID(), 'request_req_id', true), 'price', true).' '.'دلار';
 
 
             $date = date_create();
@@ -1670,7 +1670,7 @@ class MyTmpTelegramBot
 
             $desc = "";
             $desc .= PHP_EOL . "فریلنسر" . " : " . get_the_author_meta('user_name', get_post_meta(get_the_ID(), 'request_id', true));
-            $desc .= PHP_EOL . "پیشنهاد انتخاب شده" . " : " . get_post_meta(get_post_meta(get_the_ID(), 'request_req_id', true), 'price', true);
+            $desc .= PHP_EOL . "پیشنهاد انتخاب شده" . " : " . get_post_meta(get_post_meta(get_the_ID(), 'request_req_id', true), 'price', true).' '.'دلار';
 
             $date = date_create();
             date_modify($date, "+" . get_post_meta(get_the_ID(), 'time', true) . " day");
@@ -1733,7 +1733,7 @@ class MyTmpTelegramBot
 
             $desc = "";
             $desc .= PHP_EOL . "فریلنسر" . " : " . get_the_author_meta('user_name', get_post_meta(get_the_ID(), 'request_id', true));
-            $desc .= PHP_EOL . "پیشنهاد انتخاب شده" . " : " . get_post_meta(get_post_meta(get_the_ID(), 'request_req_id', true), 'price', true);
+            $desc .= PHP_EOL . "پیشنهاد انتخاب شده" . " : " . get_post_meta(get_post_meta(get_the_ID(), 'request_req_id', true), 'price', true).' '.'دلار';
 
             $d = get_post_meta(get_the_ID(), 'project_state_time', true);
             $cur = current_time('timestamp');
