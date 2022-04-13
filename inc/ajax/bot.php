@@ -134,21 +134,6 @@ class MyTmpTelegramBot
                     $this->sendMessage($chatId, urlencode("نام و نام خانوادگی را وارد نمایید"));
                     break;
                 }
-            case "menu-company-profile": {
-                    update_user_meta($user->ID, "bot_step", $data);
-                    $this->company_profile($user, $chatId);
-                    break;
-                }
-            case "menu-company-create-job": {
-                    update_user_meta($user->ID, "bot_step", $data);
-                    $this->company_create_job($user, $chatId);
-                    break;
-                }
-            case "menu-company-jobs": {
-                    update_user_meta($user->ID, "bot_step", $data);
-                    $this->company_my_jobs($user, $chatId);
-                    break;
-                }
             case "menu-user-project-1": {
                     update_user_meta($user->ID, "bot_step", $data);
                     $this->user_project_1($user, 1, $chatId);
@@ -157,21 +142,6 @@ class MyTmpTelegramBot
             case "menu-user-project-2": {
                     update_user_meta($user->ID, "bot_step", $data);
                     $this->user_project_2($user, 2, $chatId);
-                    break;
-                }
-            case "menu-company-project-1": {
-                    update_user_meta($user->ID, "bot_step", $data);
-                    $this->company_project_0($user, 1, $chatId);
-                    break;
-                }
-            case "menu-company-project-2": {
-                    update_user_meta($user->ID, "bot_step", $data);
-                    $this->company_project_1($user, 2, $chatId);
-                    break;
-                }
-            case "menu-company-project-3": {
-                    update_user_meta($user->ID, "bot_step", $data);
-                    $this->company_project_2($user, 3, $chatId);
                     break;
                 }
             case "menu-user-resume": {
@@ -410,15 +380,89 @@ class MyTmpTelegramBot
                     $break = true;
                     break;
                 }
-            case "پروژه های در حال انجام": {
+            case "پروژه های در دست انجام": {
                     update_user_meta($user->ID, "bot_step", 'menu-user-project-1');
                     $this->user_project_1($user, 1, $chatId);
                     $break = true;
                     break;
                 }
-            case "پروژه های تکمیل شده": {
+            case "پروژه های تکمیل یافته": {
                     update_user_meta($user->ID, "bot_step", 'menu-user-project-2');
                     $this->user_project_2($user, 1, $chatId);
+                    $break = true;
+                    break;
+                }
+            case "ویرایش پروفایل": {
+                    update_user_meta($user->ID, "bot_step", 'menu-company-profile');
+                    $this->company_profile($user, $chatId);
+                    $break = true;
+                    break;
+                }
+            case "ایجاد پروژه": {
+                    update_user_meta($user->ID, "bot_step", 'menu-company-create-job');
+                    $this->company_create_job($user, $chatId);
+                    $break = true;
+                    break;
+                }
+            case "پروژه های من": {
+                    update_user_meta($user->ID, "bot_step", 'menu-company-jobs');
+                    $this->company_my_jobs($user, $chatId);
+                    $break = true;
+                    break;
+                }
+            case "پروژه های باز": {
+                    update_user_meta($user->ID, "bot_step", 'menu-company-project-1');
+                    $this->company_project_0($user, 1, $chatId);
+                    $break = true;
+                    break;
+                }
+            case "پروژه های در حال انجام": {
+                    update_user_meta($user->ID, "bot_step", 'menu-company-project-2');
+                    $this->company_project_1($user, 2, $chatId);
+                    $break = true;
+                    break;
+                }
+            case "پروژه های تکمیل شده": {
+                    update_user_meta($user->ID, "bot_step", 'menu-company-project-3');
+                    $this->company_project_2($user, 2, $chatId);
+                    $break = true;
+                    break;
+                }
+            case "ویرایش نام شرکت": {
+                    update_user_meta($user->ID, "bot_step", '');
+                    update_user_meta($user->ID, "company_name", $text);
+                    $wpdb->update(
+                        $wpdb->users,
+                        ['display_name' => $text],
+                        ['ID' => $user->ID]
+                    );
+                    $this->sendMessage($chatId, "نام شرکت ویرایش شد");
+                    $break = true;
+                    break;
+                }
+            case "ویرایش تلفن شرکت": {
+                    update_user_meta($user->ID, "bot_step", '');
+                    update_user_meta($user->ID, "tel", $text);
+                    $this->sendMessage($chatId, "تلفن ویرایش شد");
+                    $break = true;
+                    break;
+                }
+            case "ویرایش درباره شرکت": {
+                    update_user_meta($user->ID, "bot_step", '');
+                    update_user_meta($user->ID, "desc", $text);
+                    $this->sendMessage($chatId, " درباره شرکت ویرایش شد");
+                    $break = true;
+                    break;
+                }
+            case "بازگشت": {
+                    update_user_meta($user->ID, "bot_step", '');
+                    $this->run_start_menu($chatId);
+                    $break = true;
+                    break;
+                }
+            case "بازگشت به منوی کارفرما": {
+                    update_user_meta($user->ID, "bot_step", '');
+                    $this->login_company($chatId);
                     $break = true;
                     break;
                 }
@@ -781,18 +825,6 @@ class MyTmpTelegramBot
                     $this->user_menu($user, $chatId);
                     break;
                 }
-
-            case "company-profile-name": {
-                    update_user_meta($user->ID, "company_name", $text);
-                    $wpdb->update(
-                        $wpdb->users,
-                        ['display_name' => $text],
-                        ['ID' => $user->ID]
-                    );
-                    $this->sendMessage($chatId, "نام شرکت ویرایش شد");
-                    $this->company_menu($user, $chatId);
-                    break;
-                }
             case "company-profile-register-name": {
                     update_user_meta($user->ID, "company_name", $text);
                     $wpdb->update(
@@ -904,18 +936,6 @@ class MyTmpTelegramBot
             case "company-profile-web": {
                     update_user_meta($user->ID, "web", $text);
                     $this->sendMessage($chatId, "وب سایت ویرایش شد");
-                    $this->company_menu($user, $chatId);
-                    break;
-                }
-            case "company-profile-tel": {
-                    update_user_meta($user->ID, "tel", $text);
-                    $this->sendMessage($chatId, "تلفن ویرایش شد");
-                    $this->company_menu($user, $chatId);
-                    break;
-                }
-            case "company-profile-about": {
-                    update_user_meta($user->ID, "desc", $text);
-                    $this->sendMessage($chatId, " درباره شرکت ویرایش شد");
                     $this->company_menu($user, $chatId);
                     break;
                 }
@@ -1068,6 +1088,12 @@ class MyTmpTelegramBot
     {
         $chatId = $item['message']['chat']['id'];
 
+        $this->run_start_menu($chatId);
+    }
+
+    public function run_start_menu($chatId)
+    {
+
         $keyboard = [
             'keyboard' => [
                 [
@@ -1128,10 +1154,13 @@ class MyTmpTelegramBot
                     ['text' => 'پروژه ها با مهارت من']
                 ],
                 [
-                    ['text' => 'پروژه های در حال انجام']
+                    ['text' => 'پروژه های در دست انجام']
                 ],
                 [
-                    ['text' => 'پروژه های تکمیل شده']
+                    ['text' => 'پروژه های تکمیل یافته']
+                ],
+                [
+                    ['text' => 'بازگشت']
                 ]
             ],
             'one_time_keyboard' => true,
@@ -1149,22 +1178,27 @@ class MyTmpTelegramBot
         $step = get_the_author_meta('bot_step', $user->ID);
 
         $keyboard = [
-            'inline_keyboard' => [
+            'keyboard' => [
                 [
-                    ['text' => 'ویرایش پروفایل', 'callback_data' => 'menu-company-profile'],
-                    ['text' => 'ایجاد پروژه', 'callback_data' => 'menu-company-create-job'],
-                    ['text' => 'پروژه های من', 'callback_data' => 'menu-company-jobs']
+                    ['text' => 'ویرایش پروفایل'],
+                    ['text' => 'ایجاد پروژه'],
+                    ['text' => 'پروژه های من']
                 ],
                 [
-                    ['text' => 'پروژه های باز', 'callback_data' => 'menu-company-project-1']
+                    ['text' => 'پروژه های باز']
                 ],
                 [
-                    ['text' => 'پروژه های در حال انجام', 'callback_data' => 'menu-company-project-2']
+                    ['text' => 'پروژه های در حال انجام']
                 ],
                 [
-                    ['text' => 'پروژه های تکمیل شده', 'callback_data' => 'menu-company-project-3']
+                    ['text' => 'پروژه های تکمیل شده']
+                ],
+                [
+                    ['text' => 'بازگشت']
                 ]
-            ]
+            ],
+            'one_time_keyboard' => true,
+            'resize_keyboard' => true
         ];
         $encodedKeyboard = json_encode($keyboard);
 
@@ -1265,24 +1299,30 @@ class MyTmpTelegramBot
         }
 
         $keyboard = [
-            'inline_keyboard' => [
+            'keyboard' => [
                 [
-                    ['text' => 'نام شرکت' . ' : ' . get_the_author_meta('company_name', $user->ID), 'callback_data' => 'company-profile-name']
+                    ['text' => 'ویرایش نام شرکت']
                 ],
                 [
-                    ['text' => 'ایمیل' . ' : ' . get_the_author_meta('user_e_email', $user->ID), 'callback_data' => 'company-profile-email-1']
+                    ['text' => 'ویرایش تلفن شرکت']
                 ],
                 [
-                    ['text' => 'تلفن' . ' : ' . get_the_author_meta('tel', $user->ID), 'callback_data' => 'company-profile-tel']
+                    ['text' => 'ویرایش درباره شرکت']
                 ],
                 [
-                    ['text' => 'درباره شرکت' . ' : ' . get_the_author_meta('desc', $user->ID), 'callback_data' => 'company-profile-about']
+                    ['text' => 'بازگشت به منوی کارفرما']
                 ]
-            ]
+            ],
+            'one_time_keyboard' => true,
+            'resize_keyboard' => true
         ];
         $encodedKeyboard = json_encode($keyboard);
+        $desc = "اطلاعات پروفایل :";
+        $desc .= PHP_EOL . 'نام شرکت' . ' : ' . get_the_author_meta('company_name', $user->ID);
+        $desc .= PHP_EOL . 'تلفن' . ' : ' . get_the_author_meta('tel', $user->ID);
+        $desc .= PHP_EOL . 'درباره شرکت' . ' : ' . get_the_author_meta('desc', $user->ID);
 
-        $this->sendMessage($chatId, "اطلاعات پروفایل", "&reply_markup=" . $encodedKeyboard);
+        $this->sendMessage($chatId, urlencode($desc), "&reply_markup=" . $encodedKeyboard);
     }
 
     public function company_create_job($user, $chatId)
