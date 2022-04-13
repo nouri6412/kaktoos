@@ -38,6 +38,7 @@ class MyTmpTelegramBot
     }
     public function message($item)
     {
+     
         if (isset($item['message'])) {
             if (isset($item['message']["text"])) {
                 $text = $item['message']["text"];
@@ -60,6 +61,10 @@ class MyTmpTelegramBot
             $user =  $this->get_login($chatId);
             $this->callback($item, $user);
         }
+    }
+    public function main_menu()
+    {
+        
     }
     public function callback($item, $user)
     {
@@ -382,6 +387,25 @@ class MyTmpTelegramBot
     {
         global $wpdb;
         $step = get_the_author_meta('bot_step', $user->ID);
+
+
+        if($text=="ثبت نام فریلنسر")
+        {
+            $this->register_user($chatId);
+            return;
+        } else if($text=="ثبت نام کارفرما")
+        {
+            $this->register_company($chatId);
+            return;
+        }else if($text=="ورود فریلنسر")
+        {
+            $this->login_user($chatId);
+            return;
+        }else if($text=="ورود کارفرما")
+        {
+            $this->login_company($chatId);
+            return;
+        }
 
         switch ($step) {
             case "user-profile-name": {
@@ -1036,6 +1060,23 @@ class MyTmpTelegramBot
         ];
         $encodedKeyboard = json_encode($keyboard);
 
+        $keyboard = [
+            'keyboard' => [
+                [
+                    ['text' => 'ثبت نام فریلنسر'],
+                    ['text' => 'ثبت نام کارفرما']
+                ],
+                [
+                    ['text' => 'ورود فریلنسر'],
+                    ['text' => 'ورود کارفرما']
+                ]
+            ],
+
+            'one_time_keyboard' => true,
+            'resize_keyboard' => true
+        ];
+        $encodedKeyboard = json_encode($keyboard);
+
         $this->sendMessage($chatId, "یکی از گزینه های زیر را انتخاب نمایید", "&reply_markup=" . $encodedKeyboard);
     }
 
@@ -1488,7 +1529,7 @@ class MyTmpTelegramBot
             $desc = "";
             $desc .= PHP_EOL . "نام پروژه" . " : " . get_the_title();
             $desc .= PHP_EOL . "کارفرما" . " : " . get_the_author_meta('user_name');
-            $desc .= PHP_EOL . "پیشنهاد انتخاب شده" . " : " . get_post_meta(get_post_meta(get_the_ID(), 'request_req_id', true), 'price', true).' '.'دلار';
+            $desc .= PHP_EOL . "پیشنهاد انتخاب شده" . " : " . get_post_meta(get_post_meta(get_the_ID(), 'request_req_id', true), 'price', true) . ' ' . 'دلار';
 
 
             $date = date_create();
@@ -1542,7 +1583,7 @@ class MyTmpTelegramBot
             $desc = "";
             $desc .= PHP_EOL . "نام پروژه" . " : " . get_the_title();
             $desc .= PHP_EOL . "کارفرما" . " : " . get_the_author_meta('user_name');
-            $desc .= PHP_EOL . "پیشنهاد انتخاب شده" . " : " . get_post_meta(get_post_meta(get_the_ID(), 'request_req_id', true), 'price', true).' '.'دلار';
+            $desc .= PHP_EOL . "پیشنهاد انتخاب شده" . " : " . get_post_meta(get_post_meta(get_the_ID(), 'request_req_id', true), 'price', true) . ' ' . 'دلار';
 
 
             $date = date_create();
@@ -1588,9 +1629,9 @@ class MyTmpTelegramBot
         $this->sendMessage($chatId, $count . " " . "پروژه پیدا شده است");
         while ($the_query->have_posts()) :
             $the_query->the_post();
-            $avg=0;
+            $avg = 0;
             $sql       = $wpdb->prepare("select (select pm1.meta_value from " . $wpdb->prefix . "postmeta pm1 where p.ID=pm1.post_id and pm1.meta_key='price') as price from " . $wpdb->prefix . "posts p left join " . $wpdb->prefix . "postmeta pm on p.ID=pm.post_id where p.post_type='request' and  p.post_status='publish' and pm.meta_key='job_id' and pm.meta_value='" . get_the_ID() . "'", array());
-           // echo '<br>'.$sql;
+            // echo '<br>'.$sql;
             $result = $wpdb->get_results($sql, 'ARRAY_A');
             $count1 = count($result);
 
@@ -1670,7 +1711,7 @@ class MyTmpTelegramBot
 
             $desc = "";
             $desc .= PHP_EOL . "فریلنسر" . " : " . get_the_author_meta('user_name', get_post_meta(get_the_ID(), 'request_id', true));
-            $desc .= PHP_EOL . "پیشنهاد انتخاب شده" . " : " . get_post_meta(get_post_meta(get_the_ID(), 'request_req_id', true), 'price', true).' '.'دلار';
+            $desc .= PHP_EOL . "پیشنهاد انتخاب شده" . " : " . get_post_meta(get_post_meta(get_the_ID(), 'request_req_id', true), 'price', true) . ' ' . 'دلار';
 
             $date = date_create();
             date_modify($date, "+" . get_post_meta(get_the_ID(), 'time', true) . " day");
@@ -1733,7 +1774,7 @@ class MyTmpTelegramBot
 
             $desc = "";
             $desc .= PHP_EOL . "فریلنسر" . " : " . get_the_author_meta('user_name', get_post_meta(get_the_ID(), 'request_id', true));
-            $desc .= PHP_EOL . "پیشنهاد انتخاب شده" . " : " . get_post_meta(get_post_meta(get_the_ID(), 'request_req_id', true), 'price', true).' '.'دلار';
+            $desc .= PHP_EOL . "پیشنهاد انتخاب شده" . " : " . get_post_meta(get_post_meta(get_the_ID(), 'request_req_id', true), 'price', true) . ' ' . 'دلار';
 
             $d = get_post_meta(get_the_ID(), 'project_state_time', true);
             $cur = current_time('timestamp');
