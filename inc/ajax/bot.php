@@ -38,7 +38,7 @@ class MyTmpTelegramBot
     }
     public function message($item)
     {
-     
+
         if (isset($item['message'])) {
             if (isset($item['message']["text"])) {
                 $text = $item['message']["text"];
@@ -64,7 +64,6 @@ class MyTmpTelegramBot
     }
     public function main_menu()
     {
-        
     }
     public function callback($item, $user)
     {
@@ -125,22 +124,6 @@ class MyTmpTelegramBot
         }
 
         switch ($data) {
-            case "register-user": {
-                    $this->register_user($chatId);
-                    break;
-                }
-            case "register-company": {
-                    $this->register_company($chatId);
-                    break;
-                }
-            case "login-user": {
-                    $this->login_user($chatId);
-                    break;
-                }
-            case "login-company": {
-                    $this->login_company($chatId);
-                    break;
-                }
             case "menu-user-profile": {
                     update_user_meta($user->ID, "bot_step", $data);
                     $this->user_profile($user, $chatId);
@@ -388,22 +371,62 @@ class MyTmpTelegramBot
         global $wpdb;
         $step = get_the_author_meta('bot_step', $user->ID);
 
+        $break = false;
+        switch ($text) {
+            case "ثبت نام فریلنسر": {
+                    $this->register_user($chatId);
+                    $break = true;
+                    break;
+                }
+            case "ثبت نام کارفرما": {
+                    $this->register_company($chatId);
+                    $break = true;
+                    break;
+                }
+            case "ورود فریلنسر": {
+                    $this->login_user($chatId);
+                    $break = true;
+                    break;
+                }
+            case "ورود کارفرما": {
+                    $this->login_company($chatId);
+                    $break = true;
+                    break;
+                }
+            case "مشاهده رزومه": {
+                    $this->user_profile_view($user->ID, $chatId);
+                    $break = true;
+                    break;
+                }
+            case "ساخت رزومه": {
+                    update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-name');
+                    $this->sendMessage($chatId, urlencode("نام و نام خانوادگی را وارد نمایید"));
+                    $break = true;
+                    break;
+                }
+        }
 
-        if($text=="ثبت نام فریلنسر")
-        {
-            $this->register_user($chatId);
-            return;
-        } else if($text=="ثبت نام کارفرما")
-        {
-            $this->register_company($chatId);
-            return;
-        }else if($text=="ورود فریلنسر")
-        {
-            $this->login_user($chatId);
-            return;
-        }else if($text=="ورود کارفرما")
-        {
-            $this->login_company($chatId);
+
+        $keyboard = [
+            'keyboard' => [
+                [
+                    ['text' => 'مشاهده رزومه', 'callback_data' => 'user-profile-view-' . $user1->ID],
+                    ['text' => 'ساخت رزومه', 'callback_data' => 'menu-user-create-resume']
+                ],
+                [
+                    ['text' => 'پروژه ها با مهارت من', 'callback_data' => 'menu-user-jobs']
+                ],
+                [
+                    ['text' => 'پروژه های در حال انجام', 'callback_data' => 'menu-user-project-1']
+                ],
+                [
+                    ['text' => 'پروژه های تکمیل شده', 'callback_data' => 'menu-user-project-2']
+                ]
+            ],
+            'one_time_keyboard' => true,
+            'resize_keyboard' => true
+        ];
+        if ($break) {
             return;
         }
 
@@ -1046,19 +1069,6 @@ class MyTmpTelegramBot
     public function start_menu($item)
     {
         $chatId = $item['message']['chat']['id'];
-        $keyboard = [
-            'inline_keyboard' => [
-                [
-                    ['text' => 'ثبت نام فریلنسر', 'callback_data' => 'register-user'],
-                    ['text' => 'ثبت نام کارفرما', 'callback_data' => 'register-company']
-                ],
-                [
-                    ['text' => 'ورود فریلنسر', 'callback_data' => 'login-user'],
-                    ['text' => 'ورود کارفرما', 'callback_data' => 'login-company']
-                ]
-            ]
-        ];
-        $encodedKeyboard = json_encode($keyboard);
 
         $keyboard = [
             'keyboard' => [
@@ -1111,7 +1121,7 @@ class MyTmpTelegramBot
         $user1 =  $this->get_login($chatId);
 
         $keyboard = [
-            'inline_keyboard' => [
+            'keyboard' => [
                 [
                     ['text' => 'مشاهده رزومه', 'callback_data' => 'user-profile-view-' . $user1->ID],
                     ['text' => 'ساخت رزومه', 'callback_data' => 'menu-user-create-resume']
@@ -1125,7 +1135,9 @@ class MyTmpTelegramBot
                 [
                     ['text' => 'پروژه های تکمیل شده', 'callback_data' => 'menu-user-project-2']
                 ]
-            ]
+            ],
+            'one_time_keyboard' => true,
+            'resize_keyboard' => true
         ];
         $encodedKeyboard = json_encode($keyboard);
 
