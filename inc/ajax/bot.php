@@ -404,6 +404,24 @@ class MyTmpTelegramBot
                     $break = true;
                     break;
                 }
+            case "پروژه ها با مهارت من": {
+                    update_user_meta($user->ID, "bot_step", 'menu-user-jobs');
+                    $this->user_jobs($user, $chatId);
+                    $break = true;
+                    break;
+                }
+            case "پروژه های در حال انجام": {
+                    update_user_meta($user->ID, "bot_step", 'menu-user-project-1');
+                    $this->user_project_1($user, 1, $chatId);
+                    $break = true;
+                    break;
+                }
+            case "پروژه های تکمیل شده": {
+                    update_user_meta($user->ID, "bot_step", 'menu-user-project-2');
+                    $this->user_project_2($user, 1, $chatId);
+                    $break = true;
+                    break;
+                }
         }
 
 
