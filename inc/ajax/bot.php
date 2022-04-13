@@ -424,26 +424,6 @@ class MyTmpTelegramBot
                 }
         }
 
-
-        $keyboard = [
-            'keyboard' => [
-                [
-                    ['text' => 'مشاهده رزومه', 'callback_data' => 'user-profile-view-' . $user1->ID],
-                    ['text' => 'ساخت رزومه', 'callback_data' => 'menu-user-create-resume']
-                ],
-                [
-                    ['text' => 'پروژه ها با مهارت من', 'callback_data' => 'menu-user-jobs']
-                ],
-                [
-                    ['text' => 'پروژه های در حال انجام', 'callback_data' => 'menu-user-project-1']
-                ],
-                [
-                    ['text' => 'پروژه های تکمیل شده', 'callback_data' => 'menu-user-project-2']
-                ]
-            ],
-            'one_time_keyboard' => true,
-            'resize_keyboard' => true
-        ];
         if ($break) {
             return;
         }
@@ -1141,17 +1121,17 @@ class MyTmpTelegramBot
         $keyboard = [
             'keyboard' => [
                 [
-                    ['text' => 'مشاهده رزومه', 'callback_data' => 'user-profile-view-' . $user1->ID],
-                    ['text' => 'ساخت رزومه', 'callback_data' => 'menu-user-create-resume']
+                    ['text' => 'مشاهده رزومه'],
+                    ['text' => 'ساخت رزومه']
                 ],
                 [
-                    ['text' => 'پروژه ها با مهارت من', 'callback_data' => 'menu-user-jobs']
+                    ['text' => 'پروژه ها با مهارت من']
                 ],
                 [
-                    ['text' => 'پروژه های در حال انجام', 'callback_data' => 'menu-user-project-1']
+                    ['text' => 'پروژه های در حال انجام']
                 ],
                 [
-                    ['text' => 'پروژه های تکمیل شده', 'callback_data' => 'menu-user-project-2']
+                    ['text' => 'پروژه های تکمیل شده']
                 ]
             ],
             'one_time_keyboard' => true,
