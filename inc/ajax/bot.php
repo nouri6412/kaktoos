@@ -475,19 +475,19 @@ class MyTmpTelegramBot
                     ['ID' => $user->ID]
                 );
                 $this->sendMessage($chatId, "نام شرکت ویرایش شد");
-                $this->company_menu($user, $chatId);
+                $this->company_profile($user, $chatId);
                 break;
             }
             case "company-profile-edit-tel": {
                 update_user_meta($user->ID, "tel", $text);
                 $this->sendMessage($chatId, "تلفن شرکت ویرایش شد");
-                $this->company_menu($user, $chatId);
+                $this->company_profile($user, $chatId);
                 break;
             }
             case "company-profile-edit-about": {
                 update_user_meta($user->ID, "desc", $text);
                 $this->sendMessage($chatId, "درباره شرکت ویرایش شد");
-                $this->company_menu($user, $chatId);
+                $this->company_profile($user, $chatId);
                 break;
             }
             case "user-profile-name": {
@@ -1140,6 +1140,7 @@ class MyTmpTelegramBot
         } else {
 
             $this->sendMessage($chatid, urlencode('هنوز به عنوان فریلنسر ثبت نام نکرده اید'));
+            $this->run_start_menu($chatid);
         }
     }
 
@@ -1153,6 +1154,7 @@ class MyTmpTelegramBot
         } else {
 
             $this->sendMessage($chatid, urlencode('هنوز به عنوان کارفرما ثبت نام نکرده اید'));
+            $this->run_start_menu($chatid);
         }
     }
 
@@ -1300,21 +1302,8 @@ class MyTmpTelegramBot
         $this->company_menu($user, $chatId);
     }
 
-
     public function company_profile($user, $chatId)
     {
-
-        $Kaktos_Category = new Kaktos_Category;
-        $cats = $Kaktos_Category->get_company_cat_list();
-        $cat_id = get_the_author_meta('cat_id', $user->ID);
-        $selected_cat = "";
-        foreach ($cats as $item) {
-
-            if ($cat_id == $item["id"]) {
-                $selected_cat = $item["title"];
-            }
-        }
-
         $keyboard = [
             'keyboard' => [
                 [
@@ -1925,6 +1914,7 @@ class MyTmpTelegramBot
                 $this->sendMessage($chat_id, urlencode("نام و نام خانوادگی را وارد نمایید"));
             } else {
                 $this->sendMessage($chat_id, urlencode("شما قبلا ثبت نام کرده اید"));
+                $this->run_start_menu($chat_id);
             }
             return;
         }
@@ -1963,6 +1953,7 @@ class MyTmpTelegramBot
                 $this->sendMessage($chat_id, urlencode("نام شرکت را وارد نمایید"));
             } else {
                 $this->sendMessage($chat_id, urlencode("شما قبلا به عنوان کارفرما ثبت نام کرده اید"));
+                $this->run_start_menu($chat_id);
             }
             return;
         }
@@ -1979,6 +1970,7 @@ class MyTmpTelegramBot
             update_user_meta($user->ID, "bot_step", 'company-profile-register-name');
             update_user_meta($user->ID, "user_type_login", "com");
             $this->sendMessage($chat_id, urlencode("نام شرکت را وارد نمایید"));
+            
         }
     }
 }
