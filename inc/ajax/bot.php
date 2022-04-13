@@ -429,26 +429,20 @@ class MyTmpTelegramBot
                     break;
                 }
             case "ویرایش نام شرکت": {
-                    update_user_meta($user->ID, "bot_step", '');
-                    update_user_meta($user->ID, "company_name", $text);
-                    $wpdb->update(
-                        $wpdb->users,
-                        ['display_name' => $text],
-                        ['ID' => $user->ID]
-                    );
-                    $this->sendMessage($chatId, "نام شرکت ویرایش شد");
+                    update_user_meta($user->ID, "bot_step", 'company-profile-edit-name');
+                    $this->sendMessage($chatId, urlencode("نام شرکت را وارد نمایید"));
                     $break = true;
                     break;
                 }
             case "ویرایش تلفن شرکت": {
-                    update_user_meta($user->ID, "bot_step", '');
+                    update_user_meta($user->ID, "bot_step", 'company-profile-edit-tel');
                     update_user_meta($user->ID, "tel", $text);
                     $this->sendMessage($chatId, "تلفن ویرایش شد");
                     $break = true;
                     break;
                 }
             case "ویرایش درباره شرکت": {
-                    update_user_meta($user->ID, "bot_step", '');
+                    update_user_meta($user->ID, "bot_step", 'company-profile-edit-about');
                     update_user_meta($user->ID, "desc", $text);
                     $this->sendMessage($chatId, " درباره شرکت ویرایش شد");
                     $break = true;
@@ -473,6 +467,29 @@ class MyTmpTelegramBot
         }
 
         switch ($step) {
+            case "company-profile-edit-name": {
+                update_user_meta($user->ID, "company_name", $text);
+                $wpdb->update(
+                    $wpdb->users,
+                    ['display_name' => $text],
+                    ['ID' => $user->ID]
+                );
+                $this->sendMessage($chatId, "نام شرکت ویرایش شد");
+                $this->company_menu($user, $chatId);
+                break;
+            }
+            case "company-profile-edit-tel": {
+                update_user_meta($user->ID, "tel", $text);
+                $this->sendMessage($chatId, "تلفن شرکت ویرایش شد");
+                $this->company_menu($user, $chatId);
+                break;
+            }
+            case "company-profile-edit-about": {
+                update_user_meta($user->ID, "desc", $text);
+                $this->sendMessage($chatId, "درباره شرکت ویرایش شد");
+                $this->company_menu($user, $chatId);
+                break;
+            }
             case "user-profile-name": {
                     update_user_meta($user->ID, "user_name", $text);
                     $wpdb->update(
