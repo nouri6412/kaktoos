@@ -357,38 +357,7 @@ class MyTmpTelegramBot
     public function callback_input($user, $text, $chatId)
     {
         global $wpdb;
-        $step = get_the_author_meta('bot_step', $user->ID);
 
-        if ($step == "chat" && $text!='بازگشت به منو') {
-            update_user_meta($user->ID, "bot_step", '');
-            $message = "";
-
-            $message = $text;
-            $request_id = get_the_author_meta('chat_request_id', $user->ID);
-            $chat = [];
-
-            $str = get_post_meta($request_id, 'chat', true);
-            if (strlen($str) > 0) {
-                $chat = json_decode($str, true);
-            }
-
-
-            if (count($chat) == 0) {
-                $message = get_post_meta($request_id, 'desc', true);
-                if (strlen($message) > 0) {
-                    $chat[] = ["user_id" => get_post_meta($request_id, 'owner_id', true), "text" => $message, "date" => get_the_time('U', $request_id)];
-                }
-            }
-
-            update_post_meta($request_id, "new_message_desc", $text);
-            update_post_meta($request_id, "new_message", 1);
-            update_post_meta($request_id, "last_sender_message", $user->ID);
-            $d = mktime(date("H"), date("i"), date("s"), date("m"), date("d"), date("Y"));
-            $chat[] = ["user_id" => $user->ID, "text" => $text, "date" => $d];
-            update_post_meta($request_id, "chat", json_encode($chat, JSON_UNESCAPED_UNICODE));
-            $this->my_message($user, $chatId);
-            return;
-        }
 
         $break = false;
         switch ($text) {
@@ -523,6 +492,39 @@ class MyTmpTelegramBot
         }
 
         if ($break) {
+            return;
+        }
+
+        $step = get_the_author_meta('bot_step', $user->ID);
+
+        if ($step == "chat" && $text!='بازگشت به منو') {
+            update_user_meta($user->ID, "bot_step", '');
+            $message = "";
+
+            $message = $text;
+            $request_id = get_the_author_meta('chat_request_id', $user->ID);
+            $chat = [];
+
+            $str = get_post_meta($request_id, 'chat', true);
+            if (strlen($str) > 0) {
+                $chat = json_decode($str, true);
+            }
+
+
+            if (count($chat) == 0) {
+                $message = get_post_meta($request_id, 'desc', true);
+                if (strlen($message) > 0) {
+                    $chat[] = ["user_id" => get_post_meta($request_id, 'owner_id', true), "text" => $message, "date" => get_the_time('U', $request_id)];
+                }
+            }
+
+            update_post_meta($request_id, "new_message_desc", $text);
+            update_post_meta($request_id, "new_message", 1);
+            update_post_meta($request_id, "last_sender_message", $user->ID);
+            $d = mktime(date("H"), date("i"), date("s"), date("m"), date("d"), date("Y"));
+            $chat[] = ["user_id" => $user->ID, "text" => $text, "date" => $d];
+            update_post_meta($request_id, "chat", json_encode($chat, JSON_UNESCAPED_UNICODE));
+            $this->my_message($user, $chatId);
             return;
         }
 
