@@ -39,6 +39,7 @@ if (isset($_GET["request_id"])) {
     if (strlen($str) > 0) {
         $chat = json_decode($str, true);
     }
+    update_post_meta($request_id, "new_message", 0);
 }
 
 
@@ -56,7 +57,8 @@ if (isset($_POST["message"])) {
     $d = mktime(date("H"), date("i"), date("s"), date("m"), date("d"), date("Y"));
     $chat[] = ["user_id" => $user_id, "text" => $message, "date" => $d];
     update_post_meta($request_id, "chat", json_encode($chat, JSON_UNESCAPED_UNICODE));
-
+    update_post_meta($request_id, "new_message", 1);
+    update_post_meta($request_id, "new_message_desc", $message);
 }
 
 ?>
@@ -89,8 +91,15 @@ if (isset($_POST["message"])) {
                                 <a href="<?php echo home_url('profile?action=message&request_id=' . get_the_ID()) ?>">
                                     <figure><img src="<?php echo (strlen(get_the_author_meta('avatar')) > 0) ? get_the_author_meta('avatar') : get_template_directory_uri() . '/assets/img/user.png' ?>" alt="image description"></figure>
                                     <div class="wt-adcontent">
-                                        <h3><?php echo get_the_author_meta('user_name')  ?></h3>
-                                        <span><?php echo (strlen(get_the_author_meta('job_title')) > 0) ? get_the_author_meta('user_country') : ''   ?></span>
+                                        <h3><?php
+                                            $new_message = get_post_meta(get_the_ID(), 'new_message', true);
+
+                                            echo get_the_author_meta('user_name');
+                                            if ($new_message == 1) {
+                                                echo '<span style="font-size:10px;margin-right:10px;color:red">پیام جدید</span>';
+                                            }
+                                            ?></h3>
+                                        <span><?php echo (strlen(get_the_author_meta('job_title')) > 0) ? get_the_author_meta('job_title') : get_the_author_meta('user_country')   ?></span>
                                     </div>
                                 </a>
                             </div>

@@ -123,6 +123,11 @@ class MyTmpTelegramBot
             return;
         }
 
+        if (strpos($data, 'chat-user-message-') !== false) {
+            $this->chat_message($user, $chatId, str_replace('chat-user-message-', "", $data));
+            return;
+        }
+        
         switch ($data) {
             case "menu-user-profile": {
                     update_user_meta($user->ID, "bot_step", $data);
@@ -341,6 +346,19 @@ class MyTmpTelegramBot
         global $wpdb;
         $step = get_the_author_meta('bot_step', $user->ID);
 
+        if($step=="chat")
+        {
+            update_user_meta($user->ID, "bot_step", '');
+        $message = "";
+        
+            $message = $text;
+            $d = mktime(date("H"), date("i"), date("s"), date("m"), date("d"), date("Y"));
+            $chat[] = ["user_id" => $user->ID, "text" => $message, "date" => $d];
+            update_post_meta(get_the_author_meta('chat_request_id', $user->ID), "chat", json_encode($chat, JSON_UNESCAPED_UNICODE));
+            $this->my_message($user, $chatId);
+            return;
+        }
+
         $break = false;
         switch ($text) {
             case "ثبت نام فریلنسر": {
@@ -436,15 +454,19 @@ class MyTmpTelegramBot
                 }
             case "ویرایش تلفن شرکت": {
                     update_user_meta($user->ID, "bot_step", 'company-profile-edit-tel');
-                    update_user_meta($user->ID, "tel", $text);
-                    $this->sendMessage($chatId, "تلفن ویرایش شد");
+                    $this->sendMessage($chatId, urlencode("تلفن شرکت را وارد نمایید"));
                     $break = true;
                     break;
                 }
             case "ویرایش درباره شرکت": {
                     update_user_meta($user->ID, "bot_step", 'company-profile-edit-about');
-                    update_user_meta($user->ID, "desc", $text);
-                    $this->sendMessage($chatId, " درباره شرکت ویرایش شد");
+                    $this->sendMessage($chatId, urlencode("درباره شرکت بنویسید"));
+                    $break = true;
+                    break;
+                }
+            case "پیام ها": {
+                    update_user_meta($user->ID, "bot_step", 'my-message');
+                    $this->my_message($user, $chatId);
                     $break = true;
                     break;
                 }
@@ -468,29 +490,29 @@ class MyTmpTelegramBot
 
         switch ($step) {
             case "company-profile-edit-name": {
-                update_user_meta($user->ID, "company_name", $text);
-                update_user_meta($user->ID, "user_name", $text);
-                $wpdb->update(
-                    $wpdb->users,
-                    ['display_name' => $text],
-                    ['ID' => $user->ID]
-                );
-                $this->sendMessage($chatId, "نام شرکت ویرایش شد");
-                $this->company_profile($user, $chatId);
-                break;
-            }
+                    update_user_meta($user->ID, "company_name", $text);
+                    update_user_meta($user->ID, "user_name", $text);
+                    $wpdb->update(
+                        $wpdb->users,
+                        ['display_name' => $text],
+                        ['ID' => $user->ID]
+                    );
+                    $this->sendMessage($chatId, "نام شرکت ویرایش شد");
+                    $this->company_profile($user, $chatId);
+                    break;
+                }
             case "company-profile-edit-tel": {
-                update_user_meta($user->ID, "tel", $text);
-                $this->sendMessage($chatId, "تلفن شرکت ویرایش شد");
-                $this->company_profile($user, $chatId);
-                break;
-            }
+                    update_user_meta($user->ID, "tel", $text);
+                    $this->sendMessage($chatId, "تلفن شرکت ویرایش شد");
+                    $this->company_profile($user, $chatId);
+                    break;
+                }
             case "company-profile-edit-about": {
-                update_user_meta($user->ID, "desc", $text);
-                $this->sendMessage($chatId, "درباره شرکت ویرایش شد");
-                $this->company_profile($user, $chatId);
-                break;
-            }
+                    update_user_meta($user->ID, "desc", $text);
+                    $this->sendMessage($chatId, "درباره شرکت ویرایش شد");
+                    $this->company_profile($user, $chatId);
+                    break;
+                }
             case "user-profile-name": {
                     update_user_meta($user->ID, "user_name", $text);
                     $wpdb->update(
@@ -1181,6 +1203,9 @@ class MyTmpTelegramBot
                     ['text' => 'پروژه های تکمیل یافته']
                 ],
                 [
+                    ['text' => 'پیام ها']
+                ],
+                [
                     ['text' => 'بازگشت']
                 ]
             ],
@@ -1215,6 +1240,9 @@ class MyTmpTelegramBot
                     ['text' => 'پروژه های تکمیل شده']
                 ],
                 [
+                    ['text' => 'پیام ها']
+                ],
+                [
                     ['text' => 'بازگشت']
                 ]
             ],
@@ -1226,6 +1254,107 @@ class MyTmpTelegramBot
         update_user_meta($user->ID, "bot_step", "menu");
 
         $this->sendMessage($chatId, urlencode("منوی کارفرما"), "&reply_markup=" . $encodedKeyboard);
+    }
+
+    public function my_message($user, $chatId)
+    {
+        $user_id = $user->ID;
+
+
+        $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+
+        $search = array();
+
+        $search["relation"] = "OR";
+        $search[] =           array(
+            'key' => 'owner_id',
+            'value' => $user_id,
+            'compare' => '='
+        );
+
+        $search[] =           array(
+            'key' => 'sender_id',
+            'value' => $user_id,
+            'compare' => '='
+        );
+
+        $args = array(
+            'post_type' => 'request',
+            'post_status' => 'publish',
+            'paged' => $paged,
+            'posts_per_page' => 100,
+            'meta_query' => $search
+        );
+        $the_query = new WP_Query($args);
+
+
+        $count = $the_query->post_count;
+
+        $desc = "پیام ها :";
+
+        while ($the_query->have_posts()) :
+            $the_query->the_post();
+            $job_id = get_post_meta(get_the_ID(), 'job_id', true);
+            $new_message = get_post_meta(get_the_ID(), 'new_message', true);
+
+            $new_message_desc = get_post_meta(get_the_ID(), 'new_message_desc', true);
+
+            if ($new_message == 1) {
+                $desc .= PHP_EOL . 'پیام جدید';
+            }
+
+            $desc .= PHP_EOL . get_the_author_meta('user_name') . ' ';
+            $desc .= PHP_EOL . (strlen(get_the_author_meta('job_title')) > 0) ? get_the_author_meta('job_title') : get_the_author_meta('user_country');
+            $desc .= PHP_EOL . (strlen($new_message_desc) > 0) ? $new_message_desc : get_post_meta(get_the_ID(), 'desc', true);
+
+            $keyboard = [
+                'inline_keyboard' => [
+                    [
+                        ['text' => 'گفتگو و ارسال پیام', 'callback_data' => 'chat-user-message-' . get_the_ID()]
+                    ]
+                ]
+            ];
+            $encodedKeyboard = json_encode($keyboard);
+
+            $this->sendMessage($chatId, urlencode($desc), "&reply_markup=" . $encodedKeyboard);
+        endwhile;
+        wp_reset_query();
+    }
+    public function chat_message($user, $chatId, $request_id)
+    {
+        update_user_meta($user->ID, "bot_step", 'chat');
+        update_user_meta($user->ID, "chat_request_id", $request_id);
+
+        $request_id = 0;
+        $chat = [];
+        if (isset($_GET["request_id"])) {
+            $request_id = $_GET["request_id"];
+            $str = get_post_meta($request_id, 'chat', true);
+            if (strlen($str) > 0) {
+                $chat = json_decode($str, true);
+            }
+        }
+
+
+        if (count($chat) == 0) {
+            $message = get_post_meta($request_id, 'desc', true);
+            if (strlen($message) > 0) {
+                $chat[] = ["user_id" => get_post_meta($request_id, 'owner_id', true), "text" => $message, "date" => get_the_time('U', $request_id)];
+            }
+        }
+
+
+        $desc = '';
+        foreach ($chat as $item) {
+            $desc .= PHP_EOL . get_the_author_meta('user_name', $item["user_id"]) . ' : ';
+            $desc .= PHP_EOL . human_time_diff($item["date"], current_time('timestamp')) . ' ' . 'پیش' . ' ';
+            $desc .= PHP_EOL .  $item["text"] ;
+            $desc .= PHP_EOL .  ' --------------- ';
+        }
+
+        $desc .= PHP_EOL .  ' --------------- ';
+        $desc .= PHP_EOL .  ' شما هم پیام خود را بگذارید ';
+        $this->sendMessage($chatId, urlencode($desc));
     }
 
     public function company_cat($user, $chatId)
@@ -1972,7 +2101,6 @@ class MyTmpTelegramBot
             update_user_meta($user->ID, "bot_step", 'company-profile-register-name');
             update_user_meta($user->ID, "user_type_login", "com");
             $this->sendMessage($chat_id, urlencode("نام شرکت را وارد نمایید"));
-            
         }
     }
 }
