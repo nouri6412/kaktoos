@@ -469,6 +469,7 @@ class MyTmpTelegramBot
         switch ($step) {
             case "company-profile-edit-name": {
                 update_user_meta($user->ID, "company_name", $text);
+                update_user_meta($user->ID, "user_name", $text);
                 $wpdb->update(
                     $wpdb->users,
                     ['display_name' => $text],
@@ -844,6 +845,7 @@ class MyTmpTelegramBot
                 }
             case "company-profile-register-name": {
                     update_user_meta($user->ID, "company_name", $text);
+                    update_user_meta($user->ID, "user_name", $text);
                     $wpdb->update(
                         $wpdb->users,
                         ['display_name' => $text],
@@ -1584,7 +1586,7 @@ class MyTmpTelegramBot
 
             $desc = "";
             $desc .= PHP_EOL . "نام پروژه" . " : " . get_the_title();
-            $desc .= PHP_EOL . "کارفرما" . " : " . get_the_author_meta('user_name');
+            $desc .= PHP_EOL . "کارفرما" . " : " . get_the_author_meta('company_name');
             $desc .= PHP_EOL . "پیشنهاد انتخاب شده" . " : " . get_post_meta(get_post_meta(get_the_ID(), 'request_req_id', true), 'price', true) . ' ' . 'دلار';
 
 
@@ -1638,7 +1640,7 @@ class MyTmpTelegramBot
 
             $desc = "";
             $desc .= PHP_EOL . "نام پروژه" . " : " . get_the_title();
-            $desc .= PHP_EOL . "کارفرما" . " : " . get_the_author_meta('user_name');
+            $desc .= PHP_EOL . "کارفرما" . " : " . get_the_author_meta('company_name');
             $desc .= PHP_EOL . "پیشنهاد انتخاب شده" . " : " . get_post_meta(get_post_meta(get_the_ID(), 'request_req_id', true), 'price', true) . ' ' . 'دلار';
 
 
