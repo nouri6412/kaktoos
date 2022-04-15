@@ -492,7 +492,7 @@ class MyTmpTelegramBot
 
                     $back_menu = get_the_author_meta('back_menu', $user->ID);
 
-                    if ($back_menu == 'start' || strlen($back_menu)==0) {
+                    if ($back_menu == 'start' || strlen($back_menu) == 0) {
                         $this->run_start_menu($chatId);
                     } else {
                         $this->sendMessage($chatId, urlencode($back_menu));
@@ -1214,7 +1214,8 @@ class MyTmpTelegramBot
         $user = get_user_by('login', $chatid);
         if ($user) {
             update_user_meta($user->ID, "user_type_login", "user");
-            $this->user_menu($user, $chatid);
+            $user1 =  $this->get_login($chatid);
+            $this->user_menu($user1, $chatid);
         } else {
 
             $this->sendMessage($chatid, urlencode('هنوز به عنوان فریلنسر ثبت نام نکرده اید'));
@@ -1227,8 +1228,11 @@ class MyTmpTelegramBot
         $user = get_user_by('login', $chatid);
         // echo 'step 1 :'.$user->ID.'<br>';
         if ($user) {
+            $user1 =  $this->get_login($chatid);
+
             update_user_meta($user->ID, "user_type_login", "com");
-            $this->company_menu($user, $chatid);
+
+            $this->company_menu($user1, $chatid);
         } else {
 
             $this->sendMessage($chatid, urlencode('هنوز به عنوان کارفرما ثبت نام نکرده اید'));
