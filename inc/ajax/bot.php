@@ -495,7 +495,7 @@ class MyTmpTelegramBot
                     if ($back_menu == 'start' || strlen($back_menu) == 0) {
                         $this->run_start_menu($chatId);
                     } else {
-                        $this->sendMessage($chatId, urlencode($back_menu));
+                        $this->callback_input($user, $back_menu, $chatId);
                     }
 
                     $break = true;
@@ -1353,7 +1353,7 @@ class MyTmpTelegramBot
 
         update_user_meta($user->ID, "current_menu", "پیام ها");
 
-        $this->sendMessage($chatId, urlencode("منوی فریلنسر"), "&reply_markup=" . $encodedKeyboard);
+        $this->sendMessage($chatId, urlencode("منوی پیام ها"), "&reply_markup=" . $encodedKeyboard);
     }
 
     public function my_message($user, $chatId, $type_message = 0)
@@ -1392,9 +1392,10 @@ class MyTmpTelegramBot
 
         $desc = "پیام ها :";
         $this->sendMessage($chatId, urlencode($desc));
-
+        $index = 0;
         while ($the_query->have_posts()) :
             $the_query->the_post();
+
             $desc = '';
             update_post_meta(get_the_ID(), "new_message", 0);
 
@@ -1433,9 +1434,15 @@ class MyTmpTelegramBot
             if ($type_message == 2 && $is_new == 0) {
                 continue;
             }
-
+            $index++;
             $this->sendMessage($chatId, urlencode($desc), "&reply_markup=" . $encodedKeyboard);
         endwhile;
+
+        if ($index == 0) {
+            $this->sendMessage($chatId, urlencode("هیچ پیامی وجود ندارد"));
+            $this->menu_message($user, $chatId);
+        }
+
         wp_reset_query();
     }
     public function chat_message($user, $chatId, $request_id)
