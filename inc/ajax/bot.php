@@ -492,7 +492,7 @@ class MyTmpTelegramBot
 
                     $back_menu = get_the_author_meta('back_menu', $user->ID);
 
-                    if ($back_menu == 'start') {
+                    if ($back_menu == 'start' || strlen($back_menu)==0) {
                         $this->run_start_menu($chatId);
                     } else {
                         $this->sendMessage($chatId, urlencode($back_menu));
