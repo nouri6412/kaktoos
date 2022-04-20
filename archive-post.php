@@ -68,7 +68,7 @@ get_header();
 									?>
 										<div class="wt-article">
 											<figure>
-												<img src="<?php echo get_template_directory_uri(); ?>/assets/images/article/classic/img-01.jpg" alt="img description">
+												<img src="<?php the_post_thumbnail_url(); ?>" alt="img description">
 											</figure>
 											<div class="wt-articlecontent">
 												<div class="wt-title">
