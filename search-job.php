@@ -15,7 +15,7 @@ get_header();
 
 $search = array();
 
-$search["relation"] = "AND"; 
+$search["relation"] = "AND";
 
 $cat_id = 0;
 $skill_id = 0;
@@ -103,7 +103,7 @@ if ($cat_id > 0) {
         'key' => 'cat_id',
         'value' => $cat_id,
         'compare' => '='
-    ); 
+    );
 }
 
 
@@ -111,8 +111,8 @@ $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 $args = array(
     'post_type' => 'job',
     'post_status' => 'publish',
-     'meta_key' => 'active',
-     'meta_value' => '1',
+    'meta_key' => 'active',
+    'meta_value' => '1',
     'paged' => $paged,
     'meta_query' => $search,
     'posts_per_page' => 10
@@ -296,20 +296,22 @@ $count = $the_query->post_count;
                                         <div class="wt-userlistingcontent">
                                             <div class="wt-contenthead">
                                                 <div class="wt-title">
-                                                    <a href="usersingle.html"><i class="fa fa-check-circle"></i><?php echo (strlen(get_the_author_meta('company_name')) > 0) ? get_the_author_meta('company_name') : get_the_author_meta('user_name');?></a>
-                                                    <h2><?php echo get_post_meta(get_the_ID(), 'title', true);$cat = get_post(get_post_meta(get_the_ID(), 'cat_id', true)); echo ' / '. $cat->post_title  ?></h2>
+                                                    <a href="usersingle.html"><i class="fa fa-check-circle"></i><?php echo (strlen(get_the_author_meta('company_name')) > 0) ? get_the_author_meta('company_name') : get_the_author_meta('user_name'); ?></a>
+                                                    <h2><?php echo get_post_meta(get_the_ID(), 'title', true);
+                                                        $cat = get_post(get_post_meta(get_the_ID(), 'cat_id', true));
+                                                        echo ' / ' . $cat->post_title  ?></h2>
                                                 </div>
                                                 <div class="wt-description">
                                                     <p><?php echo  wp_trim_words(get_post_meta(get_the_ID(), 'desc', true), 50, null) ?></p>
                                                 </div>
                                                 <div class="wt-tag wt-widgettag">
-                                                <?php
-                                            $tags_str = get_post_meta(get_the_ID(), 'skills', true);
-                                            $tags = explode(',', $tags_str);
-                                            foreach ($tags as $tag) {
-                                            ?>
-                                                <a href="javascript:void(0);"><span><?php echo $tag; ?></span></a>
-                                            <?php } ?>
+                                                    <?php
+                                                    $tags_str = get_post_meta(get_the_ID(), 'skills', true);
+                                                    $tags = explode(',', $tags_str);
+                                                    foreach ($tags as $tag) {
+                                                    ?>
+                                                        <a href="javascript:void(0);"><span><?php echo $tag; ?></span></a>
+                                                    <?php } ?>
                                                 </div>
                                             </div>
                                             <div class="wt-viewjobholder">
@@ -317,9 +319,9 @@ $count = $the_query->post_count;
                                                     <li><span><i class="fa fa-dollar-sign wt-viewjobdollar"></i><?php echo ' ' . get_post_meta(get_the_ID(), 'min_price', true) . ' - ' . get_post_meta(get_the_ID(), 'max_price', true); ?></span></li>
                                                     <li><span><?php echo get_the_author_meta('user_country'); ?></span></li>
                                                     <li><span><i class="far fa-folder wt-viewjobfolder"></i> <?php $cat = get_post(get_post_meta(get_the_ID(), 'cat_id', true));
-                                                    echo $cat->post_title; ?></span></li>
+                                                                                                                echo $cat->post_title; ?></span></li>
                                                     <li><span><i class="far fa-clock wt-viewjobclock"></i><?php echo 'زمان' . ' : ' . get_post_meta(get_the_ID(), 'time', true) . ' ' . 'روز'; ?></span></li>
-                                                    <li><span><i class="far fa-clock "></i><?php echo  custom_get_the_date(get_the_ID()) ; ?></span></li>
+                                                    <li><span><i class="far fa-clock "></i><?php echo  custom_get_the_date(get_the_ID()); ?></span></li>
 
                                                     <li><a href="javascript:void(0);" class="wt-clicklike wt-clicksave"><i class="fa fa-heart"></i> ذخیره</a></li>
                                                     <li class="wt-btnarea"><a href="<?php echo get_the_permalink(); ?>" class="wt-btn">مشاهده پروژه</a></li>
