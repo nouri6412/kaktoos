@@ -172,7 +172,7 @@ get_header();
 	</section>
 	<!--Limitless Experience End-->
 	<!--Skills Start-->
-	<section class="wt-haslayaout wt-main-section wt-footeraboutus">
+	<section style="display: none;" class="wt-haslayaout wt-main-section wt-footeraboutus">
 		<div class="container">
 			<div class="row">
 
