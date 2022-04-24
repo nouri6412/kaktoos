@@ -299,10 +299,12 @@ $count = $the_query->post_count;
                                                     <a href="usersingle.html"><i class="fa fa-check-circle"></i><?php echo (strlen(get_the_author_meta('company_name')) > 0) ? get_the_author_meta('company_name') : get_the_author_meta('user_name'); ?></a>
                                                     <h2><?php echo get_post_meta(get_the_ID(), 'title', true);
                                                         ?></h2>
+                                                        
                                                     <h3><?php
                                                         $cat = get_post(get_post_meta(get_the_ID(), 'cat_id', true));
                                                         echo ' / ' . $cat->post_title  ?></h3>
                                                 </div>
+
                                                 <div class="wt-description">
                                                     <p><?php echo  wp_trim_words(get_post_meta(get_the_ID(), 'desc', true), 50, null) ?></p>
                                                 </div>
