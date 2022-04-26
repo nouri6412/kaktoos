@@ -24,9 +24,14 @@ $max_time = 0;
 $min_price = 0;
 $max_price = 0;
 $search_word = "";
+$tags = "";
 
 if (isset($_GET["search_word"])) {
     $search_word = $_GET["search_word"];
+}
+
+if (isset($_GET["tags"])) {
+    $tags = $_GET["tags"];
 }
 
 if (isset($_GET["min_time"]) && $_GET["min_time"] > 0) {
@@ -65,11 +70,18 @@ if (strlen($search_word) > 0) {
         'compare' => 'LIKE'
     );
 
-    $search_title[] =           array(
-        'key' => 'skills',
-        'value' => $search_word,
-        'compare' => 'LIKE'
-    );
+
+    if (strlen($tags) > 0) {
+        $tagss = explode(',', $tags);
+        foreach ($tagss as $tag) {
+            $search_title[] =           array(
+                'key' => 'skills',
+                'value' => $tag,
+                'compare' => 'LIKE'
+            );
+        }
+    }
+
 
     $search[] = $search_title;
 }
@@ -153,18 +165,34 @@ $count = $the_query->post_count;
                                 <form action="<?php echo home_url('search-job'); ?>" method="get">
                                     <div style="padding-top: 5px;padding-bottom:5px" class="wt-widget wt-effectiveholder">
                                         <div class="wt-widgettitle">
-                                            <h2>جستجو </h2>
+                                            <h2>جستجوی کلید واژه </h2>
                                         </div>
                                         <div class="wt-widgetcontent">
                                             <div class="wt-formtheme wt-formsearch">
                                                 <fieldset>
                                                     <div class="form-group">
-                                                        <input value="<?php echo isset($_GET["search_word"]) ? $_GET["search_word"] : '' ?>" type="text" id="search_word" name="search_word" class="form-control input-profile" placeholder="کلمه جستجو">
+                                                        <input value="<?php echo isset($_GET["search_word"]) ? $_GET["search_word"] : '' ?>" type="text" id="search_word" name="search_word" class="form-control input-profile" placeholder=" جستجوی کلید واژه">
                                                     </div>
                                                 </fieldset>
                                             </div>
                                         </div>
                                     </div>
+                                    <div style="padding-top: 5px;padding-bottom:5px" class="wt-widget wt-effectiveholder">
+                                        <div class="wt-widgettitle">
+                                            <h2>جستجو بر اساس مهارت</h2>
+                                        </div>
+                                        <div class="wt-widgetcontent">
+                                            <div class="wt-formtheme wt-formsearch">
+                                                <fieldset>
+                                                    <div class="form-group">
+                                                        <input value="<?php echo isset($_GET["tags"]) ? $_GET["tags"] : '' ?>" type="text" id="tags" name="tags" class="form-control input-profile tags_input">
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
                                     <div style="padding-top: 5px;padding-bottom:5px" class="wt-widget wt-effectiveholder">
                                         <div class="wt-widgetcontent">
                                             <div class="wt-formtheme wt-formsearch">
@@ -321,7 +349,7 @@ $count = $the_query->post_count;
                                             </div>
                                             <div class="wt-viewjobholder">
                                                 <ul>
-                                                    <li><span><i class="fa fa-dollar-sign wt-viewjobdollar"></i><?php echo 'بودجه' . ' : ' . 'از'.' '.get_post_meta(get_the_ID(), 'min_price', true) . ' '.'تا' .' '. get_post_meta(get_the_ID(), 'max_price', true).' '.'دلار'; ?></span></li>
+                                                    <li><span><i class="fa fa-dollar-sign wt-viewjobdollar"></i><?php echo 'بودجه' . ' : ' . 'از' . ' ' . get_post_meta(get_the_ID(), 'min_price', true) . ' ' . 'تا' . ' ' . get_post_meta(get_the_ID(), 'max_price', true) . ' ' . 'دلار'; ?></span></li>
                                                     <li><span><?php echo get_the_author_meta('user_country'); ?></span></li>
                                                     <li><span><i class="far fa-folder wt-viewjobfolder"></i> <?php $cat = get_post(get_post_meta(get_the_ID(), 'cat_id', true));
                                                                                                                 echo $cat->post_title; ?></span></li>
