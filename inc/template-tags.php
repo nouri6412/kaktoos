@@ -35,7 +35,7 @@ function custome_theme_comment_form($order)
                 'logged_in_as' => null,
                 'title_reply'  => null,
                 'label_submit'  =>'ارسال نظر',
-                'class_submit'=>'submit site-button'    
+                'class_submit'=>'submit btn btn-primary'    
             )
         );
     }

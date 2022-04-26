@@ -94,8 +94,21 @@
 								</div>
 							</div>
 						</div>
+						<div class="clear" id="comment-list">
+						<div class="comments-area" id="comments">
+							<div style="padding: 10px;" class="clearfix m-b20">
+								<?php
+								// If comments are open or we have at least one comment, load up the comment template.
+								if (comments_open() || get_comments_number()) {
+									comments_template();
+								}
+								?>
+							</div>
+						</div>
+					</div>
 					</div>
 				</div>
+
 				<!--Limitless Experience End-->
 			</main>
 			<!--Main End-->
