@@ -104,7 +104,7 @@ if ($job_id == 0) {
                             <div class="wt-proposalamount accordion">
                                 <div class="form-group">
                                     <label> زمان پیشنهادی ( روز )</label>
-                                    <input data-id="time" type="number" name="amount" class="form-control input-profile" placeholder="مقدار پیشنهاد خود را وارد کنید">
+                                    <input data-id="time" type="number" name="amount" class="form-control input-profile" placeholder=" زمان پیشنهادی خود را وارد کنید">
                                 </div>
 
                             </div>
@@ -124,7 +124,7 @@ if ($job_id == 0) {
             ,'form-request'
             ,$('#dzFormMsg-error-profile'),
             2
-        )" class="wt-btn">اکنون ارسال کنید</button>
+        )" class="wt-btn">ارسال درخواست همکاری</button>
                                         <div class="box-loading">
                                             <div class="loading-ajax"></div>
                                         </div>

@@ -108,7 +108,7 @@ if (isset($_GET["liked_by"])) {
 
     ?>
         <!--Inner Home Banner Start-->
-        <div class="wt-haslayout wt-innerbannerholder">
+        <!-- <div class="wt-haslayout wt-innerbannerholder">
             <div class="container">
                 <div class="row justify-content-md-center">
                     <div class="col-xs-12 col-sm-12 col-md-8 push-md-2 col-lg-6 push-lg-3">
@@ -125,7 +125,7 @@ if (isset($_GET["liked_by"])) {
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!--Inner Home End-->
         <!--Main Start-->
         <main id="wt-main" class="wt-main wt-haslayout wt-innerbgcolor">
@@ -136,11 +136,13 @@ if (isset($_GET["liked_by"])) {
                         <div id="wt-twocolumns" class="wt-twocolumns wt-haslayout">
                             <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 float-left">
                                 <div class="wt-proposalholder">
-                                    <span class="wt-featuredtag"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/featured.png" alt="img description" data-tipso="Plus Member" class="template-content tipso_style"></span>
+                                    <!-- <span class="wt-featuredtag">
+                                        <img src="<?php //echo get_template_directory_uri(); ?>/assets/images/featured.png" alt="img description" data-tipso="Plus Member" class="template-content tipso_style">
+                                    </span> -->
                                     <div class="wt-proposalhead">
                                         <h2><?php echo get_the_title(); ?></h2>
                                         <ul class="wt-userlisting-breadcrumb wt-userlisting-breadcrumbvtwo">
-                                            <li><span><i class="fa fa-dollar-sign"></i><i class="fa fa-dollar-sign"></i><i class="fa fa-dollar-sign"></i><?php echo ' ' . get_post_meta(get_the_ID(), 'min_price', true) . ' - ' . get_post_meta(get_the_ID(), 'max_price', true); ?></span></li>
+                                            <li><span><i class="fa fa-dollar-sign"></i><?php echo ' ' . get_post_meta(get_the_ID(), 'min_price', true) . ' - ' . get_post_meta(get_the_ID(), 'max_price', true); ?></span></li>
                                             <li><span> <?php echo get_the_author_meta('user_country'); ?> </span></li>
                                             <li><span><i class="far fa-folder"></i>
                                                     <?php $cat = get_post(get_post_meta(get_the_ID(), 'cat_id', true));
@@ -154,12 +156,17 @@ if (isset($_GET["liked_by"])) {
                                     if ($request_id == 0 && is_user_logged_in()) {
                                     ?>
                                         <div class="wt-btnarea"><a href="<?php echo home_url('request?id=' . get_the_ID()) ?>" class="wt-btn">ارسال پیشنهاد</a></div>
-                                    <?php } else if (is_user_logged_in()) {
+                                    <?php } else if (is_user_logged_in() && $request_id > 0) {
                                     ?>
                                         <div class="wt-btnarea"><a href="#" class="wt-btn">پروژه بسته شد</a></div>
 
                                     <?php
-                                    } ?>
+                                    } else if (!is_user_logged_in()) {
+                                    ?>
+                                        <div class="wt-btnarea wt-loginbtn"><a onclick="alert('لطفا وارد سایت شوید')" href="#" class="wt-btn">ارسال پیشنهاد</a></div>
+
+                                    <?php
+                                    } ?>   
 
                                     <?php if (get_post_meta(get_the_ID(), 'project_state', true) == 1) {
                                         $text = " می پسندم ";
@@ -250,8 +257,8 @@ if (isset($_GET["liked_by"])) {
                                             <div class="wt-companysinfo">
                                                 <figure><img style="min-height: 90px;" src="<?php echo (strlen(get_the_author_meta('avatar'))>0) ? get_the_author_meta('avatar'):get_template_directory_uri()."/assets/img/male.jpg" ?>" alt="img description"></figure>
                                                 <div class="wt-title">
-                                                    <a href="javascript:void(0);"><i class="fa fa-check-circle"></i> شرکت تأیید شده</a>
-                                                    <h2><?php echo get_the_author_meta('company_name') ?></h2>
+                                                    <!-- <a href="javascript:void(0);"><i class="fa fa-check-circle"></i> شرکت تأیید شده</a> -->
+                                                    <h2><?php echo (strlen(get_the_author_meta('company_name'))>0) ? get_the_author_meta('company_name') : get_the_author_meta('user_name') ?></h2>
                                                 </div>
                                             </div>
                                         </div>
@@ -262,10 +269,10 @@ if (isset($_GET["liked_by"])) {
                                         </div>
                                         <div class="wt-widgetcontent">
                                             <ul class="wt-socialiconssimple">
-                                                <li class="wt-facebook"><a class="social-share facebook" href="javascript:void(0);"><i class="fab fa-facebook-f"></i>اشتراک گذاری در فیسبوک</a></li>
-                                                <li class="wt-twitter"><a class="social-share twitter" href="javascript:void(0);"><i class="fab fa-twitter"></i>اشتراک گذاری در توئیتر</a></li>
-                                                <li class="wt-linkedin"><a class="social-share linkedin" href="javascript:void(0);"><i class="fab fa-linkedin-in"></i>اشتراک گذاری در لینکدین</a></li>
-                                                <li class="wt-googleplus"><a class="social-share google-plus" href="javascript:void(0);"><i class="fab fa-google-plus-g"></i>اشتراک گذاری در گوگل پلاس</a></li>
+                                                <li class="wt-facebook"><a class="social-share facebook" href="javascript:void(0);"><i class="fab fa-facebook-f"></i></a></li>
+                                                <li class="wt-twitter"><a class="social-share twitter" href="javascript:void(0);"><i class="fab fa-twitter"></i></a></li>
+                                                <li class="wt-linkedin"><a class="social-share linkedin" href="javascript:void(0);"><i class="fab fa-linkedin-in"></i></a></li>
+                                                <li class="wt-googleplus"><a class="social-share google-plus" href="javascript:void(0);"><i class="fab fa-google-plus-g"></i></a></li>
                                             </ul>
                                         </div>
                                     </div>

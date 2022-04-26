@@ -77,7 +77,7 @@ jQuery(document).on("ready", function () {
     });
   }
   /*OPEN CLOSE */
-  jQuery("#wt-loginbtn, .wt-loginheader a").on("click", function (event) {
+  jQuery("#wt-loginbtn, .wt-loginheader a , .wt-loginbtn a").on("click", function (event) {
     event.preventDefault();
     jQuery(".wt-loginarea .wt-loginformhold").slideToggle();
   });

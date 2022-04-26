@@ -1,5 +1,16 @@
+			<style>
+				body h1,
+				body h2,
+				body h3,
+				body h4,
+				body h5,
+				body h6 {
+					color: #0196ff;
+					font-weight: bold;
+				}
+			</style>
 			<!--Inner Home Banner Start-->
-			<div class="wt-haslayout wt-innerbannerholder">
+			<!-- <div class="wt-haslayout wt-innerbannerholder">
 				<div class="container">
 					<div class="row justify-content-md-center">
 						<div class="col-xs-12 col-sm-12 col-md-8 push-md-2 col-lg-6 push-lg-3">
@@ -16,9 +27,16 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> -->
 			<!--Inner Home End-->
 			<!--Main Start-->
+			<div>
+				<ol class="wt-breadcrumb">
+					<li><a href="<?php echo home_url() ?>">صفحه اصلی</a></li>
+					<li><a href="<?php echo home_url('blog') ?>">مقالات</a></li>
+					<li class="wt-active">جزئیات مقاله</li>
+				</ol>
+			</div>
 			<main id="wt-main" class="wt-main wt-haslayout wt-innerbgcolor">
 				<!--Categories Start-->
 				<div class="wt-haslayout wt-main-section">
@@ -27,20 +45,20 @@
 							<div class="col-12 col-sm-12 col-md-12 col-lg-12 float-left">
 								<div class="wt-articlesingle-holder wt-bgwhite">
 									<div class="wt-articlesingle-content">
-										<figure class="wt-singleimg-one">
-											<img src="<?php the_post_thumbnail_url(); ?>" alt="img description">
-										</figure>
 										<div class="wt-title">
 											<h2> <?php echo get_the_title(); ?></h2>
 										</div>
+										<figure style="margin-bottom: 8px;" class="wt-singleimg-one">
+											<img src="<?php the_post_thumbnail_url(); ?>" alt="img description">
+										</figure>
 										<ul class="wt-postarticlemeta">
-											<li>
+											<li style="float: left;">
 												<a href="javascript:void(0);">
 													<i class="lnr lnr-calendar-full"></i>
 													<span><?php echo custom_get_the_date(get_the_ID()) ?></span>
 												</a>
 											</li>
-											<li>
+											<li style="float: left;">
 												<a href="javascript:void(0);">
 													<i class="lnr lnr-user"></i>
 													<span> <?php get_the_author_meta('first_name') . ' ' . get_the_author_meta('last_name') ?></span>

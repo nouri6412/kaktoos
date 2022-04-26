@@ -122,7 +122,7 @@ $count = $the_query->post_count;
 ?>
 
 <!--Inner Home Banner Start-->
-<div class="wt-haslayout wt-innerbannerholder">
+<!-- <div class="wt-haslayout wt-innerbannerholder">
     <div class="container">
         <div class="row justify-content-md-center">
             <div class="col-xs-12 col-sm-12 col-md-8 push-md-2 col-lg-6 push-lg-3">
@@ -138,7 +138,7 @@ $count = $the_query->post_count;
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <!--Inner Home End-->
 <!--Main Start-->
 <main id="wt-main" class="wt-main wt-haslayout wt-innerbgcolor">
@@ -292,17 +292,18 @@ $count = $the_query->post_count;
                                     $the_query->the_post();
                                 ?>
                                     <div class="wt-userlistinghold wt-featured wt-userlistingholdvtwo">
-                                        <span class="wt-featuredtag"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/featured.png" alt="img description" data-tipso="Plus Member" class="template-content tipso_style"></span>
+                                        <!-- <span class="wt-featuredtag"><img src="<?php //echo get_template_directory_uri(); 
+                                                                                    ?>/assets/images/featured.png" alt="img description" data-tipso="Plus Member" class="template-content tipso_style"></span> -->
                                         <div class="wt-userlistingcontent">
                                             <div class="wt-contenthead">
                                                 <div class="wt-title">
-                                                    <a href="usersingle.html"><i class="fa fa-check-circle"></i><?php echo (strlen(get_the_author_meta('company_name')) > 0) ? get_the_author_meta('company_name') : get_the_author_meta('user_name'); ?></a>
+                                                    <a href="#"><i class="fa fa-check-circle"></i><?php echo (strlen(get_the_author_meta('company_name')) > 0) ? get_the_author_meta('company_name') : get_the_author_meta('user_name'); ?></a>
                                                     <h2><?php echo get_post_meta(get_the_ID(), 'title', true);
                                                         ?></h2>
 
                                                     <h5><?php
                                                         $cat = get_post(get_post_meta(get_the_ID(), 'cat_id', true));
-                                                        echo  $cat->post_title  ?></h5>
+                                                        echo  '<a href="' . home_url('search-job?cat_id=' . get_post_meta(get_the_ID(), 'cat_id', true)) . '">' . $cat->post_title . '</a>'  ?></h5>
                                                 </div>
 
                                                 <div class="wt-description">
@@ -320,7 +321,7 @@ $count = $the_query->post_count;
                                             </div>
                                             <div class="wt-viewjobholder">
                                                 <ul>
-                                                    <li><span><i class="fa fa-dollar-sign wt-viewjobdollar"></i><?php echo ' ' . get_post_meta(get_the_ID(), 'min_price', true) . ' - ' . get_post_meta(get_the_ID(), 'max_price', true); ?></span></li>
+                                                    <li><span><i class="fa fa-dollar-sign wt-viewjobdollar"></i><?php echo 'بودجه' . ' : ' . 'از'.' '.get_post_meta(get_the_ID(), 'min_price', true) . ' '.'تا' .' '. get_post_meta(get_the_ID(), 'max_price', true).' '.'دلار'; ?></span></li>
                                                     <li><span><?php echo get_the_author_meta('user_country'); ?></span></li>
                                                     <li><span><i class="far fa-folder wt-viewjobfolder"></i> <?php $cat = get_post(get_post_meta(get_the_ID(), 'cat_id', true));
                                                                                                                 echo $cat->post_title; ?></span></li>

@@ -27,7 +27,7 @@
 }
 
 body {
-  color: #767676;
+  color: #000;
   background: #fff;
   overflow-x: hidden;
 
@@ -70,7 +70,7 @@ h3 a,
 h4 a,
 h5 a,
 h6 a {
-  color: #0f0f0f;
+  color: #000;
 }
 p a,
 p a:hover {
@@ -374,7 +374,7 @@ address {
 }
 .wt-checkbox input[type="checkbox"] + label,
 .wt-radio input[type="radio"] + label {
-  color: #767676;
+  color: #000;
   font-size: 14px;
   line-height: 20px;
   padding: 0 30px 0 0px;
@@ -811,6 +811,7 @@ li.wt-rss a {
   float: right;
   list-style: none;
   line-height: 20px;
+  display: inline-block;
 }
 .wt-socialiconssimple li {
   float: right;
@@ -1226,14 +1227,14 @@ li.wt-rss a {
   display: none;
 }
 .wt-breadcrumb li:first-child {
-  padding-right: 0;
+  padding-right: 20px;
 }
 .wt-breadcrumb li:last-child {
   padding-left: 0;
 }
 .wt-breadcrumb li a {
-  color: #fff;
   display: block;
+  color: #000;
 }
 .wt-breadcrumb li.wt-active {
   color: #999;
@@ -1287,7 +1288,7 @@ li.wt-rss a {
 }
 .wt-sectiontitle span {
   display: block;
-  color: #767676;
+  color: #000;
   font-size: 18px;
   line-height: 18px;
 }
@@ -1300,6 +1301,7 @@ li.wt-rss a {
   padding: 0;
   z-index: 10;
   position: relative;
+  border-bottom: 2px solid #dbdbdb;
 }
 .wt-nav {
   width: 100%;
@@ -1334,7 +1336,7 @@ li.wt-rss a {
   display: inline-block;
 }
 .wt-navigation ul li a {
-  color: #767676;
+  color: #000;
   display: block;
   position: relative;
 }
@@ -1584,7 +1586,7 @@ li.wt-rss a {
 }
 .wt-logininfo .wt-checkbox label {
   font-size: 14px;
-  color: #767676;
+  color: #000;
   line-height: 36px;
 }
 .wt-loginfooterinfo {
@@ -1695,7 +1697,7 @@ body.wt-login .wt-userlogedin {
   border-top: 1px solid #eee;
 }
 .wt-usernav ul li a {
-  color: #767676;
+  color: #000;
   display: block;
   padding: 11px 20px;
   line-height: inherit;
@@ -2338,7 +2340,7 @@ body.wt-login .wt-userlogedin {
 }
 .wt-navarticletab li a {
   display: block;
-  color: #767676;
+  color: #000;
   font-size: 16px;
   padding: 0 25px 15px;
   position: relative;
@@ -2492,6 +2494,7 @@ body.wt-login .wt-userlogedin {
   font-size: 28px;
   margin: 0 0 25px;
   line-height: 26px;
+  color: #0196ff; font-weight: bold;
 }
 .wt-articlesingle-content .wt-postarticlemeta {
   font-size: 16px;
@@ -2844,7 +2847,7 @@ body.wt-login .wt-userlogedin {
 }
 .wt-btnreply span {
   float: right;
-  color: #767676;
+  color: #000;
   font-size: 14px;
   line-height: inherit;
   padding: 0 0px 0 10px;
@@ -2942,7 +2945,7 @@ body.wt-login .wt-userlogedin {
   margin-top: 20px;
 }
 .wt-categoriescontent li a {
-  color: #767676;
+  color: #000;
   display: block;
   font-size: 14px;
   line-height: inherit;
@@ -3008,15 +3011,19 @@ body.wt-login .wt-userlogedin {
   float: right;
   margin: 5px;
   padding: 0 18px;
-  color: #767676;
+  color: #000;
   font-size: 14px;
   line-height: 38px;
   text-align: center;
-  border-radius: 20px;
-  border: 1px solid #ddd;
+  border-radius: 3px;
+  border: 1px solid #c53e3e;
 }
 .wt-widgettag a:hover {
   color: #fff;
+}
+
+.wt-widgettag span {
+  font-weight: bold;
 }
 .wt-classicaricle-header,
 .wt-classicaricle-holder {
@@ -3030,7 +3037,7 @@ body.wt-login .wt-userlogedin {
   line-height: 28px;
 }
 .wt-classicaricle-header .wt-description p {
-  color: #767676;
+  color: #000;
   font-size: 16px;
   line-height: 26px;
   margin: 0 0 22px;
@@ -3085,7 +3092,7 @@ body.wt-login .wt-userlogedin {
   float: left;
   width: 100%;
   font-size: 16px;
-  color: #767676;
+  color: #000;
 
   line-height: 16px;
 }
@@ -3633,7 +3640,7 @@ body.wt-login .wt-userlogedin {
   margin: 0 0 7px;
   font-size: 14px;
   line-height: 16px;
-  color: #767676;
+  color: #000;
 }
 .wt-verifyform .form-group label a {
   color: #55acee;
@@ -3687,7 +3694,7 @@ body.wt-login .wt-userlogedin {
 }
 .wt-effectivecontent li a {
   display: block;
-  color: #767676;
+  color: #000;
   font-size: 14px;
   line-height: inherit;
 }
@@ -3882,7 +3889,7 @@ body.wt-login .wt-userlogedin {
 }
 .wt-formsearch fieldset .wt-checkboxholder .wt-checkbox label {
   font-size: 14px;
-  color: #767676;
+  color: #000;
 }
 .wt-formsearch fieldset .wt-checkboxholder {
   max-height: 150px;
@@ -3985,7 +3992,7 @@ body.wt-login .wt-userlogedin {
 }
 .wt-filtertag li a {
   display: block;
-  color: #767676;
+  color: #000;
   background: #fff;
   font-size: 12px;
   padding: 0 13px;
@@ -4093,6 +4100,7 @@ body.wt-login .wt-userlogedin {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  font-weight: bold;
 }
 .wt-contenthead .wt-title a i {
   color: #00cc8d;
@@ -4116,7 +4124,7 @@ body.wt-login .wt-userlogedin {
 .wt-userlisting-breadcrumb li span,
 .wt-userlisting-breadcrumb li a {
   display: block;
-  color: #767676;
+  color: #000;
   font-size: 13px;
   line-height: inherit;
 }
@@ -4169,7 +4177,7 @@ body.wt-login .wt-userlogedin {
   text-align: center;
 }
 .wt-starcontent sub {
-  color: #767676;
+  color: #000;
 }
 .wt-starcontent em {
   font-style: normal;
@@ -4256,7 +4264,7 @@ body.wt-login .wt-userlogedin {
   width: 30px;
 }
 .wt-clicklike {
-  color: #767676;
+  color: #000;
 }
 .wt-viewjobdollar {
   color: #00cc8d;
@@ -4297,7 +4305,7 @@ body.wt-login .wt-userlogedin {
   padding: 0;
   width: 100%;
   height: auto;
-  color: #767676;
+  color: #000;
   font-size: 14px;
   text-align: center;
 }
@@ -4341,6 +4349,8 @@ body.wt-login .wt-userlogedin {
   font-size: 28px;
   margin: 0 0 18px;
   line-height: 34px;
+  color: #0196ff;
+    font-weight: bold;
 }
 .wt-proposalholder .wt-btnarea {
   width: auto;
@@ -4555,7 +4565,7 @@ body.wt-login .wt-userlogedin {
   margin-bottom: 20px;
 }
 .wt-clicksavebtn {
-  color: #767676;
+  color: #000;
   padding: 0 50px;
   border: 1px solid;
   border-radius: 4px;
@@ -4627,11 +4637,11 @@ body.wt-login .wt-userlogedin {
 }
 .wt-sharejob .wt-socialiconssimple li {
   padding: 0;
-  width: 100%;
+  /* width: 100%; */
 }
 .wt-sharejob .wt-socialiconssimple li a {
   font-size: 14px;
-  color: #767676;
+  color: #000;
 }
 .wt-sharejob .wt-socialiconssimple li a i {
   font-size: 18px;
@@ -4704,7 +4714,7 @@ body.wt-login .wt-userlogedin {
   color: #ff6600;
 }
 .wt-sharejob .wt-socialiconssimple li + li {
-  margin-top: 19px;
+  /* margin-top: 19px; */
 }
 .wt-formreport fieldset .form-group {
   margin: 0;
@@ -5073,7 +5083,7 @@ body.wt-login .wt-userlogedin {
   line-height: inherit;
 }
 .wt-totalamount li span strong {
-  color: #767676;
+  color: #000;
 }
 .wt-formproposal {
   padding: 30px;
@@ -5822,7 +5832,7 @@ body.wt-login .wt-userlogedin {
 }
 .wt-fwidgetcontent li a {
   display: block;
-  color: #767676;
+  color: #000;
   line-height: inherit;
 }
 .wt-fwidgetcontent li:hover a,
@@ -5912,7 +5922,7 @@ body.wt-login .wt-userlogedin {
 }
 .wt-comingsoon-wt-copyrights {
   width: 100%;
-  color: #767676;
+  color: #000;
   font-size: 16px;
   margin: -44px 0 0;
   text-align: center;
@@ -6191,7 +6201,7 @@ body.wt-login .wt-userlogedin {
   padding: 0;
   width: 100%;
   float: left;
-  color: #767676;
+  color: #000;
   line-height: 34px;
 }
 .chosen-container .chosen-results li.active-result:hover {
@@ -6341,7 +6351,7 @@ body.wt-login .wt-userlogedin {
   overflow: hidden;
 }
 .wt-producttitle .wt-checkpaydetails span {
-  color: #767676;
+  color: #000;
   font-size: 13px;
   display: block;
   margin: 13px 0;
@@ -6438,7 +6448,7 @@ body.wt-login .wt-userlogedin {
 }
 .wt-paymentmethod li a span em {
   display: block;
-  color: #767676;
+  color: #000;
   font-size: 13px;
   font-style: normal;
 }
