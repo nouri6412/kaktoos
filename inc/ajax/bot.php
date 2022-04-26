@@ -1376,7 +1376,7 @@ class MyTmpTelegramBot
             'key' => 'sender_id',
             'value' => $user_id,
             'compare' => '='
-        );
+        ); 
 
         $args = array(
             'post_type' => 'request',

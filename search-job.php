@@ -366,7 +366,9 @@ $count = $the_query->post_count;
                                 endwhile;
 
                                 ?>
-                                <div class="pagination">
+                                <?php wp_reset_query(); ?>
+                            </div>
+                            <div style="float: left;    margin-top: 11px;" class="pagination">
                                     <?php
                                     echo paginate_links(array(
                                         'base'         => str_replace(999999999, '%#%', esc_url(get_pagenum_link(999999999))),
@@ -385,9 +387,8 @@ $count = $the_query->post_count;
                                     ));
                                     ?>
                                 </div>
-                                <?php wp_reset_query(); ?>
-                            </div>
                         </div>
+
                     </div>
                 </div>
             </div>

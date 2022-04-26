@@ -100,7 +100,7 @@
                                     <?php
                                     } else {
                                     ?>
-                                        <div style="display: block;" class="wt-userlogedin">
+                                        <div style="display: block;position: relative;" class="wt-userlogedin">
                                             <figure class="wt-userimg">
                                                 <?php
                                                 $avatar = get_template_directory_uri() . "/assets/img/male.jpg";
@@ -116,6 +116,69 @@
                                             <div class="wt-username">
                                                 <h3> <?php echo get_the_author_meta('user_name', $user_id) ?></h3>
                                             </div>
+                                            <?php
+
+                                            $search = array();
+
+                                            $search["relation"] = "AND";
+
+                                            $search2 = [];
+                                            $search2["relation"] = "OR";
+                                            $search2[] =           array(
+                                                'key' => 'owner_id',
+                                                'value' => $user_id,
+                                                'compare' => '='
+                                            );
+
+                                            $search2[] =           array(
+                                                'key' => 'sender_id',
+                                                'value' => $user_id,
+                                                'compare' => '='
+                                            );
+
+                                            $search[] = $search2;
+
+                                            $search1 = [];
+                                            $search1["relation"] = "AND";
+
+                                            $search1[] =           array(
+                                                'key' => 'last_sender_message',
+                                                'value' => $user_id,
+                                                'compare' => '!='
+                                            );
+                                            $search1[] =           array(
+                                                'key' => 'last_sender_message',
+                                                'value' => 0,
+                                                'compare' => '>'
+                                            );
+                                            $search1[] =           array(
+                                                'key' => 'new_message',
+                                                'value' => 1,
+                                                'compare' => '='
+                                            );
+
+                                            $search[] = $search1;
+
+                                            $args = array(
+                                                'post_type' => 'request',
+                                                'post_status' => 'publish',
+                                                'meta_query' => $search
+                                            );
+                                            $the_query = new WP_Query($args);
+
+
+                                            $count = $the_query->post_count;
+                                            if ($count > 0) {
+                                            ?>
+                                                <div style="position: absolute;
+    right: 1px;
+    font-size: 16px;
+    margin-top: 0px;
+    background-color: red;
+    border-radius: 50%;
+    color: #fff;
+    padding: 2px 7px 2px 7px;"><a style="color: #fff;" href="<?php echo home_url('profile?action=message') ?>"><span><?php echo $count ?></span></a></div>
+                                            <?php } ?>
                                             <nav class="wt-usernav">
                                                 <ul>
                                                     <?php
