@@ -168,16 +168,17 @@
 
 
                                             $count = $the_query->post_count;
-                                            if ($count > 0) {
+                                            if (1==1) {
                                             ?>
                                                 <div style="position: absolute;
     right: 1px;
     font-size: 16px;
     margin-top: 0px;
-    background-color: red;
+    "><a style="color: #fff;" href="<?php echo home_url('profile?action=message') ?>"><?php if ($count > 0){ ?><span style="color: #fff;
     border-radius: 50%;
-    color: #fff;
-    padding: 2px 7px 2px 7px;"><a style="color: #fff;" href="<?php echo home_url('profile?action=message') ?>"><span><?php echo $count ?></span></a></div>
+    background-color: red;padding: 0px 4px 0px 4px;font-size: 12px;"><?php echo  $count  ?></span><?php } else {?> <span style="color: #fff;
+    border-radius: 50%;
+    padding: 0px 4px 0px 4px;font-size: 12px;"></span> <?php } ?><i style="font-size: 20px;color: #727171;" class="fa fa-envelope"></i></a></div>
                                             <?php } ?>
                                             <nav class="wt-usernav">
                                                 <ul>

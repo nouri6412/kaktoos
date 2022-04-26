@@ -142,11 +142,11 @@ if (isset($_GET["liked_by"])) {
                                     <div class="wt-proposalhead">
                                         <h2><?php echo get_the_title(); ?></h2>
                                         <ul class="wt-userlisting-breadcrumb wt-userlisting-breadcrumbvtwo">
-                                            <li><span><i class="fa fa-dollar-sign"></i><?php echo ' ' . get_post_meta(get_the_ID(), 'min_price', true) . ' - ' . get_post_meta(get_the_ID(), 'max_price', true); ?></span></li>
+                                            <li><span><i class="fa fa-dollar-sign"></i><?php  echo ' '.'بودجه' . ' : ' . 'از' . ' ' . get_post_meta(get_the_ID(), 'min_price', true) . ' ' . 'تا' . ' ' . get_post_meta(get_the_ID(), 'max_price', true) . ' ' . 'دلار'; ?></span></li>
                                             <li><span> <?php echo get_the_author_meta('user_country'); ?> </span></li>
-                                            <li><span><i class="far fa-folder"></i>
+                                            <li><span>
                                                     <?php $cat = get_post(get_post_meta(get_the_ID(), 'cat_id', true));
-                                                    echo $cat->post_title; ?>
+                                                     echo  '<a href="' . home_url('search-job?cat_id=' . get_post_meta(get_the_ID(), 'cat_id', true)) . '"><i class="far fa-folder"></i>' . ' '.$cat->post_title . '</a>' ?>
                                                 </span></li>
                                             <li><span><i class="far fa-clock"></i> <?php echo 'زمان' . ' : ' . get_post_meta(get_the_ID(), 'time', true) . ' ' . 'روز'; ?> </span></li>
                                         </ul>
@@ -234,7 +234,7 @@ if (isset($_GET["liked_by"])) {
                                             <a href="<?php echo home_url('requests?id=' . get_the_ID()) ?>">
                                                 <div class="wt-title">
                                                     <?php
-                                                    $args = array(
+                                                     $args = array(
                                                         'post_type' => 'request',
                                                         'post_status' => 'publish',
                                                         'meta_key' => 'job_id',
