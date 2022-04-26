@@ -5,7 +5,7 @@
 				body h4,
 				body h5,
 				body h6 {
-					color: #0196ff;
+					color: #060cc1;
 					font-weight: bold;
 				}
 			</style>
@@ -89,23 +89,26 @@
 												<li class="wt-google-plus"><a class="social-share instagram" href="javascript:void(0);"><i class="fa fa-instagram"></i></a></li>
 											</ul>
 										</div>
-
+										<div style="float: left;
+    width: 100%;
+    margin-top: 24px;" class="clear" id="comment-list">
+											<div class="comments-area" id="comments">
+												<div style="padding: 10px;" class="clearfix m-b20">
+													<?php
+													// If comments are open or we have at least one comment, load up the comment template.
+													if (comments_open() || get_comments_number()) {
+														comments_template();
+													}
+													?>
+												</div>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
+
 						</div>
-						<div class="clear" id="comment-list">
-						<div class="comments-area" id="comments">
-							<div style="padding: 10px;" class="clearfix m-b20">
-								<?php
-								// If comments are open or we have at least one comment, load up the comment template.
-								if (comments_open() || get_comments_number()) {
-									comments_template();
-								}
-								?>
-							</div>
-						</div>
-					</div>
+
 					</div>
 				</div>
 

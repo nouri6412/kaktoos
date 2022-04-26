@@ -157,6 +157,10 @@ border: 1px solid #eee;
     padding: 20px 40px 20px 20px;
 }
 
+.btn-primary{
+    background-color: #060cc1;
+}
+
 @media (max-width: 1680px)
 {
     .wt-openmenu .wt-companysdetails.wt-usersidebar .wt-companysimg img {
