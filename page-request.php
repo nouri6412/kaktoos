@@ -26,7 +26,7 @@ if ($job_id == 0) {
 <!-- Content -->
 <div class="page-content bg-white">
     <!--Inner Home Banner Start-->
-    <div class="wt-haslayout wt-innerbannerholder">
+    <!-- <div class="wt-haslayout wt-innerbannerholder">
         <div class="container">
             <div class="row justify-content-md-center">
                 <div class="col-xs-12 col-sm-12 col-md-8 push-md-2 col-lg-6 push-lg-3">
@@ -44,7 +44,7 @@ if ($job_id == 0) {
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!--Inner Home End-->
     <!--Main Start-->
     <main id="wt-main" class="wt-main wt-haslayout wt-innerbgcolor">
