@@ -142,7 +142,7 @@ if (isset($_GET["liked_by"])) {
                                     <div class="wt-proposalhead">
                                         <h2><?php echo get_the_title(); ?></h2>
                                         <ul class="wt-userlisting-breadcrumb wt-userlisting-breadcrumbvtwo">
-                                            <li><span><i class="fa fa-dollar-sign"></i><?php  echo ' '.'بودجه' . ' : ' . 'از' . ' ' . get_post_meta(get_the_ID(), 'min_price', true) . ' ' . 'تا' . ' ' . get_post_meta(get_the_ID(), 'max_price', true) . ' ' . 'دلار'; ?></span></li>
+                                            <li><span><?php  echo ' '.'بودجه' . ' : ' . 'از' . ' ' . get_post_meta(get_the_ID(), 'min_price', true) . ' ' . 'تا' . ' ' . get_post_meta(get_the_ID(), 'max_price', true) . ' ' .'$C'; ?></span></li>
                                             <li><span> <?php echo get_the_author_meta('user_country'); ?> </span></li>
                                             <li><span>
                                                     <?php $cat = get_post(get_post_meta(get_the_ID(), 'cat_id', true));

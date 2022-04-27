@@ -349,7 +349,7 @@ $count = $the_query->post_count;
                                             </div>
                                             <div class="wt-viewjobholder">
                                                 <ul>
-                                                    <li><span><i class="fa fa-dollar-sign wt-viewjobdollar"></i><?php echo 'بودجه' . ' : ' . 'از' . ' ' . get_post_meta(get_the_ID(), 'min_price', true) . ' ' . 'تا' . ' ' . get_post_meta(get_the_ID(), 'max_price', true) . ' ' . 'دلار'; ?></span></li>
+                                                    <li><span><i class="fa fa-dollar-sign wt-viewjobdollar"></i><?php echo ' '.'بودجه' . ' : ' . 'از' . ' ' . get_post_meta(get_the_ID(), 'min_price', true) . ' ' . 'تا' . ' ' . get_post_meta(get_the_ID(), 'max_price', true) . ' ' .'$C'; ?></span></li>
                                                     <li><span><?php echo get_the_author_meta('user_country'); ?></span></li>
                                                     <li><span><i class="far fa-folder wt-viewjobfolder"></i> <?php $cat = get_post(get_post_meta(get_the_ID(), 'cat_id', true));
                                                                                                                  echo  '<a href="' . home_url('search-job?cat_id=' . get_post_meta(get_the_ID(), 'cat_id', true)) . '">' . $cat->post_title . '</a>' ?></span></li>
