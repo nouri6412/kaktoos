@@ -1,6 +1,50 @@
 <?php $user_id = get_current_user_id(); ?>
 
 <body class="wt-login">
+    <div class="convas-body">
+        <div class="body-list">
+            <div class="notif">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <a href="<?php echo home_url('profile?action=my-bell') ?>">مشاهده همه</a>
+                        </div>
+                    </div>
+                    <div class="row pt-3">
+                        <div class="col-sm-12 p-0">
+                            <div class="notifications-content">
+                                <ul class="list-unstyled">
+                                    <?php
+                                    $notifi = [];
+                                    $str = get_the_author_meta('notifi', $user_id);
+                                    if (strlen($str) > 0) {
+                                        $notifi = json_decode($str, true);
+                                    }
+                                    $index = 0;
+                                    ?>
+                                    <?php for ($x = count($notifi) - 1; $x >= 0; $x--) {
+                                        $index++;
+                                        if ($index > 10) {
+                                            break;
+                                        }
+                                    ?>
+                                        <li class="full-width clearfix">
+                                            <div class="visible-table full-width">
+                                                <div class="notification-title visible-table-cell">
+                                                    <div><?php echo $notifi[$x]["text"]; ?></div>
+                                                    <div class="tc-9 pt- fa-0-8em"><?php echo  human_time_diff($notifi[$x]["date"], current_time('timestamp')) . ' ' . 'پیش'  ?></div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    <?php } ?>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!--[if lt IE 8]>
 		<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 	<![endif]-->
@@ -116,70 +160,6 @@
                                             <div class="wt-username">
                                                 <h3> <?php echo get_the_author_meta('user_name', $user_id) ?></h3>
                                             </div>
-                                            <?php
-
-                                            $search = array();
-
-                                            $search["relation"] = "AND";
-
-                                            $search2 = [];
-                                            $search2["relation"] = "OR";
-                                            $search2[] =           array(
-                                                'key' => 'owner_id',
-                                                'value' => $user_id,
-                                                'compare' => '='
-                                            );
-
-                                            $search2[] =           array(
-                                                'key' => 'sender_id',
-                                                'value' => $user_id,
-                                                'compare' => '='
-                                            );
-
-                                            $search[] = $search2;
-
-                                            $search1 = [];
-                                            $search1["relation"] = "AND";
-
-                                            $search1[] =           array(
-                                                'key' => 'last_sender_message',
-                                                'value' => $user_id,
-                                                'compare' => '!='
-                                            );
-                                            $search1[] =           array(
-                                                'key' => 'last_sender_message',
-                                                'value' => 0,
-                                                'compare' => '>'
-                                            );
-                                            $search1[] =           array(
-                                                'key' => 'new_message',
-                                                'value' => 1,
-                                                'compare' => '='
-                                            );
-
-                                            $search[] = $search1;
-
-                                            $args = array(
-                                                'post_type' => 'request',
-                                                'post_status' => 'publish',
-                                                'meta_query' => $search
-                                            );
-                                            $the_query = new WP_Query($args);
-
-
-                                            $count = $the_query->post_count;
-                                            if (1==1) {
-                                            ?>
-                                                <div style="position: absolute;
-    right: 1px;
-    font-size: 16px;
-    margin-top: 0px;
-    "><a style="color: #fff;" href="<?php echo home_url('profile?action=message') ?>"><?php if ($count > 0){ ?><span style="color: #fff;
-    border-radius: 50%;
-    background-color: red;padding: 0px 4px 0px 4px;font-size: 12px;"><?php echo  $count  ?></span><?php } else {?> <span style="color: #fff;
-    border-radius: 50%;
-    padding: 0px 4px 0px 4px;font-size: 12px;"></span> <?php } ?><i style="font-size: 20px;color: #727171;" class="fa fa-envelope"></i></a></div>
-                                            <?php } ?>
                                             <nav class="wt-usernav">
                                                 <ul>
                                                     <?php

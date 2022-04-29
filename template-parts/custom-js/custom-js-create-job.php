@@ -3,6 +3,21 @@
     <link rel="stylesheet" type="text/css" href="<?php echo get_template_directory_uri(); ?>/assets/css/tagcomplete.css">
     <script src="<?php echo get_template_directory_uri(); ?>/assets/js/tagcomplete.js"></script>
     <script>
+        let offcanvas = document.querySelector('.offcanvas')
+
+
+        offcanvas.addEventListener('click', (e) => {
+            e.preventDefault()
+            document.querySelector('.convas-body').classList.toggle('h')
+        })
+
+        let btn_close = document.querySelector('#wt-main')
+
+
+        btn_close.addEventListener('click', (e) => {
+            e.preventDefault()
+            document.querySelector('.convas-body').classList.remove('h')
+        })
         $(function() {
             <?php
             $args = array(
