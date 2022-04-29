@@ -18,8 +18,12 @@ if (strlen($str) > 0) {
         <div class="col-sm-12">
             <div class="notifications-content">
                 <ul class="list-unstyled">
-                    <?php $index = 65;
-                    foreach ($notifi as $item) {
+                    <?php $index = 0;
+                    for ($x = count($notifi) - 1; $x >= 0; $x--) {
+                        $item=$notifi[$x];
+                        if ($index > 50) {
+                            break;
+                        }
                     ?>
                         <li class="full-width clearfix">
                             <div class="visible-table full-width">
@@ -29,7 +33,7 @@ if (strlen($str) > 0) {
                                 </div>
                             </div>
                         </li>
-                    <?php $index = 0;
+                    <?php $index++;
                     } ?>
                 </ul>
             </div>
