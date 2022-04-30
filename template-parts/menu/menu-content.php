@@ -38,66 +38,70 @@ $menus = get_menu_array_nav_item($primaryNav);
         custom_generate_menu_li($navItem, $menus);
     }
     ?>
-    <li class="nav-item coment">
-        <?php
-        $search = array();
+    <?php
+    if (is_user_logged_in()) {
+    ?>
+        <li class="nav-item coment">
+            <?php
+            $search = array();
 
-        $search["relation"] = "AND";
+            $search["relation"] = "AND";
 
-        $search2 = [];
-        $search2["relation"] = "OR";
-        $search2[] =           array(
-            'key' => 'owner_id',
-            'value' => $user_id,
-            'compare' => '='
-        );
+            $search2 = [];
+            $search2["relation"] = "OR";
+            $search2[] =           array(
+                'key' => 'owner_id',
+                'value' => $user_id,
+                'compare' => '='
+            );
 
-        $search2[] =           array(
-            'key' => 'sender_id',
-            'value' => $user_id,
-            'compare' => '='
-        );
+            $search2[] =           array(
+                'key' => 'sender_id',
+                'value' => $user_id,
+                'compare' => '='
+            );
 
-        $search[] = $search2;
+            $search[] = $search2;
 
-        $search1 = [];
-        $search1["relation"] = "AND";
+            $search1 = [];
+            $search1["relation"] = "AND";
 
-        $search1[] =           array(
-            'key' => 'last_sender_message',
-            'value' => $user_id,
-            'compare' => '!='
-        );
-        $search1[] =           array(
-            'key' => 'last_sender_message',
-            'value' => 0,
-            'compare' => '>'
-        );
-        $search1[] =           array(
-            'key' => 'new_message',
-            'value' => 1,
-            'compare' => '='
-        );
+            $search1[] =           array(
+                'key' => 'last_sender_message',
+                'value' => $user_id,
+                'compare' => '!='
+            );
+            $search1[] =           array(
+                'key' => 'last_sender_message',
+                'value' => 0,
+                'compare' => '>'
+            );
+            $search1[] =           array(
+                'key' => 'new_message',
+                'value' => 1,
+                'compare' => '='
+            );
 
-        $search[] = $search1;
+            $search[] = $search1;
 
-        $args = array(
-            'post_type' => 'request',
-            'post_status' => 'publish',
-            'meta_query' => $search
-        );
-        $the_query = new WP_Query($args);
+            $args = array(
+                'post_type' => 'request',
+                'post_status' => 'publish',
+                'meta_query' => $search
+            );
+            $the_query = new WP_Query($args);
 
 
-        $count = $the_query->post_count;
-        ?>
-        <a href="<?php echo home_url('profile?action=message') ?>" class=""><i class="fa fa-envelope"></i>
-            <?php if ($count > 0) { ?>
-                <span class="badge badge-pill badge-danger"><?php echo $count; ?></span>
-            <?php } ?>
-        </a>
-    </li>
-    <li class="nav-item">
-        <a href="#" class="btn offcanvas"><i class="fa fa-bell"></i></a>
-    </li>
+            $count = $the_query->post_count;
+            ?>
+            <a href="<?php echo home_url('profile?action=message') ?>" class=""><i class="fa fa-envelope"></i>
+                <?php if ($count > 0) { ?>
+                    <span class="badge badge-pill badge-danger"><?php echo $count; ?></span>
+                <?php } ?>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="#" class="btn offcanvas"><i class="fa fa-bell"></i></a>
+        </li>
+    <?php } ?>
 </ul>
